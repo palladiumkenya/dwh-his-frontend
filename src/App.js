@@ -16,6 +16,7 @@ import EditPartners from "./components/EditPartners";
 import ExportExcel from "./components/ExportToExcel";
 import SigninOidc from "./components/auth/signin-oidc";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ViewReports from "./components/ViewReports";
 
 import userManager, { signinRedirectCallback, signoutRedirect } from './services/UserService';
 
@@ -56,7 +57,7 @@ function App() {
               <Route path="/" element={<Home/>} />
               <Route path="/home" element={<Home/>} />              
               {/* <ProtectedRoute path="/facilities/add_facility" element={<AddFacility user={user} />}/> */}
-              <Route exact path='/facilities/add_facility' element={<ProtectedRoute/>}>
+              {/* <Route exact path='/facilities/add_facility' element={<ProtectedRoute/>}>
                   <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
               </Route>
 
@@ -70,14 +71,17 @@ function App() {
 
               <Route exact path='/facilities/edit/partner/:part_id' element={<ProtectedRoute/>}>
                   <Route exact path="/facilities/edit/partner/:part_id" element={<EditPartners user={user} />}/>
-              </Route>
+              </Route> */}
 
-              {/* <Route path="/facilities/update_facility/:fac_id" element={<UpdateFacility />} />                   
+              <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
+              <Route path="/facilities/update_facility/:fac_id" element={<UpdateFacility />} />                   
               <Route path="/facilities/approve_changes/:fac_id" element={<ApproveFacilityChanges />} /> 
-              <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />   */}
+              <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />  
 
               <Route path="/facilities/view_facility/:fac_id" element={<ViewFacility />} /> 
               <Route path="/facilities/partners" element={<ViewPartners />} />  
+              <Route path="/facilities/reports" element={<ViewReports />} />  
+
               <Route path="/signin" element={<SignIn />} />  
               
               <Route path="/export_excel" element={<ExportExcel />} /> 

@@ -31,7 +31,7 @@ const FacilityList = (props) => {
             <a href="/facilities/add_facility" class="btn btn-outline-success" style={{float:"right"}}>Add Facility</a>
             <h4>Facilities Data <ExportToExcel apiData={testdata} fileName={fileName} /> </h4>
         
-            <Table striped>
+            <Table >
                 <thead>
                 <tr>
                     <th>MFL Code</th>

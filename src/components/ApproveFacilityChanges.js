@@ -143,7 +143,7 @@ const ApproveFacilityChanges = (props) => {
         await axios.post(API_URL + `/approve_changes/${fac_id}` , Facility_data)
               .then(function (response) { 
                   console.log('response --------->', response)
-                   window.location.href = BASE_URL + '/'+response.data.redirect_url;
+                   window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;
                   console.log('redirecto to', response.data.redirect_url)
               })
               .catch(function (error) {

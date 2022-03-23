@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Spinner } from "reactstrap";
 import axios from "axios";
 
 import ErrorBoundary from "./error_boundary/ErrorBoundary";
@@ -32,6 +32,10 @@ const AddFacility = (props) => {
     const [ctToggle, setCtToggle] = useState(false);
     const [htsToggle, setHTSToggle] = useState(false);
     const [ilToggle, setILToggle] = useState(false);
+    const [mHealthToggle, setMHealthToggle] = useState(false);
+
+    const [hiddenSpinner, setHiddenSpinner] = useState("none");
+
 
   
    const getCounties = async() => {
@@ -67,15 +71,23 @@ const AddFacility = (props) => {
     setHTSToggle(showtoggle);
    };
 
+   const Mhealth_slideToggle = (showtoggle) => {    
+    setMHealthToggle(showtoggle);
+   };
+
    const IL_slideToggle = (showtoggle) => {    
     setILToggle(showtoggle);
    };
 
-   const handleSubmit = async (event) => {    
-    console.log(Facility_data)
-    event.preventDefault();
 
-    await axios.post(API_URL + '/add_facility', Facility_data)
+    const handleSubmit = async (event) => {   
+      // show spinning icon
+        setHiddenSpinner("block") 
+
+        console.log(Facility_data)
+        event.preventDefault();
+
+        await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
                   localStorage.setItem("messages", "Facility was successfully added and can be viewed below!");
                   console.log('response --------->', response)
@@ -85,7 +97,7 @@ const AddFacility = (props) => {
               .catch(function (error) {
                 console.log('failed ---/>', error);               
             });
-   };
+    };
    
 
     return (
@@ -101,6 +113,7 @@ const AddFacility = (props) => {
                                     Owners_list={Owners_list} Partners_list={Partners_list}
                                     CT_slideToggle={CT_slideToggle}
                                     HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
+                                    Mhealth_slideToggle={Mhealth_slideToggle}
                                     ctToggle={ctToggle}/>
                   </ErrorBoundary> 
                 }                
@@ -111,9 +124,11 @@ const AddFacility = (props) => {
                   </ErrorBoundary> 
                 }
 
-                <ErrorBoundary> 
-                  <MHealthInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
-                </ErrorBoundary> 
+                { mHealthToggle &&
+                  <ErrorBoundary> 
+                    <MHealthInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
+                  </ErrorBoundary> 
+                }
 
                 { htsToggle &&
                   <ErrorBoundary> 
@@ -129,6 +144,7 @@ const AddFacility = (props) => {
 
                   <div class="d-flex justify-content-center mb-5">
                      <input class="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
+                     <Spinner style={{display:hiddenSpinner, width: "1.2rem", height: "1.2rem"}}></Spinner>
                  </div>
                 {/* <input type="submit" value="Submit" /> */}
             </Form>

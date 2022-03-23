@@ -1,5 +1,5 @@
 import React, { Component, useState,useEffect } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Spinner } from "reactstrap";
 import {BrowserRouter as Router,Route, Routes, IndexRoute, Link,
     Navigate,Switch} from 'react-router-dom';
 import { IoMdLogOut } from "react-icons/io";
@@ -8,7 +8,7 @@ import userManager, { signinRedirectCallback, signinRedirect, signoutRedirect } 
 
 
 function Header(props) {
-  
+  console.log('process.env.AUTHORITY', process.env.REACT_APP_AUTHORITY)
    
     const logout_user = async () => {     
       localStorage.clear()       
@@ -34,7 +34,9 @@ function Header(props) {
                 <li class="nav-item px-2 py-1">
                   <a class="nav-link text-white" href="/facilities/partners">Partners</a>
                 </li>
-  
+                <li class="nav-item px-2 py-1">
+                  <a class="nav-link text-white" href="/facilities/reports">Reports</a>
+                </li>
               </ul>
               { props.user ?                 
                 <div class="d-flex justify-content-around px-3 py-1" style={{width:"230px"}}>

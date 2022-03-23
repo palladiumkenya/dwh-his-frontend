@@ -66,6 +66,13 @@ function FacilityInfo(props) {
         props.HTS_slideToggle(checked)
       };
 
+      const changeMHealth = e => {
+        const checked = e.target.checked;
+        
+        props.setFacility_data({...props.facility_data, "mHealth":checked});
+        props.Mhealth_slideToggle(checked)
+      };
+
       const changeIL = e => {       
         const checked = e.target.checked;
         
@@ -216,7 +223,7 @@ function FacilityInfo(props) {
                             className={ props.Original_data && props.Original_data.CT != props.facility_data.CT && "highlight_changed_checkbox"}
                             onClick={(e) => changeCT(e)}
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "CT":e.target.checked}) }}/>                   
-                            <Label check>CT</Label>
+                            <Label check>C&T</Label>
                         </FormGroup>
                         <FormGroup check>
                             <Input id="HTS" name="HTS" type="checkbox" defaultChecked={props.facility_data.HTS} 
@@ -226,11 +233,18 @@ function FacilityInfo(props) {
                             <Label check>HTS</Label>
                         </FormGroup>
                         <FormGroup check>
+                            <Input id="mHealth" name="mHealth" type="checkbox" defaultChecked={props.facility_data.mHealth} 
+                            className={ props.Original_data && props.Original_data.mHealth != props.facility_data.mHealth && "highlight_changed_checkbox"}
+                            onClick={(e) => changeMHealth(e)}
+                            onChange={(e) => {props.setFacility_data({...props.facility_data, "mHealth":e.target.checked}) }}/>                   
+                            <Label check>mHealth</Label>
+                        </FormGroup>
+                        <FormGroup check>
                             <Input id="IL" name="IL" type="checkbox" defaultChecked={props.facility_data.IL} 
                             className={ props.Original_data && props.Original_data.IL != props.facility_data.IL && "highlight_changed_checkbox"}
                             onClick={(e) => changeIL(e)}
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "IL":e.target.checked}) }}/>                   
-                            <Label check>IL</Label>
+                            <Label check>IL & Integrations</Label>
                         </FormGroup>
                     </div>
                 </div>

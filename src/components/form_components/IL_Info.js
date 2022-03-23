@@ -21,8 +21,8 @@ function IL_Info(props) {
             <div id="IL_info">
                 <h6  class="green_text_color">Interoperability(IL) and Integration</h6>
 
-                    <div id="IL" class="row section mb-5 form_section shadow-sm bg-white rounded p-4">
-                        <b>IL Information</b>                 
+                <div id="IL" class="row section mb-5 form_section shadow-sm bg-white rounded p-4">
+                    <b>IL Information</b>                 
                     <div class="col-md-5 d-flex justify-content-between">
                         <FormGroup check>
                             <Input id="webADT_registration" name="webADT_registration" type="checkbox" 
@@ -54,7 +54,7 @@ function IL_Info(props) {
                     </div>
 
                     <b>IL modules</b>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-4">
                         <FormGroup check>
                             <Input id="il_mlab" name="il_mlab" type="checkbox" checked={props.facility_data.il_mlab}
                             className={ props.Original_data && props.Original_data.il_mlab != props.facility_data.il_mlab && "highlight_changed_checkbox"}
@@ -71,7 +71,7 @@ function IL_Info(props) {
                             <Input id="il_air" name="il_air" type="checkbox" checked={props.facility_data.il_air}
                             className={ props.Original_data && props.Original_data.il_air != props.facility_data.il_air && "highlight_changed_checkbox"}
                             onChange={(e) => props.setFacility_data({...props.facility_data, "il_air":e.target.checked})}/>                   
-                            <Label check>AIR</Label>
+                            <Label check>DHIS2- 731 AIR</Label>
                         </FormGroup>
                         <FormGroup check>
                             <Input id="il_ushauri" name="il_ushauri" type="checkbox" checked={props.facility_data.il_ushauri} 
@@ -79,7 +79,23 @@ function IL_Info(props) {
                             onChange={(e) => props.setFacility_data({...props.facility_data, "il_ushauri":e.target.checked})}/>                   
                             <Label check>Ushauri</Label>
                         </FormGroup>                                       
-                    </div>                   
+                    </div> 
+
+                    <b>Integrations</b>       
+                    <div class="d-flex justify-content-start">
+                        <FormGroup check>
+                            <Input id="il_lab_manifest" name="il_lab_manifest" type="checkbox" checked={props.facility_data.il_lab_manifest}
+                            className={ props.Original_data && props.Original_data.il_lab_manifest != props.facility_data.il_lab_manifest && "highlight_changed_checkbox"}
+                            onChange={(e) => props.setFacility_data({...props.facility_data, "il_lab_manifest":e.target.checked})}/>                   
+                            <Label check>VL/EID Website (Lab Manifest)</Label>
+                        </FormGroup>
+                        <FormGroup check>
+                            <Input id="il_nimeconfirm" name="il_nimeconfirm" type="checkbox" checked={props.facility_data.il_nimeconfirm} 
+                            className={ props.Original_data && props.Original_data.il_nimeconfirm != props.facility_data.il_nimeconfirm && "highlight_changed_checkbox"}
+                            onChange={(e) => props.setFacility_data({...props.facility_data, "il_nimeconfirm":e.target.checked})}/>                   
+                            <Label check>NimeCONFIRM</Label>
+                        </FormGroup> 
+                    </div>           
                 </div>
             </div>
         );
