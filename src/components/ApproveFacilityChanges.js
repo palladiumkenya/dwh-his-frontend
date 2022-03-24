@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label,Alert } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label,Alert, Spinner } from "reactstrap";
 import {FaInfoCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 
@@ -25,10 +25,12 @@ const ApproveFacilityChanges = (props) => {
     const [Counties_list, setCounties_list] = useState([])
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
-   
+    const [showSpinner, setShowSpinner] = useState(false);
+
     const [ctToggle, setCtToggle] = useState("");
     const [htsToggle, setHTSToggle] = useState("");
     const [ilToggle, setILToggle] = useState("");
+    const [mHealthToggle, setMHealthToggle] = useState("");
 
   const getEditedData = async () => {
     await axios.get(API_URL+`/fetch_edits/data/${fac_id}`)
@@ -37,6 +39,8 @@ const ApproveFacilityChanges = (props) => {
                     CT_slideToggle(res.data[0].CT); 
                     HTS_slideToggle(res.data[0].HTS) ;
                     IL_slideToggle(res.data[0].IL) ;
+                    Mhealth_slideToggle(res.data[0].mHealth)
+                    
                 } );
    
   }; 
@@ -73,6 +77,10 @@ const ApproveFacilityChanges = (props) => {
 
    const HTS_slideToggle = (showtoggle) => {    
     setHTSToggle(showtoggle);
+   };
+
+   const Mhealth_slideToggle = (showtoggle) => {    
+    setMHealthToggle(showtoggle);
    };
 
    const IL_slideToggle = (showtoggle) => {    
@@ -138,32 +146,36 @@ const ApproveFacilityChanges = (props) => {
 
    const Post_approval = async (event) => {    
         console.log(Facility_data)
-        //event.preventDefault();
+        setShowSpinner(true) 
 
         await axios.post(API_URL + `/approve_changes/${fac_id}` , Facility_data)
               .then(function (response) { 
                   console.log('response --------->', response)
                    window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;
                   console.log('redirecto to', response.data.redirect_url)
+                  setShowSpinner(false)  
               })
               .catch(function (error) {
-                console.log('failed ---/>', error);               
+                console.log('failed ---/>', error);        
+                setShowSpinner(false)         
             });
    };
 
 
    const Post_rejection = async (event) => {    
         console.log(Facility_data)
-        //event.preventDefault();
+        setShowSpinner(true) 
 
         await axios.post(API_URL + `/reject_changes/${fac_id}` , Facility_data)
               .then(function (response) { 
                   console.log('response --------->', response)
-                  window.location.href = BASE_URL + '/'+response.data.redirect_url;
+                  window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;
                   console.log('redirecto to', response.data.redirect_url)
+                  setShowSpinner(false)  
               })
               .catch(function (error) {
-                console.log('failed ---/>', error);               
+                console.log('failed ---/>', error);
+                setShowSpinner(false)                 
             });
    };
 
@@ -194,6 +206,7 @@ const ApproveFacilityChanges = (props) => {
                                           Owners_list={Owners_list} Partners_list={Partners_list}
                                           CT_slideToggle={CT_slideToggle}
                                           HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
+                                          Mhealth_slideToggle={Mhealth_slideToggle}
                                           ctToggle={ctToggle}/>
                         </ErrorBoundary> 
                       }                
@@ -204,9 +217,11 @@ const ApproveFacilityChanges = (props) => {
                         </ErrorBoundary> 
                       }
 
+                      { mHealthToggle &&
                       <ErrorBoundary> 
                         <MHealthInfo facility_data={Facility_data}  Original_data={Original_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
                       </ErrorBoundary> 
+                      }
 
                       { htsToggle &&
                         <ErrorBoundary> 
@@ -223,11 +238,11 @@ const ApproveFacilityChanges = (props) => {
                         <div class=" d-flex justify-content-around mb-5">
                             <div >
                                 <button name="approve" type="button" value="Approve changes" id="approve_changes" class="btn btn-success px-5" onClick={confirm_approval}>
-                                    <i class="fa-solid fa-thumbs-up"></i> Approve changes
+                                    <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
 
                                 <button name="discard" type="button" value="Discard changes" id="discard_changes" class="btn btn-danger px-5"  onClick={confirm_rejection}>
-                                    <i class="fa-solid fa-trash-can"></i> Discard changes
+                                    <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                             </div>
                         </div>

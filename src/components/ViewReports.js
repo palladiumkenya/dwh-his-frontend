@@ -26,15 +26,24 @@ const ViewReports = () => {
     }
 
 
+    const testcors = () =>{
+        axios.get('https://auth.kenyahmis.org/DwhIdentity/.well-known/openid-configuration').then(r => {
+            console.log('testcors -----> ', r.data)
+        })        
+    }
+
+
+
+
     useEffect(() => {    
         fetchData();
-        
+        testcors()
     }, [])
 
 
     return(
         <div class="mx-5 my-5">
-           <h4>Reporting Dashboard 
+           <h4>HIS Master List 
                 {!showSpinner && <ExportToExcel apiData={excelreportdata} fileName={fileName}/> }
                {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
            </h4>

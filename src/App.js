@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import React, { Component, useState,useEffect } from "react";
-
+import FlashMessage from 'react-flash-message';
+import {FaInfoCircle } from 'react-icons/fa';
+import { Col, Container, Alert } from "reactstrap";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 import './App.css';
@@ -26,8 +28,10 @@ import userManager, { signinRedirectCallback, signoutRedirect } from './services
 function App() {
     
     const [user, setUser] = useState();
-    localStorage.setItem("messages", "");
-    console.log()
+
+    
+    const flashMessage = localStorage.getItem("flashMessage") ;  
+    console.log('app js flashMessage', flashMessage)  
     
     async function getUserDetails() {      
         await userManager.getUser().then((res) =>{
@@ -39,12 +43,7 @@ function App() {
 
     useEffect(() => {
         getUserDetails() 
-        
-        // setTimeout(()=>{
-        //   if (messages){
-        //     setMessages(null)
-        //   }
-        // },5000)
+        setTimeout(() => localStorage.removeItem("flashMessage") , 8000)
     }, [])
 
     
@@ -52,9 +51,17 @@ function App() {
     return (
       <BrowserRouter>     
           <Header user={user}/>
-          <div class="bg_color">
+          { flashMessage && 
+              <FlashMessage duration={8000}>
+                  <Alert color="success">
+                    <FaInfoCircle style={{marginRight:"20px"}}/>
+                    { flashMessage }
+                  </Alert>  
+              </FlashMessage>
+            }
+          <div>
             <Routes>            
-              <Route path="/" element={<Home/>} />
+              <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home/>} />              
               {/* <ProtectedRoute path="/facilities/add_facility" element={<AddFacility user={user} />}/> */}
               {/* <Route exact path='/facilities/add_facility' element={<ProtectedRoute/>}>
@@ -62,7 +69,7 @@ function App() {
               </Route>
 
               <Route exact path='/facilities/update_facility/:fac_id' element={<ProtectedRoute/>}>
-                  <Route exact path="/facilities/update_facility/:fac_id" element={<UpdateFacility user={user} />}/>
+                  <Route exact path="/facilities/update_facility/:fac_id" element={<UpdateFacility user={user} setFlashMessage={setFlashMessage}/>}/>
               </Route>
 
               <Route exact path='/facilities/approve_changes/:fac_id' element={<ProtectedRoute/>}>

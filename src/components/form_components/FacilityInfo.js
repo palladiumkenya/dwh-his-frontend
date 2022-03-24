@@ -71,6 +71,7 @@ function FacilityInfo(props) {
         
         props.setFacility_data({...props.facility_data, "mHealth":checked});
         props.Mhealth_slideToggle(checked)
+        console.log(checked, props.facility_data)
       };
 
       const changeIL = e => {       
@@ -235,8 +236,7 @@ function FacilityInfo(props) {
                         <FormGroup check>
                             <Input id="mHealth" name="mHealth" type="checkbox" defaultChecked={props.facility_data.mHealth} 
                             className={ props.Original_data && props.Original_data.mHealth != props.facility_data.mHealth && "highlight_changed_checkbox"}
-                            onClick={(e) => changeMHealth(e)}
-                            onChange={(e) => {props.setFacility_data({...props.facility_data, "mHealth":e.target.checked}) }}/>                   
+                            onClick={(e) => changeMHealth(e)}/>                   
                             <Label check>mHealth</Label>
                         </FormGroup>
                         <FormGroup check>

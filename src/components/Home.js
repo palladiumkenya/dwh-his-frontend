@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect  } from "react";
-import { Col, Container, Alert } from "reactstrap";
+import { Col, Container, Alert, Spinner } from "reactstrap";
 import {FaInfoCircle } from 'react-icons/fa';
+import FlashMessage from 'react-flash-message'
 
 import FacilitiesList from "./FacilitiesList";
 import DeleteFacilityModal from "./DeleteFacilityModal";
@@ -16,12 +17,17 @@ import { API_URL } from "../constants";
 const Home = (props) =>{
 
   const [facilities, setFacilities] = useState([])
+  const [showSpinner, setShowSpinner] = useState(false);
   const messages = localStorage.getItem("messages");
   console.log(messages)
   
-  const getFacilities = () => {    
+  const getFacilities = () => {   
+    setShowSpinner(true)   
     const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
-    axios.post(API_URL, {"OrganizationId": OrganizationId}).then(res => setFacilities(res.data));
+    axios.post(API_URL, {"OrganizationId": OrganizationId}).then(res => {
+      setFacilities(res.data);
+      setShowSpinner(false)
+    });
     
   };
 
@@ -34,17 +40,14 @@ const Home = (props) =>{
 
   
     return (      
-      <div style={{padding:"30px",backgroundColor:'#f4f6fa'}}>
-            { messages != "" && 
-                <Alert color="success">
-                  <FaInfoCircle />
-                  { messages }
-                </Alert>  
-            }
-          <FacilitiesList
-              facilities={facilities}
-              resetState={setFacilities}
-            />        
+      <div style={{padding:"30px"}}> 
+                        
+              <FacilitiesList
+                  facilities={facilities}
+                  resetState={setFacilities}
+                  showSpinner={showSpinner}
+                />    
+          
       </div>
     );
   

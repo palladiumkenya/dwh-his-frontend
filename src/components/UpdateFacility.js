@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label,Alert } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label,Alert, Spinner } from "reactstrap";
 import {FaInfoCircle } from 'react-icons/fa';
 import axios from "axios";
 
@@ -25,10 +25,12 @@ const UpdateFacility = (props) => {
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
     const [edits_exist, setEdits_exist] = useState(false)
+    const [showSpinner, setShowSpinner] = useState(false);
 
     const [ctToggle, setCtToggle] = useState("");
     const [htsToggle, setHTSToggle] = useState("");
     const [ilToggle, setILToggle] = useState("");
+    const [mHealthToggle, setMHealthToggle] = useState("");
 
   const getFacilityData = async () => {
     await axios.get(API_URL+`/fetch_facility_data/${fac_id}`)
@@ -37,6 +39,8 @@ const UpdateFacility = (props) => {
                     CT_slideToggle(res.data[0].CT); 
                     HTS_slideToggle(res.data[0].HTS) ;
                     IL_slideToggle(res.data[0].IL) ;
+                    Mhealth_slideToggle(res.data[0].mHealth)
+                    
                 } );
    
   }; 
@@ -79,22 +83,31 @@ const UpdateFacility = (props) => {
     setHTSToggle(showtoggle);
    };
 
+   const Mhealth_slideToggle = (showtoggle) => {    
+    setMHealthToggle(showtoggle);
+   };
+
    const IL_slideToggle = (showtoggle) => {    
     setILToggle(showtoggle);
    };
 
-   const handleSubmit = async (event) => {    
-    console.log(Facility_data)
-    event.preventDefault();
+   const handleSubmit = async (event) => {  
+        setShowSpinner(true)  
+        console.log(Facility_data)
+        event.preventDefault();
 
-    await axios.post(API_URL + `/update_facility/${fac_id}` , Facility_data)
-              .then(function (response) { 
+        await axios.post(API_URL + `/update_facility/${fac_id}` , Facility_data)
+            .then(function (response) { 
+                  localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
+                                  before viewing");
                   console.log('response --------->', response)
                   window.location.href =  BASE_URL + '/'+response.data.redirect_url;
-                  console.log('redirecto to', response.data.redirect_url)
-              })
-              .catch(function (error) {
-                console.log('failed ---/>', error);               
+                  
+                  setShowSpinner(false) 
+            })
+            .catch(function (error) {
+                console.log('failed ---/>', error);    
+                setShowSpinner(false)            
             });
    };
 
@@ -129,6 +142,7 @@ const UpdateFacility = (props) => {
                                           Owners_list={Owners_list} Partners_list={Partners_list}
                                           CT_slideToggle={CT_slideToggle}
                                           HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
+                                          Mhealth_slideToggle={Mhealth_slideToggle}
                                           ctToggle={ctToggle}/>
                         </ErrorBoundary> 
                       }                
@@ -139,10 +153,12 @@ const UpdateFacility = (props) => {
                         </ErrorBoundary> 
                       }
 
+                      {mHealthToggle && 
                       <ErrorBoundary> 
                         <MHealthInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
                       </ErrorBoundary> 
-
+                      }
+                      
                       { htsToggle &&
                         <ErrorBoundary> 
                           <HTS_Info facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
@@ -155,8 +171,9 @@ const UpdateFacility = (props) => {
                         </ErrorBoundary> 
                       } 
 
-                        <div class="d-flex justify-content-center mb-5">
+                      <div class="d-flex justify-content-center mb-5">
                           <input class="btn green_bg_color text-white" value="Update Data" type="submit" style={{width:"200px"}} />
+                          {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                       </div>
                   </fieldset>
                   
