@@ -37,7 +37,8 @@ function App() {
         await userManager.getUser().then((res) =>{
           setUser(res);     
           //setOrganizationId(res.profile.OrganizationId)  
-          localStorage.setItem("OrganizationId", res.profile.OrganizationId);             
+          localStorage.setItem("OrganizationId", res.profile.OrganizationId);  
+                     
         });      
     }
 
@@ -64,12 +65,12 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home/>} />              
               {/* <ProtectedRoute path="/facilities/add_facility" element={<AddFacility user={user} />}/> */}
-              {/* <Route exact path='/facilities/add_facility' element={<ProtectedRoute/>}>
+              <Route exact path='/facilities/add_facility' element={<ProtectedRoute/>}>
                   <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
               </Route>
 
               <Route exact path='/facilities/update_facility/:fac_id' element={<ProtectedRoute/>}>
-                  <Route exact path="/facilities/update_facility/:fac_id" element={<UpdateFacility user={user} setFlashMessage={setFlashMessage}/>}/>
+                  <Route exact path="/facilities/update_facility/:fac_id" element={<UpdateFacility user={user} />}/>
               </Route>
 
               <Route exact path='/facilities/approve_changes/:fac_id' element={<ProtectedRoute/>}>
@@ -78,12 +79,12 @@ function App() {
 
               <Route exact path='/facilities/edit/partner/:part_id' element={<ProtectedRoute/>}>
                   <Route exact path="/facilities/edit/partner/:part_id" element={<EditPartners user={user} />}/>
-              </Route> */}
+              </Route>
 
-              <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
+              {/* <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
               <Route path="/facilities/update_facility/:fac_id" element={<UpdateFacility />} />                   
               <Route path="/facilities/approve_changes/:fac_id" element={<ApproveFacilityChanges />} /> 
-              <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />  
+              <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />   */}
 
               <Route path="/facilities/view_facility/:fac_id" element={<ViewFacility />} /> 
               <Route path="/facilities/partners" element={<ViewPartners />} />  
