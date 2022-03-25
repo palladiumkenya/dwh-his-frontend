@@ -31,7 +31,7 @@ function App() {
 
     
     const flashMessage = localStorage.getItem("flashMessage") ;  
-    console.log('app js flashMessage', flashMessage)  
+     
     
     async function getUserDetails() {      
         await userManager.getUser().then((res) =>{

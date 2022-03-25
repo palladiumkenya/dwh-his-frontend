@@ -10,6 +10,7 @@ import axios from "axios";
 
 import { API_URL } from "../constants";
 
+import userManager, { signinRedirectCallback, signoutRedirect } from '../services/UserService';
 
 
 
@@ -18,24 +19,40 @@ const Home = (props) =>{
 
   const [facilities, setFacilities] = useState([])
   const [showSpinner, setShowSpinner] = useState(false);
-  const messages = localStorage.getItem("messages");
-  console.log(messages)
+  const [orgId, setOrgId] = useState(null);
+  const messages = localStorage.getItem("messages"); 
   
-  const getFacilities = () => {   
-    setShowSpinner(true)   
-    const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
-    axios.post(API_URL, {"OrganizationId": OrganizationId}).then(res => {
-      setFacilities(res.data);
-      setShowSpinner(false)
-    });
+
+  async function getFacilities() {      
+      await userManager.getUser().then((user) =>{
+        
+          if (user){
+            setOrgId(user.profile.OrganizationId);
+            console.log()
+          }         
+
+          setShowSpinner(true)   
+          axios.post(API_URL, {"OrganizationId": orgId}).then(res => {
+              setFacilities(res.data);
+              setShowSpinner(false)            
+          });        
+      });      
+  }
+
+  // const getFacilities = () => {   
+  //   setShowSpinner(true)   
+  //   const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
+  //   axios.post(API_URL, {"OrganizationId": OrganizationId}).then(res => {
+  //     setFacilities(res.data);
+  //     setShowSpinner(false)
+  //   });
     
-  };
+  // };
 
 
-  useEffect(() => {   
-    getFacilities()    
-    
-  }, [])
+  useEffect(() => {  
+    getFacilities()       
+  }, [facilities])
 
 
   

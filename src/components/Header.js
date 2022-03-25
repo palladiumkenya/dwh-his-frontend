@@ -8,7 +8,6 @@ import userManager, { signinRedirectCallback, signinRedirect, signoutRedirect } 
 
 
 function Header(props) {
-  console.log('process.env.AUTHORITY', process.env.REACT_APP_AUTHORITY)
    
     const logout_user = async () => {     
       localStorage.clear()       
