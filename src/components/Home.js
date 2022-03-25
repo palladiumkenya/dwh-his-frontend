@@ -23,19 +23,28 @@ const Home = (props) =>{
   const messages = localStorage.getItem("messages"); 
   
 
-  async function getFacilities() {      
-      await userManager.getUser().then((user) =>{
-        
-          if (user){
-            setOrgId(user.profile.OrganizationId);
-            console.log()
-          }         
+  async function getFacilities() { 
+      setShowSpinner(true)    
 
-          setShowSpinner(true)   
-          axios.post(API_URL, {"OrganizationId": orgId}).then(res => {
+      await userManager.getUser().then((user) =>{         
+          if (user){
+            //setOrgId(user.profile.OrganizationId);
+            axios.post(API_URL, {"OrganizationId": user.profile.OrganizationId}).then(res => {
+                setFacilities(res.data);
+                setShowSpinner(false)            
+            });  
+          }         
+          else{
+            axios.post(API_URL, {"OrganizationId": null}).then(res => {
               setFacilities(res.data);
               setShowSpinner(false)            
-          });        
+            });  
+          }
+           
+          // axios.post(API_URL, {"OrganizationId": orgId}).then(res => {
+          //     setFacilities(res.data);
+          //     setShowSpinner(false)            
+          // });        
       });      
   }
 
@@ -52,7 +61,7 @@ const Home = (props) =>{
 
   useEffect(() => {  
     getFacilities()       
-  }, [facilities])
+  }, [])
 
 
   
