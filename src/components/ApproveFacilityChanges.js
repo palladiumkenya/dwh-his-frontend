@@ -25,6 +25,7 @@ const ApproveFacilityChanges = (props) => {
     const [Counties_list, setCounties_list] = useState([])
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
+    const [isOrgSteward, setIsOrgSteward] = useState(true)
     const [showSpinner, setShowSpinner] = useState(false);
 
     const [ctToggle, setCtToggle] = useState("");
@@ -32,84 +33,89 @@ const ApproveFacilityChanges = (props) => {
     const [ilToggle, setILToggle] = useState("");
     const [mHealthToggle, setMHealthToggle] = useState("");
 
-  const getEditedData = async () => {
-    await axios.get(API_URL+`/fetch_edits/data/${fac_id}`)
-                .then(res => { 
-                    setFacility_data( res.data[0]);
-                    CT_slideToggle(res.data[0].CT); 
-                    HTS_slideToggle(res.data[0].HTS) ;
-                    IL_slideToggle(res.data[0].IL) ;
-                    Mhealth_slideToggle(res.data[0].mHealth)
-                    
-                } );
-   
-  }; 
+    const getEditedData = async () => {
+      await axios.get(API_URL+`/fetch_edits/data/${fac_id}`)
+            .then(res => { 
+                setFacility_data( res.data[0]);
+                CT_slideToggle(res.data[0].CT); 
+                HTS_slideToggle(res.data[0].HTS) ;
+                IL_slideToggle(res.data[0].IL) ;
+                Mhealth_slideToggle(res.data[0].mHealth);
+                console.log("props here", props.user.profile.email === res.data[0].org_steward_email)
+                setIsOrgSteward( props.user.profile.email == res.data[0].org_steward_email ? true :false)
+                // if ( props.user.profile.email == res.data[0].org_steward_email){
+                //   setIsOrgSteward(true)
+                // }
+                
+            } );
+    
+    }; 
 
-  const getOriginalData = async () => {
-    await axios.get(API_URL+`/fetch_facility_data/${fac_id}`)
-                .then(res => { 
-                  setOriginal_data( res.data[0]);
-                    
-                } );
-   
-  }; 
+    const getOriginalData = async () => {
+        await axios.get(API_URL+`/fetch_facility_data/${fac_id}`)
+                  .then(res => { 
+                    setOriginal_data( res.data[0]);
+                      
+                  } );
+    
+    }; 
 
     
-   const getCounties = async() => {
-    // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
-    await axios.get(API_URL+"/sub_counties").then(res => setCounties_list( res.data ));
-   };
+    const getCounties = async() => {
+      // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
+      await axios.get(API_URL+"/sub_counties").then(res => setCounties_list( res.data ));
+    };
 
-   const getOwners = async() => {
-    // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
-    await axios.get(API_URL+"/owners").then(res => setOwners_list( res.data ));
-   };
+    const getOwners = async() => {
+      // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
+      await axios.get(API_URL+"/owners").then(res => setOwners_list( res.data ));
+    };
 
-   const getPartners = async() => {
-    // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
-    await axios.get(API_URL+"/partners_list").then(res => setPartners_list( res.data ));
-   };
-  
-   
-  const CT_slideToggle = (showtoggle) => {    
-    setCtToggle(showtoggle);
-   };
+    const getPartners = async() => {
+      // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
+      await axios.get(API_URL+"/partners_list").then(res => setPartners_list( res.data ));
+    };
+    
+    
+    const CT_slideToggle = (showtoggle) => {    
+      setCtToggle(showtoggle);
+    };
 
-   const HTS_slideToggle = (showtoggle) => {    
-    setHTSToggle(showtoggle);
-   };
+    const HTS_slideToggle = (showtoggle) => {    
+      setHTSToggle(showtoggle);
+    };
 
-   const Mhealth_slideToggle = (showtoggle) => {    
-    setMHealthToggle(showtoggle);
-   };
+    const Mhealth_slideToggle = (showtoggle) => {    
+      setMHealthToggle(showtoggle);
+    };
 
-   const IL_slideToggle = (showtoggle) => {    
-    setILToggle(showtoggle);
-   };
+    const IL_slideToggle = (showtoggle) => {    
+      setILToggle(showtoggle);
+    };
 
-   const confirm_approval = () =>{
-    Swal.fire({
-      title: 'Approve Changes?',
-      text: "Approve the changes made to Facility.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#1ab394',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Approve!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Approved!',
-          'Changes were approved now reflect on the dashboard.',
-          'success'
-        )
-        axios.post(EMAIL_URL+ "/send_customized_email", { "facility_id": fac_id, "choice":"approved","reason":"",
-         "frontend_url":BASE_URL});
-        // submit the data
-        Post_approval()
-      }
-    })
- }
+    const confirm_approval = () =>{
+      Swal.fire({
+        title: 'Approve Changes?',
+        text: "Approve the changes made to Facility.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#1ab394',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Approve!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Approved!',
+            'Changes were approved now reflect on the dashboard.',
+            'success'
+          )
+          axios.post(EMAIL_URL+ "/send_customized_email", { "facility_id": fac_id, "choice":"approved","reason":"",
+          "frontend_url":BASE_URL});
+          // submit the data
+          Post_approval()
+        }
+      })
+  }
 
    const confirm_rejection = () =>{
       Swal.fire({
@@ -145,14 +151,12 @@ const ApproveFacilityChanges = (props) => {
 
 
    const Post_approval = async (event) => {    
-        console.log(Facility_data)
+        
         setShowSpinner(true) 
 
         await axios.post(API_URL + `/approve_changes/${fac_id}` , Facility_data)
               .then(function (response) { 
-                  console.log('response --------->', response)
-                   window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;
-                  console.log('redirecto to', response.data.redirect_url)
+                   window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;                  
                   setShowSpinner(false)  
               })
               .catch(function (error) {
@@ -163,14 +167,12 @@ const ApproveFacilityChanges = (props) => {
 
 
    const Post_rejection = async (event) => {    
-        console.log(Facility_data)
+       
         setShowSpinner(true) 
 
         await axios.post(API_URL + `/reject_changes/${fac_id}` , Facility_data)
-              .then(function (response) { 
-                  console.log('response --------->', response)
-                  window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;
-                  console.log('redirecto to', response.data.redirect_url)
+              .then(function (response) {                   
+                  window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;                  
                   setShowSpinner(false)  
               })
               .catch(function (error) {
@@ -190,14 +192,20 @@ const ApproveFacilityChanges = (props) => {
 
 
     return (
-          <div>             
+          <div>    
+            { !isOrgSteward && 
+                <Alert color="danger">
+                  <FaInfoCircle class="mr-4"/>
+                  Changes to a facility can only be approved by the Organization steward
+                </Alert>  
+              }         
           
               <Form  id="facility_form" class="form-control">
               <legend class="text-center mt-5"><b>Approve Changes</b></legend>
                   <p class="mb-3 text-center">Approve or Reject changes made to Facility</p>
 
 
-                  <fieldset >
+                  <fieldset disabled={!isOrgSteward}>
                       { Counties_list.length > 0 &&
                         <ErrorBoundary> 
                           <FacilityInfo facility_data={Facility_data} setFacility_data={setFacility_data}
@@ -237,10 +245,10 @@ const ApproveFacilityChanges = (props) => {
 
                         <div class=" d-flex justify-content-around mb-5">
                             <div >
-                                <button name="approve" type="button" value="Approve changes" id="approve_changes" class="btn btn-success px-5" onClick={confirm_approval}>
+                                <button name="approve" type="button" value="Approve changes" id="approve_changes" class="btn btn-success px-5 mr-4" onClick={confirm_approval}>
                                     <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
-
+                               
                                 <button name="discard" type="button" value="Discard changes" id="discard_changes" class="btn btn-danger px-5"  onClick={confirm_rejection}>
                                     <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>

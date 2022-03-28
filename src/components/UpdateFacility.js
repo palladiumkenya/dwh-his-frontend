@@ -10,8 +10,7 @@ import EMRInfo from "./form_components/EMRInfo";
 import IL_Info from "./form_components/IL_Info";
 import HTS_Info from "./form_components/HTS_Info";
 
-import { API_URL } from "../constants";
-import { BASE_URL } from "../constants";
+import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
 
 import { useParams } from 'react-router-dom'
 
@@ -46,7 +45,7 @@ const UpdateFacility = (props) => {
   }; 
 
   const check_for_updates = async() =>{
-    console.log(fac_id)
+    
     await axios.get(API_URL+`/check/facility_edits/${fac_id}`)
             .then(function (response) { 
               if (response.data.status_code == 200){             
@@ -93,14 +92,17 @@ const UpdateFacility = (props) => {
 
    const handleSubmit = async (event) => {  
         setShowSpinner(true)  
-        console.log(Facility_data)
+        
         event.preventDefault();
-
-        await axios.post(API_URL + `/update_facility/${fac_id}` , Facility_data)
+        Facility_data['username'] = props.user.profile.name
+        Facility_data['email'] = props.user.profile.email
+        
+        await axios.post(API_URL + `/update_facility/${fac_id}`, Facility_data)
             .then(function (response) { 
+                  axios.post( EMAIL_URL+"/send_email", { "facility_id": fac_id, "username":props.user.profile.name, "frontend_url":BASE_URL});
                   localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
                                   before viewing");
-                  console.log('response --------->', response)
+                  
                   window.location.href =  BASE_URL + '/'+response.data.redirect_url;
                   
                   setShowSpinner(false) 
@@ -126,7 +128,7 @@ const UpdateFacility = (props) => {
                 <Alert color="danger">
                   <FaInfoCircle />
                   This Facility's data has been updated. Approve or discard those changes before attempting to update.
-                  Navigate to <a href={`/facilities/approve_changes/${fac_id}`}  className="alert-link">Approve this facility's edits</a>
+                  Navigate here to <a href={`/facilities/approve_changes/${fac_id}`}  className="alert-link">Approve this facility's edits</a>
                 </Alert>  
               }
           

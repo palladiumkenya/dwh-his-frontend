@@ -89,7 +89,7 @@ const AddFacility = (props) => {
 
         await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
-                  localStorage.setItem("flashMessage", "Facility was successfully added and can be viewed below!");
+                localStorage.setItem("flashMessage", "Facility was successfully added and can be viewed below!");
                   console.log('response --------->', response)
                   window.location.href = BASE_URL + '/'+response.data.redirect_url;
                   

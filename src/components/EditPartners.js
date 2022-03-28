@@ -41,7 +41,7 @@ const EditPartners = (props) => {
                         console.log('redirecto to', response.data.redirect_url)
                   })
                   .catch(function (error) {
-                        localStorage.setItem("flashMessage", "Something went wrong. Refresh and try again");
+                     localStorage.setItem("flashMessage", "Something went wrong. Refresh and try again");
                         console.log('failed ---/>', error);               
                 });
        };

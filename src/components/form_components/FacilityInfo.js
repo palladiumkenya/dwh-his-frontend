@@ -32,27 +32,25 @@ function FacilityInfo(props) {
       
 
       const getSubCounties = id => { 
-          console.log('id', id)
+          
         // setSubCounties_list(props.counties_list.filter(item => item.county === Number(id)))    ;
         if (props.Counties_list.length >0){
             setSubCounties_list(props.Counties_list.filter(item => item.county === Number(id))); 
-            console.log('change the value', SubCounties_list)
+            
         }
       };    
 
       const getAgency = (e) => {             
-        const partner = e.target.value 
-        console.log('here here', partner) 
+        const partner = e.target.value         
         const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
-        console.log(filtered_partner[0].agency )
+        
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
         
       };
       
       
       const changeCT = e => {
-        //e.persist();
-        console.log('value', e.target.value)
+        //e.persist();       
         const checked = e.target.checked;
         
         props.setFacility_data({...props.facility_data, "CT":checked});
@@ -97,13 +95,12 @@ function FacilityInfo(props) {
 
       const getKMHFL_data = async() =>{
           //alert()
-        const code_entered = mfl_code_input.current.props.value;
-        
-        console.log(code_entered)
+        const code_entered = mfl_code_input.current.props.value;        
+       
         await axios.post(API_URL + '/get_mfl_data', {code: parseInt(code_entered)
         })
         .then(function (response) {
-            console.log(response);
+            
             if ('status' in response.data){               
                 setErrorMessage('That Facility was already added')
                 setDisabled(true)

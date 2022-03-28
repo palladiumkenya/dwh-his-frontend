@@ -21,6 +21,7 @@ const FacilityList = (props) => {
     const fetchData = () =>{
         const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
         axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r => setData(r.data) )
+
     }
       
     // const handleSearchFilter = (e) => {
@@ -39,6 +40,7 @@ const FacilityList = (props) => {
 
     useEffect(() => {   
         fetchData()
+        axios.post( EMAIL_URL+"/send_email", { "facility_id": "0bd3f62a-d632-4655-853f-87c7efb70f03", "username":"this gurl", "frontend_url":BASE_URL});
     }, [])
 
     return (
