@@ -17,7 +17,7 @@ const FacilityList = (props) => {
 
     const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-    const  fileName = "HIS Master List";
+    const  fileName = "HIS List";
     const fetchData = () =>{
         const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
         axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r => setData(r.data) )

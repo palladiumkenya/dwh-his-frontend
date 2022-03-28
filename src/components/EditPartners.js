@@ -36,12 +36,13 @@ const EditPartners = (props) => {
     
         await axios.post(API_URL + `/edit_partner/${part_id}`, Partner_data)
                   .then(function (response) { 
-                      console.log('response --------->', response)
-                      window.location.href = BASE_URL + '/facilities/'+response.data.redirect_url;
-                      console.log('redirecto to', response.data.redirect_url)
+                        localStorage.setItem("flashMessage", "Partner Data successfully edited");
+                        window.location.href = BASE_URL + '/facilities/partners';
+                        console.log('redirecto to', response.data.redirect_url)
                   })
                   .catch(function (error) {
-                    console.log('failed ---/>', error);               
+                        localStorage.setItem("flashMessage", "Something went wrong. Refresh and try again");
+                        console.log('failed ---/>', error);               
                 });
        };
 

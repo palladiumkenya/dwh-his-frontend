@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom'
 
 const EditPartners = () => {
     const [Partner_data, setPartner_data] = useState([])
+    const [filtereddata, setFilteredData] = useState([])
     const [EditedPartner, setEditedPartner] = useState([])
     const [show_hide, setDisplay] = useState(false)
     const [disabled, setDisabled] = useState(true)
@@ -27,7 +28,11 @@ const EditPartners = () => {
 
 
     const getPartners = () => {
-        axios.get(API_URL+'/partners').then(res => setPartner_data(res.data) );
+        axios.get(API_URL+'/partners').then(res => {
+            setPartner_data(res.data)
+            setFilteredData(res.data)
+            console.log(res.data)
+        } );
         
       };
 
@@ -39,9 +44,22 @@ const EditPartners = () => {
             console.log(el)
     }
 
-      const changes =() =>{
-        console.log('hfffh')
-    }
+    //   const changes =() =>{
+    //     console.log('hfffh')
+    // }
+
+    const handleSearchFilter = (e) => {
+            const value = e.target.value;        
+            console.log(value)
+            
+             const searcheddata = Partner_data.filter(item => (item.name).toLowerCase().includes(value.toLowerCase()) );  
+            console.log(searcheddata)
+            if (searcheddata.length > 0){
+                setFilteredData(searcheddata)
+            }else{
+                setFilteredData(Partner_data)
+            }
+        };
 
 
     useEffect(() => {    
@@ -51,6 +69,10 @@ const EditPartners = () => {
 
     return(
         <div class="mx-5 my-5">
+            <div class="d-flex justify-content-end">
+                <input type="search" placeholder="Search ...." class="form-control" style={{width:"250px"}}
+                    onChange={(e) => handleSearchFilter(e)} />
+            </div>
             <Table  class="mx-5">
                     <thead>
                     <tr>
@@ -60,14 +82,14 @@ const EditPartners = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {!Partner_data || Partner_data.length <= 0 ? (
+                    {!filtereddata || filtereddata.length <= 0 ? (
                         <tr>
                             <td colSpan="6" align="center">
                                 <b>No Partners found</b>
                             </td>
                         </tr>
                     ) : (
-                        Partner_data.map(partner => (                    
+                        filtereddata.map(partner => (                    
                             <tr>
                                 <td id="agency_container"> {partner.agency}</td>
                                 <td id="agency_container">{partner.name}</td>
