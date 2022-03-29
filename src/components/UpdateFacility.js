@@ -127,9 +127,9 @@ const UpdateFacility = (props) => {
           <div>
              { edits_exist && 
                 <Alert color="danger">
-                  <FaInfoCircle />
-                  This Facility's data has been updated. Approve or discard those changes before attempting to update.
-                  Navigate here to <a href={`/facilities/approve_changes/${fac_id}`}  className="alert-link">Approve this facility's edits</a>
+                  <FaInfoCircle style={{marginRight:"20px"}}/>
+                  This Facility's data has been updated. The changes must be approved or rejected before another attempt to update is allowed.
+                  {/* Navigate here to <a href={`/facilities/approve_changes/${fac_id}`}  className="alert-link">Approve this facility's edits</a> */}
                 </Alert>  
               }
           

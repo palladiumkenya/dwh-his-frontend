@@ -18,7 +18,7 @@ const ViewReports = () => {
    
     const  fileName = "HIS Master List";
     const fetchData = () =>{
-        const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
+        const OrganizationId = null;
         axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r => {
             setExcelreportData(r.data) 
             setShowSpinner(false)
@@ -26,18 +26,8 @@ const ViewReports = () => {
     }
 
 
-    const testcors = () =>{
-        axios.get('https://auth.kenyahmis.org/DwhIdentity/.well-known/openid-configuration').then(r => {
-            console.log('testcors -----> ', r.data)
-        })        
-    }
-
-
-
-
     useEffect(() => {    
-        fetchData();
-        testcors()
+        fetchData();        
     }, [])
 
 

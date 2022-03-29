@@ -11,6 +11,7 @@ import IL_Info from "./form_components/IL_Info";
 import HTS_Info from "./form_components/HTS_Info";
 
 import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
+import userManager, { signinRedirectCallback, signoutRedirect } from '../services/UserService';
 
 import axios from "axios";
 import { useParams } from 'react-router-dom'
@@ -42,15 +43,20 @@ const ApproveFacilityChanges = (props) => {
                 HTS_slideToggle(res.data[0].HTS) ;
                 IL_slideToggle(res.data[0].IL) ;
                 Mhealth_slideToggle(res.data[0].mHealth);
-                console.log("props here", props.user.profile.email === res.data[0].org_steward_email)
-                setIsOrgSteward( props.user.profile.email == res.data[0].org_steward_email ? true :false)
-                // if ( props.user.profile.email == res.data[0].org_steward_email){
-                //   setIsOrgSteward(true)
-                // }
+                // check if steward of organization is logged in. Only they can approve changes
+                checkIfOrgSteward(res.data[0].org_steward_email)
                 
             } );
     
     }; 
+
+
+    async function checkIfOrgSteward(partnerSteward) {      
+        await userManager.getUser().then((res) =>{           
+            setIsOrgSteward( res.profile.email === partnerSteward ? true :false)                     
+        });      
+    }
+
 
     const getOriginalData = async () => {
         await axios.get(API_URL+`/fetch_facility_data/${fac_id}`)
@@ -196,8 +202,8 @@ const ApproveFacilityChanges = (props) => {
           <div>    
             { !isOrgSteward && 
                 <Alert color="danger">
-                  <FaInfoCircle class="mr-4"/>
-                  Changes to a facility can only be approved by the Organization steward
+                  <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
+                  Changes to a facility can only be approved by the Organization's steward. Please contact the steward for assistance
                 </Alert>  
               }         
           
