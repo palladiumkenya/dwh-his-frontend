@@ -25,6 +25,7 @@ const UpdateFacility = (props) => {
     const [Partners_list, setPartners_list] = useState([])
     const [edits_exist, setEdits_exist] = useState(false)
     const [showSpinner, setShowSpinner] = useState(false);
+    const showSearchIcon = "none";
 
     const [ctToggle, setCtToggle] = useState("");
     const [htsToggle, setHTSToggle] = useState("");
@@ -145,7 +146,8 @@ const UpdateFacility = (props) => {
                                           CT_slideToggle={CT_slideToggle}
                                           HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
                                           Mhealth_slideToggle={Mhealth_slideToggle}
-                                          ctToggle={ctToggle}/>
+                                          ctToggle={ctToggle}
+                                          showSearchIcon={showSearchIcon} />
                         </ErrorBoundary> 
                       }                
 

@@ -9,6 +9,7 @@ function FacilityInfo(props) {
     // const [facility_data, setFacility_data] = useState(props.facility_data);
     const [error_message, setErrorMessage] = useState("");
     const [disabled, setDisabled] = useState(false);
+    
     const mfl_code_input = useRef(null);
     
     const getInitialSubCounties = id => {         
@@ -104,9 +105,11 @@ function FacilityInfo(props) {
             if ('status' in response.data){               
                 setErrorMessage('That Facility was already added')
                 setDisabled(true)
+                props.setfacilityAlreadyExists(true)
             }else{
                 setErrorMessage('')
                 setDisabled(false)
+                props.setfacilityAlreadyExists(false)
                 props.setFacility_data({...props.facility_data, "name":response.data.name, "owner":response.data.owner, "county":response.data.county,
                 "sub_county":response.data.sub_county, "lat":response.data.lat, "lon":response.data.lon, "agency":response.data.agency,
                   "partner":response.data.partner });
@@ -137,7 +140,7 @@ function FacilityInfo(props) {
                             <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input}
                                 className={ props.Original_data && props.Original_data.mfl_code != props.facility_data.mfl_code && "highlight_changed_data"}
                                 onChange={(e) => {checkLength(e); props.setFacility_data({...props.facility_data, "mfl_code":e.target.value}) }}/>
-                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data}/>
+                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon}}/>
                         </div>                        
                          <p id="error_message" style={{color:"red"}}>{error_message}</p>
                     </div>

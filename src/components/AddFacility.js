@@ -28,7 +28,9 @@ const AddFacility = (props) => {
     const [Counties_list, setCounties_list] = useState([])
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
-    
+    const [facilityAlreadyExists, setfacilityAlreadyExists]  = useState(false)
+    const showSearchIcon = "block";
+
     const [ctToggle, setCtToggle] = useState(false);
     const [htsToggle, setHTSToggle] = useState(false);
     const [ilToggle, setILToggle] = useState(false);
@@ -58,9 +60,7 @@ const AddFacility = (props) => {
     getOwners()
     getPartners()
     
-  }, [])
-
-  
+  }, [])  
  
   
   const CT_slideToggle = (showtoggle) => {    
@@ -106,47 +106,51 @@ const AddFacility = (props) => {
                 <legend class="text-center mt-5"><b>Add Facility</b></legend>
                 <p class="mb-3 text-center">Add new Facility to your List</p>
                 
-                { Counties_list.length > 0 &&
-                  <ErrorBoundary> 
-                    <FacilityInfo facility_data={Facility_data} setFacility_data={setFacility_data}
-                                  Counties_list={Counties_list}
-                                    Owners_list={Owners_list} Partners_list={Partners_list}
-                                    CT_slideToggle={CT_slideToggle}
-                                    HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
-                                    Mhealth_slideToggle={Mhealth_slideToggle}
-                                    ctToggle={ctToggle}/>
-                  </ErrorBoundary> 
-                }                
+                
+                    { Counties_list.length > 0 &&
+                      <ErrorBoundary> 
+                        <FacilityInfo facility_data={Facility_data} setFacility_data={setFacility_data}
+                                      Counties_list={Counties_list}
+                                        Owners_list={Owners_list} Partners_list={Partners_list}
+                                        CT_slideToggle={CT_slideToggle}
+                                        HTS_slideToggle={HTS_slideToggle} IL_slideToggle={IL_slideToggle} 
+                                        Mhealth_slideToggle={Mhealth_slideToggle}
+                                        ctToggle={ctToggle}
+                                        setfacilityAlreadyExists={setfacilityAlreadyExists}
+                                        showSearchIcon={showSearchIcon}/>
+                      </ErrorBoundary> 
+                    }                
 
-                { ctToggle &&
-                  <ErrorBoundary> 
-                    <EMRInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
-                  </ErrorBoundary> 
-                }
+                    { ctToggle &&
+                      <ErrorBoundary> 
+                        <EMRInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
+                      </ErrorBoundary> 
+                    }
 
-                { mHealthToggle &&
-                  <ErrorBoundary> 
-                    <MHealthInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
-                  </ErrorBoundary> 
-                }
+                    { mHealthToggle &&
+                      <ErrorBoundary> 
+                        <MHealthInfo facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
+                      </ErrorBoundary> 
+                    }
 
-                { htsToggle &&
-                  <ErrorBoundary> 
-                    <HTS_Info facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
-                  </ErrorBoundary> 
-                } 
+                    { htsToggle &&
+                      <ErrorBoundary> 
+                        <HTS_Info facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
+                      </ErrorBoundary> 
+                    } 
 
-                { ilToggle &&
-                  <ErrorBoundary> 
-                    <IL_Info facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
-                  </ErrorBoundary> 
-                } 
+                    { ilToggle &&
+                      <ErrorBoundary> 
+                        <IL_Info facility_data={Facility_data} setFacility_data={setFacility_data} counties_list={Counties_list}/>
+                      </ErrorBoundary> 
+                    } 
 
-                  <div class="d-flex justify-content-center mb-5">
-                     <input class="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
-                     <Spinner style={{display:hiddenSpinner, width: "1.2rem", height: "1.2rem"}}></Spinner>
-                 </div>
-                {/* <input type="submit" value="Submit" /> */}
+                  <fieldset disabled={facilityAlreadyExists}>
+                      <div class="d-flex justify-content-center mb-5">
+                        <input class="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
+                        <Spinner style={{display:hiddenSpinner, width: "1.2rem", height: "1.2rem"}}></Spinner>
+                    </div>
+                 </fieldset>
             </Form>
         
        
