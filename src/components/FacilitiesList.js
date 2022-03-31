@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect  } from "react";
-import { Table } from "reactstrap";
+import { Table, Spinner, Input } from "reactstrap";
 import { FaDownload } from 'react-icons/fa';
 import axios from "axios";
 
@@ -13,25 +13,51 @@ const FacilityList = (props) => {
     const facilities = props.facilities;
 
     const [testdata, setData] = useState([])
+    // const [facilities, setFilteredData] = useState(props.facilities)
 
-    const  fileName = "HIS Master List";
+    const isAuthenticated = sessionStorage.getItem("isAuthenticated");
+
+    const  fileName = "HIS List";
     const fetchData = () =>{
         const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
         axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r => setData(r.data) )
+
     }
       
+    // const handleSearchFilter = (e) => {
+    //     const value = e.target.value;        
+    //     console.log(value)
+        
+    //      const filtereddata = props.facilities.filter(item => item.mfl_code === parseInt(value));  
+    //     console.log(filtereddata)
+    //     if (filtereddata.length > 0){
+    //         setFilteredData(filtereddata)
+    //     }else{
+    //         setFilteredData(props.facilities)
+    //     }
+    // };
+    
 
-
-       useEffect(() => {   
+    useEffect(() => {   
         fetchData()
-      }, [])
+        axios.post( EMAIL_URL+"/send_email", { "facility_id": "0bd3f62a-d632-4655-853f-87c7efb70f03", "username":"this gurl", "frontend_url":BASE_URL});
+    }, [])
 
     return (
-        <>              
-            <a href="/facilities/add_facility" class="btn btn-outline-success" style={{float:"right"}}>Add Facility</a>
-            <h4>Facilities Data <ExportToExcel apiData={testdata} fileName={fileName} /> </h4>
-        
-            <Table striped>
+        <>     
+            <div class="d-flex justify-content-end mb-3">
+                <a href="/facilities/add_facility" class="btn btn-sm green_bg_color text-white" style={{width:"200px"}}>Add New Facility</a>
+            </div>         
+            
+            <div class="d-flex justify-content-between">
+                <h4>
+                    Facilities Data 
+                    { isAuthenticated && <ExportToExcel apiData={testdata} fileName={fileName} />  }                
+                </h4>
+                {/* <Input placeholder="Search..." name="searchFilter" onChange={(e) => handleSearchFilter(e)} style={{width:"250px"}}/> */}
+            </div>
+
+            <Table >
                 <thead>
                 <tr>
                     <th>MFL Code</th>
@@ -48,10 +74,12 @@ const FacilityList = (props) => {
                 </thead>
                 <tbody>
                 {!facilities || facilities.length <= 0 ? (
-                    <tr>
-                    <td colSpan="6" align="center">
-                        <b>No facilities found</b>
-                    </td>
+                    <tr>                           
+                        <td colSpan="12" align="center">
+                            {props.showSpinner ? <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> : 
+                                <b>No facilities found</b>
+                            }
+                        </td>                       
                     </tr>
                 ) : (
                     facilities.map(facility => (

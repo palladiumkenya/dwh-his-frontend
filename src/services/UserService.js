@@ -1,16 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label,Alert } from "reactstrap";
-import {FaInfoCircle } from 'react-icons/fa';
-import axios from "axios";
-
-import { API_URL } from "../constants";
-import { BASE_URL } from "../constants";
-
 import { UserManager } from 'oidc-client';
 
 
 const config = {
-    authority: "https:localhost:5006",
+    authority: process.env.REACT_APP_AUTHORITY,
     client_id: "dwh.his",
     redirect_uri: "http://localhost:8000/signin-oidc",
     response_type: "id_token token",
@@ -24,10 +16,10 @@ export function signinRedirect() {
     return userManager.signinRedirect();
 }
 
-export function signinRedirectCallback() {
+export function signinRedirectCallback() {   
     if (window.location.hash) {
         try {
-            localStorage.setItem("isAuthenticated", "true");
+            sessionStorage.setItem("isAuthenticated", "true");
             return userManager.signinRedirectCallback();
         }
         catch (e) {
@@ -35,6 +27,7 @@ export function signinRedirectCallback() {
         }
     } else {
         return userManager.signinRedirectCallback();
+        
     }
 }
 

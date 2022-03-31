@@ -9,6 +9,7 @@ function FacilityInfo(props) {
     // const [facility_data, setFacility_data] = useState(props.facility_data);
     const [error_message, setErrorMessage] = useState("");
     const [disabled, setDisabled] = useState(false);
+    
     const mfl_code_input = useRef(null);
     
     const getInitialSubCounties = id => {         
@@ -32,27 +33,25 @@ function FacilityInfo(props) {
       
 
       const getSubCounties = id => { 
-          console.log('id', id)
+          
         // setSubCounties_list(props.counties_list.filter(item => item.county === Number(id)))    ;
         if (props.Counties_list.length >0){
             setSubCounties_list(props.Counties_list.filter(item => item.county === Number(id))); 
-            console.log('change the value', SubCounties_list)
+            
         }
       };    
 
       const getAgency = (e) => {             
-        const partner = e.target.value 
-        console.log('here here', partner) 
+        const partner = e.target.value         
         const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
-        console.log(filtered_partner[0].agency )
+        
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
         
       };
       
       
       const changeCT = e => {
-        //e.persist();
-        console.log('value', e.target.value)
+        //e.persist();       
         const checked = e.target.checked;
         
         props.setFacility_data({...props.facility_data, "CT":checked});
@@ -66,6 +65,14 @@ function FacilityInfo(props) {
         props.HTS_slideToggle(checked)
       };
 
+      const changeMHealth = e => {
+        const checked = e.target.checked;
+        
+        props.setFacility_data({...props.facility_data, "mHealth":checked});
+        props.Mhealth_slideToggle(checked)
+        console.log(checked, props.facility_data)
+      };
+
       const changeIL = e => {       
         const checked = e.target.checked;
         
@@ -76,12 +83,13 @@ function FacilityInfo(props) {
      
       const checkLength = e =>{
             if (e.target.value.length > 5) {
-                //.html('MFL Code can only be a length of 5 characters')
+                setDisabled(true)
                 setErrorMessage('MFL Code can only be a length of 5 characters')
             }else if(e.target.value.length < 5){
-                //.html('MFL Code can only be a length of 5 characters')
+                setDisabled(true)
                 setErrorMessage('MFL Code can only be a length of 5 characters')
             }else{
+                setDisabled(false)
                 setErrorMessage('')
             }
       }
@@ -89,19 +97,20 @@ function FacilityInfo(props) {
 
       const getKMHFL_data = async() =>{
           //alert()
-        const code_entered = mfl_code_input.current.props.value;
-        
-        console.log(code_entered)
+        const code_entered = mfl_code_input.current.props.value;        
+       
         await axios.post(API_URL + '/get_mfl_data', {code: parseInt(code_entered)
         })
         .then(function (response) {
-            console.log(response);
+            
             if ('status' in response.data){               
                 setErrorMessage('That Facility was already added')
                 setDisabled(true)
+                props.setfacilityAlreadyExists(true)
             }else{
                 setErrorMessage('')
                 setDisabled(false)
+                props.setfacilityAlreadyExists(false)
                 props.setFacility_data({...props.facility_data, "name":response.data.name, "owner":response.data.owner, "county":response.data.county,
                 "sub_county":response.data.sub_county, "lat":response.data.lat, "lon":response.data.lon, "agency":response.data.agency,
                   "partner":response.data.partner });
@@ -129,10 +138,10 @@ function FacilityInfo(props) {
                     <div class="form-group col-md-4 mb-4">
                         <Label for="mfl_code">MFL Code:</Label>
                         <div class="d-flex">
-                            <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input}
+                            <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input} 
                                 className={ props.Original_data && props.Original_data.mfl_code != props.facility_data.mfl_code && "highlight_changed_data"}
                                 onChange={(e) => {checkLength(e); props.setFacility_data({...props.facility_data, "mfl_code":e.target.value}) }}/>
-                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data}/>
+                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon}}/>
                         </div>                        
                          <p id="error_message" style={{color:"red"}}>{error_message}</p>
                     </div>
@@ -210,13 +219,13 @@ function FacilityInfo(props) {
                     </div>
 
                     <b>Implementation</b>
-                    <div class="d-flex justify-content-between col-md-4 mb-4">
+                    <div class="d-flex justify-content-between col-md-6 mb-4">
                         <FormGroup check>
                             <Input id="CT" name="CT" type="checkbox" defaultChecked={props.facility_data.CT} 
                             className={ props.Original_data && props.Original_data.CT != props.facility_data.CT && "highlight_changed_checkbox"}
                             onClick={(e) => changeCT(e)}
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "CT":e.target.checked}) }}/>                   
-                            <Label check>CT</Label>
+                            <Label check>C&T</Label>
                         </FormGroup>
                         <FormGroup check>
                             <Input id="HTS" name="HTS" type="checkbox" defaultChecked={props.facility_data.HTS} 
@@ -226,12 +235,24 @@ function FacilityInfo(props) {
                             <Label check>HTS</Label>
                         </FormGroup>
                         <FormGroup check>
+                            <Input id="mHealth" name="mHealth" type="checkbox" defaultChecked={props.facility_data.mHealth} 
+                            className={ props.Original_data && props.Original_data.mHealth != props.facility_data.mHealth && "highlight_changed_checkbox"}
+                            onClick={(e) => changeMHealth(e)}/>                   
+                            <Label check>mHealth</Label>
+                        </FormGroup>
+                        <FormGroup check>
                             <Input id="IL" name="IL" type="checkbox" defaultChecked={props.facility_data.IL} 
                             className={ props.Original_data && props.Original_data.IL != props.facility_data.IL && "highlight_changed_checkbox"}
                             onClick={(e) => changeIL(e)}
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "IL":e.target.checked}) }}/>                   
-                            <Label check>IL</Label>
+                            <Label check>IL & Integrations</Label>
                         </FormGroup>
+                        <FormGroup check>
+                            <Input id="KP" name="KP" type="checkbox" checked={props.facility_data.KP}
+                            className={ props.Original_data && props.Original_data.KP != props.facility_data.KP && "highlight_changed_checkbox"}
+                             onChange={(e) => props.setFacility_data({...props.facility_data, "KP":e.target.checked})}/>                   
+                            <Label check>KP</Label>
+                        </FormGroup>  
                     </div>
                 </div>
             </div>

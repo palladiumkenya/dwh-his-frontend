@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import {FaCheckSquare} from 'react-icons/fa';
 import SlideToggle from "react-slide-toggle";
 import axios from "axios";
 
@@ -100,23 +101,37 @@ const ViewFacility = () => {
                             <b>Implementation</b>
                             <div class="d-flex justify-content-between mr-5">
                                 <p>{
-                                    <i class="fa-solid fa-square-check green_text_color"></i>  ? Facility_data.CT :                                   
-                                    <i class="fa-solid fa-square-xmark  text-muted"></i>
+                                    Facility_data.CT  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> :                                   
+                                    <FaCheckSquare class="fa-solid fa-square-xmark text-muted"/>
                                     } 
-                                    CT
+                                    C&T
                                 </p>
                                           
 
-                                <p>{ <i class="fa-solid fa-square-check green_text_color"></i>  ? Facility_data.HTS : 
-                                    <i class="fa-solid fa-square-xmark  text-muted"></i>
+                                <p>{ Facility_data.HTS  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                      } 
                                      HTS
                                 </p>
 
-                                <p>{<i class="fa-solid fa-square-check green_text_color"></i>  ? Facility_data.IL : 
-                                    <i class="fa-solid fa-square-xmark  text-muted"></i> 
+                                <p>{ 
+                                    Facility_data.mHealth ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                        }
+                                    MHealth
+                                </p>
+
+                                <p>{Facility_data.IL   ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                     } 
-                                    IL
+                                    IL & Integrations
+                                </p>
+
+                                <p>{ 
+                                    Facility_data.KP ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                        }
+                                    KP
                                 </p>
                             </div>
                         </div>
@@ -137,50 +152,57 @@ const ViewFacility = () => {
                                 <p>{Facility_data.emr_status}</p>
                             </div>
 
-                            <div class="col-md-10 mb-0">
+                            <div class="col-md-12 mb-0">
                                 <b>EMR modules</b>
                                 <div class="d-flex justify-content-between">
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.ovc_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.ovc_offered    ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         OVC
                                     </p>
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.otz_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.otz_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         OTZ
                                     </p>
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.prep_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.prep_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         PrEP
                                     </p>
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.tb_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.tb_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         TB
                                     </p>
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mnch_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.mnch_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         MNCH
-                                    </p>
+                                    </p>                                  
+                                   
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.kp_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.tpt_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
-                                        KP
-                                    </p>
+                                        TPT
+                                    </p>     
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.lab_man_offered : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.covid_19_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
-                                        Lab Manifest
+                                        Covid-19
+                                    </p>     
+                                    <p>{ 
+                                        Facility_data.evmmc_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                         }
+                                        EVMMC
                                     </p>                                  
 
                                 </div>
@@ -197,38 +219,38 @@ const ViewFacility = () => {
                             <b>MHealth Information</b>
                             <div class="d-flex justify-content-between">
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_ushauri : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_ushauri ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     Ushauri
                                 </p>
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_nishauri : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_nishauri  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     Nishauri
                                 </p>   
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_c4c : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_c4c ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>  : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     C4C
                                 </p>   
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_mlab : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_mlab ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     MLab
                                 </p>   
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_art : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_art ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     ART Directory
                                 </p>   
                                 <p>{ 
-                                    <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.mhealth_psurvey : 
-                                    <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                    Facility_data.mhealth_psurvey ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                         }
                                     PSurvey
                                 </p>                                  
@@ -260,49 +282,57 @@ const ViewFacility = () => {
 
                 { Facility_data.IL &&
                     <div class="" id="IL_info">
-                        <h6  class="green_text_color">IL Information</h6>
+                        <h6  class="green_text_color">Interoperability(IL) and Integrations</h6>
                         <div id="IL" class="row  mb-5 form_section shadow-sm bg-white rounded p-4" >
-                            <b>IL Information</b>
-                            <div class="d-flex col-md-4 mb-4">
-                                <b>HTS Use : </b>
-                                <p>{Facility_data.hts_use}</p>
-                            </div>
-                            <div class="d-flex col-md-4 mb-4">
-                                <b>Deployment : </b>
-                                <p>{Facility_data.hts_deployment}</p>
-                            </div>
-                            <div class="d-flex col-md-4 mb-4">
-                                <b>HTS Status : </b>
-                                <p>{Facility_data.hts_status}</p>
-                            </div>
-
-                            <div class="form-group col-md-5 mb-0">
+                           
+                            <div class="form-group col-md-10 mb-0">
                                 <b>IL Modules</b>
                                 <div class="d-flex justify-content-between">
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.il_mlab : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.webADT_pharmacy ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                            }
+                                        webADT_pharmacy
+                                    </p>  
+                                    <p>{ 
+                                        Facility_data.il_mlab ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
                                         MLab
                                     </p>  
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.il_three_PM : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.il_three_PM ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
                                         3PM
                                     </p>  
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.il_air : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.il_air ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
                                         AIR
                                     </p>  
                                     <p>{ 
-                                        <i class="fa-solid fa-square-check green_text_color"></i>   ? Facility_data.il_ushauri : 
-                                        <i class="fa-solid fa-square-xmark text-muted"></i> 
+                                        Facility_data.il_ushauri ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
                                         Ushauri
                                     </p>    
+                                </div>
+                                <b>Integrations</b>
+                                <div class="col-md-4 d-flex justify-content-between">
+                                    <p>{ 
+                                        Facility_data.il_lab_manifest ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>   : 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                            }
+                                        Lab Manifest
+                                    </p> 
+                                    <p>{ 
+                                        Facility_data.il_nimeconfirm ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                        <FaCheckSquare class="fa-solid fa-square-xmark text-muted"/> 
+                                            }
+                                        NimeCONFIRM
+                                    </p>                                      
                                 </div>
                             </div>
                         </div>
