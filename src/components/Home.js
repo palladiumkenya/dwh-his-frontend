@@ -25,7 +25,7 @@ const Home = (props) =>{
 
       const [testdata, setData] = useState([])
 
-      const isAuthenticated = localStorage.getItem("isAuthenticated");
+      const isAuthenticated = sessionStorage.getItem("isAuthenticated");
       
 
       const  fileName = "HIS List";

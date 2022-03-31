@@ -15,7 +15,7 @@ const FacilityList = (props) => {
     const [testdata, setData] = useState([])
     // const [facilities, setFilteredData] = useState(props.facilities)
 
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const isAuthenticated = sessionStorage.getItem("isAuthenticated");
 
     const  fileName = "HIS List";
     const fetchData = () =>{

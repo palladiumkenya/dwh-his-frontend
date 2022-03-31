@@ -14,6 +14,7 @@ const initial_data = {
       "HTS": false,
       "IL": false,
       "mHealth": false,
+      "KP":false,
       "ovc_offered": null,
       "otz_offered": null,
       "tb_offered": null,

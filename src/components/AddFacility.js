@@ -95,7 +95,9 @@ const AddFacility = (props) => {
                   
               })
               .catch(function (error) {
-                console.log('failed ---/>', error);               
+                console.log('failed ---/>', error);  
+                localStorage.setItem("flashMessage", "We ran into a problem. Please try again");
+                window.location.reload();             
             });
     };
    

@@ -81,24 +81,24 @@ function EMRInfo(props) {
                              onChange={(e) => props.setFacility_data({...props.facility_data, "mnch_offered":e.target.checked})}/>                   
                             <Label check>MNCH</Label>
                         </FormGroup>
-                        <FormGroup check>
+                        {/* <FormGroup check>
                             <Input id="kp_offered" name="kp_offered" type="checkbox" checked={props.facility_data.kp_offered}
                             className={ props.Original_data && props.Original_data.kp_offered != props.facility_data.kp_offered && "highlight_changed_checkbox"}
                              onChange={(e) => props.setFacility_data({...props.facility_data, "kp_offered":e.target.checked})}/>                   
                             <Label check>KP</Label>
-                        </FormGroup>    
+                        </FormGroup>     */}
                         {/* <FormGroup check>
                             <Input id="lab_man_offered" name="lab_man_offered" type="checkbox" checked={props.facility_data.lab_man_offered}
                             className={ props.Original_data && props.Original_data.lab_man_offered != props.facility_data.lab_man_offered && "highlight_changed_checkbox"}
                              onChange={(e) => props.setFacility_data({...props.facility_data, "lab_man_offered":e.target.checked})}/>                   
                             <Label check>Lab Manifest</Label>
                         </FormGroup>      */}
-                        <FormGroup check>
+                        {/* <FormGroup check>
                             <Input id="hiv_offered" name="hiv_offered" type="checkbox" checked={props.facility_data.hiv_offered}
                             className={ props.Original_data && props.Original_data.hiv_offered != props.facility_data.hiv_offered && "highlight_changed_checkbox"}
                              onChange={(e) => props.setFacility_data({...props.facility_data, "hiv_offered":e.target.checked})}/>                   
                             <Label check>HIV</Label>
-                        </FormGroup>  
+                        </FormGroup>   */}
                         <FormGroup check>
                             <Input id="tpt_offered" name="tpt_offered" type="checkbox" checked={props.facility_data.tpt_offered}
                             className={ props.Original_data && props.Original_data.tpt_offered != props.facility_data.tpt_offered && "highlight_changed_checkbox"}

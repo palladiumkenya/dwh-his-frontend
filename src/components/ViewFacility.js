@@ -104,7 +104,7 @@ const ViewFacility = () => {
                                     Facility_data.CT  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> :                                   
                                     <FaCheckSquare class="fa-solid fa-square-xmark text-muted"/>
                                     } 
-                                    CT
+                                    C&T
                                 </p>
                                           
 
@@ -114,10 +114,24 @@ const ViewFacility = () => {
                                      HTS
                                 </p>
 
+                                <p>{ 
+                                    Facility_data.mHealth ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                        }
+                                    MHealth
+                                </p>
+
                                 <p>{Facility_data.IL   ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
                                     <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                     } 
-                                    IL
+                                    IL & Integrations
+                                </p>
+
+                                <p>{ 
+                                    Facility_data.KP ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
+                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                        }
+                                    KP
                                 </p>
                             </div>
                         </div>
@@ -138,7 +152,7 @@ const ViewFacility = () => {
                                 <p>{Facility_data.emr_status}</p>
                             </div>
 
-                            <div class="col-md-10 mb-0">
+                            <div class="col-md-12 mb-0">
                                 <b>EMR modules</b>
                                 <div class="d-flex justify-content-between">
                                     <p>{ 
@@ -170,19 +184,8 @@ const ViewFacility = () => {
                                         <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                          }
                                         MNCH
-                                    </p>
-                                    <p>{ 
-                                        Facility_data.kp_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
-                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
-                                         }
-                                        KP
-                                    </p>
-                                    <p>{ 
-                                        Facility_data.hiv_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
-                                        <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
-                                         }
-                                        HIV
-                                    </p>     
+                                    </p>                                  
+                                   
                                     <p>{ 
                                         Facility_data.tpt_offered ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
                                         <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
@@ -279,7 +282,7 @@ const ViewFacility = () => {
 
                 { Facility_data.IL &&
                     <div class="" id="IL_info">
-                        <h6  class="green_text_color">Interoperability(IL) and Integration</h6>
+                        <h6  class="green_text_color">Interoperability(IL) and Integrations</h6>
                         <div id="IL" class="row  mb-5 form_section shadow-sm bg-white rounded p-4" >
                            
                             <div class="form-group col-md-10 mb-0">
@@ -307,7 +310,7 @@ const ViewFacility = () => {
                                         Facility_data.il_air ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
                                         <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
-                                        DHIS2- 731 AIR
+                                        AIR
                                     </p>  
                                     <p>{ 
                                         Facility_data.il_ushauri ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 
@@ -316,13 +319,13 @@ const ViewFacility = () => {
                                         Ushauri
                                     </p>    
                                 </div>
-                                <b>Integration</b>
-                                <div class="d-flex justify-content-between">
+                                <b>Integrations</b>
+                                <div class="col-md-4 d-flex justify-content-between">
                                     <p>{ 
                                         Facility_data.il_lab_manifest ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>   : 
                                         <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
                                             }
-                                        VL/EID Website (Lab Manifest)
+                                        Lab Manifest
                                     </p> 
                                     <p>{ 
                                         Facility_data.il_nimeconfirm ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>: 

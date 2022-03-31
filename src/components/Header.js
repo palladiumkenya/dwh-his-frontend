@@ -10,7 +10,7 @@ import userManager, { signinRedirectCallback, signinRedirect, signoutRedirect } 
 function Header(props) {
    
     const logout_user = async () => {     
-      localStorage.clear()       
+      sessionStorage.clear()       
       await signoutRedirect();      
    };
 

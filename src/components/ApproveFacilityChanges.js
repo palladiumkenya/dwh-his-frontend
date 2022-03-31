@@ -27,6 +27,7 @@ const ApproveFacilityChanges = (props) => {
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
     const [isOrgSteward, setIsOrgSteward] = useState(true)
+    const [editExists, seteditExists] = useState(true)
     const [showSpinner, setShowSpinner] = useState(false);
     const showSearchIcon = "none";
 
@@ -38,14 +39,19 @@ const ApproveFacilityChanges = (props) => {
     const getEditedData = async () => {
       await axios.get(API_URL+`/fetch_edits/data/${fac_id}`)
             .then(res => { 
-                setFacility_data( res.data[0]);
-                CT_slideToggle(res.data[0].CT); 
-                HTS_slideToggle(res.data[0].HTS) ;
-                IL_slideToggle(res.data[0].IL) ;
-                Mhealth_slideToggle(res.data[0].mHealth);
-                // check if steward of organization is logged in. Only they can approve changes
-                checkIfOrgSteward(res.data[0].org_steward_email)
-                
+                if (res.data[0].Edit_Exists=== false){
+                  seteditExists(false)
+                }else{
+                  seteditExists(true)
+               
+                    setFacility_data( res.data[0]);
+                    CT_slideToggle(res.data[0].CT); 
+                    HTS_slideToggle(res.data[0].HTS) ;
+                    IL_slideToggle(res.data[0].IL) ;
+                    Mhealth_slideToggle(res.data[0].mHealth);
+                    // check if steward of organization is logged in. Only they can approve changes
+                    checkIfOrgSteward(res.data[0].org_steward_email)
+                 }
             } );
     
     }; 
@@ -205,6 +211,14 @@ const ApproveFacilityChanges = (props) => {
                   <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
                   Changes to a facility can only be approved by the Organization's steward. Please contact the steward for assistance
                 </Alert>  
+              }  
+
+              { !editExists && 
+                <Alert color="danger">
+                  <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
+                  The edits are no longer available. They were either approved or rejected by the steward and are therefore
+                  no longer a part of the system
+                </Alert>  
               }         
           
               <Form  id="facility_form" class="form-control">
@@ -253,11 +267,11 @@ const ApproveFacilityChanges = (props) => {
 
                         <div class=" d-flex justify-content-around mb-5">
                             <div >
-                                <button name="approve" type="button" value="Approve changes" id="approve_changes" class="btn btn-success px-5 mr-4" onClick={confirm_approval}>
+                                <button name="approve" type="button" disabled={!editExists} value="Approve changes" id="approve_changes" class="btn btn-success px-5 mr-4" onClick={confirm_approval}>
                                     <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                                
-                                <button name="discard" type="button" value="Discard changes" id="discard_changes" class="btn btn-danger px-5"  onClick={confirm_rejection}>
+                                <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-danger px-5"  onClick={confirm_rejection}>
                                     <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                             </div>

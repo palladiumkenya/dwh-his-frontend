@@ -83,12 +83,13 @@ function FacilityInfo(props) {
      
       const checkLength = e =>{
             if (e.target.value.length > 5) {
-                //.html('MFL Code can only be a length of 5 characters')
+                setDisabled(true)
                 setErrorMessage('MFL Code can only be a length of 5 characters')
             }else if(e.target.value.length < 5){
-                //.html('MFL Code can only be a length of 5 characters')
+                setDisabled(true)
                 setErrorMessage('MFL Code can only be a length of 5 characters')
             }else{
+                setDisabled(false)
                 setErrorMessage('')
             }
       }
@@ -137,7 +138,7 @@ function FacilityInfo(props) {
                     <div class="form-group col-md-4 mb-4">
                         <Label for="mfl_code">MFL Code:</Label>
                         <div class="d-flex">
-                            <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input}
+                            <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input} 
                                 className={ props.Original_data && props.Original_data.mfl_code != props.facility_data.mfl_code && "highlight_changed_data"}
                                 onChange={(e) => {checkLength(e); props.setFacility_data({...props.facility_data, "mfl_code":e.target.value}) }}/>
                             <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon}}/>
@@ -218,7 +219,7 @@ function FacilityInfo(props) {
                     </div>
 
                     <b>Implementation</b>
-                    <div class="d-flex justify-content-between col-md-4 mb-4">
+                    <div class="d-flex justify-content-between col-md-6 mb-4">
                         <FormGroup check>
                             <Input id="CT" name="CT" type="checkbox" defaultChecked={props.facility_data.CT} 
                             className={ props.Original_data && props.Original_data.CT != props.facility_data.CT && "highlight_changed_checkbox"}
@@ -246,6 +247,12 @@ function FacilityInfo(props) {
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "IL":e.target.checked}) }}/>                   
                             <Label check>IL & Integrations</Label>
                         </FormGroup>
+                        <FormGroup check>
+                            <Input id="KP" name="KP" type="checkbox" checked={props.facility_data.KP}
+                            className={ props.Original_data && props.Original_data.KP != props.facility_data.KP && "highlight_changed_checkbox"}
+                             onChange={(e) => props.setFacility_data({...props.facility_data, "KP":e.target.checked})}/>                   
+                            <Label check>KP</Label>
+                        </FormGroup>  
                     </div>
                 </div>
             </div>
