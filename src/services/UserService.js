@@ -4,10 +4,10 @@ import { UserManager } from 'oidc-client';
 const config = {
     authority: process.env.REACT_APP_AUTHORITY,
     client_id: "dwh.his",
-    redirect_uri: "http://localhost:8000/signin-oidc",
+    redirect_uri: process.env.REACT_APP_BACKEND_URL+"/signin-oidc",
     response_type: "id_token token",
     scope: "openid profile apiApp",
-    post_logout_redirect_uri: "http://localhost:8000",
+    post_logout_redirect_uri: process.env.REACT_APP_BACKEND_URL,
 }
 
 const userManager = new UserManager(config);
