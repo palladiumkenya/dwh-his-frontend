@@ -1,13 +1,13 @@
 import { UserManager } from 'oidc-client';
-
+import { BASE_URL } from "../constants";
 
 const config = {
     authority: process.env.REACT_APP_AUTHORITY,
     client_id: "dwh.his",
-    redirect_uri: "https://prod.kenyahmis.org:3001/signin-oidc",
+    redirect_uri: BASE_URL+"/signin-oidc",
     response_type: "id_token token",
     scope: "openid profile apiApp",
-    post_logout_redirect_uri: "https://prod.kenyahmis.org:3001",
+    post_logout_redirect_uri: BASE_URL,
 }
 
 const userManager = new UserManager(config);
