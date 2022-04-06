@@ -3,7 +3,7 @@ import { BASE_URL } from "../constants";
 
 const config = {
     authority: process.env.REACT_APP_AUTHORITY,
-    client_id: "dwh.his-test",
+    client_id: "dwh.his",
     redirect_uri: BASE_URL+"/signin-oidc",
     response_type: "id_token token",
     scope: "openid profile apiApp",
