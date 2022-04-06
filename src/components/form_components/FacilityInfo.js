@@ -9,6 +9,8 @@ function FacilityInfo(props) {
     // const [facility_data, setFacility_data] = useState(props.facility_data);
     const [error_message, setErrorMessage] = useState("");
     const [disabled, setDisabled] = useState(false);
+    const [agencyValue, setAgencyValue] = useState(props.facility_data.agency);
+    
     
     const mfl_code_input = useRef(null);
     
@@ -44,8 +46,10 @@ function FacilityInfo(props) {
       const getAgency = (e) => {             
         const partner = e.target.value         
         const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
+        console.log('the agency is now ', filtered_partner[0].agency)
         
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
+        setAgencyValue(filtered_partner[0].agency)
         
       };
       
@@ -107,6 +111,9 @@ function FacilityInfo(props) {
                 setErrorMessage('That Facility was already added')
                 setDisabled(true)
                 props.setfacilityAlreadyExists(true)
+                props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":30,
+                "sub_county":null, "lat":null, "lon":null, "agency":"",
+                  "partner":"" });
             }else{
                 setErrorMessage('')
                 setDisabled(false)
@@ -178,7 +185,7 @@ function FacilityInfo(props) {
                     </div>
                     <div class="form-group col-md-3 mb-4">
                         <Label for="subcounty">Sub County:</Label>
-                        <Input id="sub_county" name="sub_county" type="select" required value={props.facility_data.sub_county} disabled={disabled}
+                        <Input id="sub_county" name="sub_county" type="select" required value={props.facility_data.sub_county} disabled={disabled} 
                             className={ props.Original_data && props.Original_data.sub_county != props.facility_data.sub_county && "highlight_changed_data"}
                             onChange={(e) => props.setFacility_data({...props.facility_data, "sub_county":e.target.value}) } >
                             { SubCounties_list[0].sub_county.length > 0 &&
@@ -190,23 +197,23 @@ function FacilityInfo(props) {
                     </div>
                     <div class="form-group col-md-3 mb-4">
                         <Label for="lat">Latitude:</Label>
-                        <Input type="number" name="lat" value={props.facility_data.lat} disabled={disabled}
+                        <Input type="number" name="lat" step="any" value={props.facility_data.lat} disabled={disabled}
                             className={ props.Original_data && props.Original_data.lat != props.facility_data.lat && "highlight_changed_data"}
                             onChange={(e) => {props.setFacility_data({...props.facility_data, "lat":e.target.value}) }}/>
                     </div>
                     <div class="form-group col-md-3 mb-4">
                         <Label for="lon">Longitude:</Label>
-                        <Input type="number" name="lon" value={props.facility_data.lon} disabled={disabled}
+                        <Input type="number" name="lon" step="any" value={props.facility_data.lon} disabled={disabled}
                             className={ props.Original_data && props.Original_data.lon != props.facility_data.lon && "highlight_changed_data"}
                             onChange={(e) => {props.setFacility_data({...props.facility_data, "lon":e.target.value}) }}/>
                     </div>
                     <div class="form-group col-md-4 mb-4">
                         <Label for="agency">SDP Agency:</Label>
-                        <Input type="text" name="agency" disabled="true" value={props.facility_data.agency} />
+                        <Input type="text" id="agency" name="agency" disabled="true" value={agencyValue} />
                     </div>
                     <div class="form-group col-md-4 mb-4">
                         <Label for="partner">SDP:</Label>
-                        <Input id="partner" name="partner" type="select" value={props.facility_data.partner} disabled={disabled}
+                        <Input id="partner" name="partner" type="select" value={props.facility_data.partner} disabled={disabled} required
                             className={ props.Original_data && props.Original_data.partner != props.facility_data.partner && "highlight_changed_data"}
                             onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "partner":e.target.value}) }}>
                                 <option value=""></option>
@@ -224,14 +231,14 @@ function FacilityInfo(props) {
                             <Input id="CT" name="CT" type="checkbox" defaultChecked={props.facility_data.CT} 
                             className={ props.Original_data && props.Original_data.CT != props.facility_data.CT && "highlight_changed_checkbox"}
                             onClick={(e) => changeCT(e)}
-                            onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "CT":e.target.checked}) }}/>                   
+                            onChange={(e) => {props.setFacility_data({...props.facility_data, "CT":e.target.checked}) }}/>                   
                             <Label check>C&T</Label>
                         </FormGroup>
                         <FormGroup check>
                             <Input id="HTS" name="HTS" type="checkbox" defaultChecked={props.facility_data.HTS} 
                             className={ props.Original_data && props.Original_data.HTS != props.facility_data.HTS && "highlight_changed_checkbox"}
                             onClick={(e) => changeHTS(e)}
-                            onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "HTS":e.target.checked}) }}/>                   
+                            onChange={(e) => {props.setFacility_data({...props.facility_data, "HTS":e.target.checked}) }}/>                   
                             <Label check>HTS</Label>
                         </FormGroup>
                         <FormGroup check>
@@ -244,7 +251,7 @@ function FacilityInfo(props) {
                             <Input id="IL" name="IL" type="checkbox" defaultChecked={props.facility_data.IL} 
                             className={ props.Original_data && props.Original_data.IL != props.facility_data.IL && "highlight_changed_checkbox"}
                             onClick={(e) => changeIL(e)}
-                            onChange={(e) => {getAgency(e); props.setFacility_data({...props.facility_data, "IL":e.target.checked}) }}/>                   
+                            onChange={(e) => {props.setFacility_data({...props.facility_data, "IL":e.target.checked}) }}/>                   
                             <Label check>IL & Integrations</Label>
                         </FormGroup>
                         <FormGroup check>
