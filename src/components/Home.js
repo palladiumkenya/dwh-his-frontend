@@ -25,7 +25,7 @@ import userManager, { signinRedirectCallback, signoutRedirect } from '../service
 
 
 const Home = (props) =>{
-
+            
       const [facilities, setFacilities] = useState([])
       const [filtereddata, setFilteredData] = useState([])
       const [showSpinner, setShowSpinner] = useState(false);
@@ -85,9 +85,14 @@ const Home = (props) =>{
 
 
     useEffect(() => {  
-      getFacilities()   
-      fetchData()        
-       
+      getFacilities() ;  
+      fetchData();  
+      
+      const nextUrl =localStorage.getItem("next");       
+      if (nextUrl != null){
+        window.location.href = nextUrl;
+      }
+      localStorage.removeItem("next")
     }, [])
 
 
