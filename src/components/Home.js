@@ -7,6 +7,14 @@ import FlashMessage from 'react-flash-message'
 import DeleteFacilityModal from "./DeleteFacilityModal";
 import ExportToExcel from "./ExportToExcel";
 
+//Bootstrap and jQuery libraries
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'jquery/dist/jquery.min.js';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery'; 
+
 import axios from "axios";
 
 import { API_URL } from "../constants";
@@ -17,7 +25,7 @@ import userManager, { signinRedirectCallback, signoutRedirect } from '../service
 
 
 const Home = (props) =>{
-
+            
       const [facilities, setFacilities] = useState([])
       const [filtereddata, setFilteredData] = useState([])
       const [showSpinner, setShowSpinner] = useState(false);
@@ -35,18 +43,18 @@ const Home = (props) =>{
       }
 
 
-      const handleSearchFilter = (e) => {
-          const value = e.target.value;        
+    //   const handleSearchFilter = (e) => {
+    //       const value = e.target.value;        
           
-          //item.mfl_code.includes(value)
-          const searcheddata = facilities.filter(item => (item.name).toLowerCase().includes(value.toLowerCase()) );  
-          console.log(searcheddata)
-          if (searcheddata.length > 0){
-              setFilteredData(searcheddata)
-          }else{
-              setFilteredData(facilities)
-          }
-      };
+    //       //item.mfl_code.includes(value)
+    //       const searcheddata = facilities.filter(item => (item.name).toLowerCase().includes(value.toLowerCase()) );  
+    //       console.log(searcheddata)
+    //       if (searcheddata.length > 0){
+    //           setFilteredData(searcheddata)
+    //       }else{
+    //           setFilteredData(facilities)
+    //       }
+    //   };
 
       async function getFacilities() { 
           setShowSpinner(true)    
@@ -57,14 +65,18 @@ const Home = (props) =>{
               axios.post(API_URL, {"OrganizationId": user.profile.OrganizationId}).then(res => {
                   setFacilities(res.data);
                   setFilteredData(res.data);
-                  setShowSpinner(false)            
+                  setShowSpinner(false)  
+                   //initialize datatable        
+                $('#facilities_list').DataTable({pageLength : 50});            
               });  
             }         
             else{
               axios.post(API_URL, {"OrganizationId": null}).then(res => {
                 setFacilities(res.data);
                 setFilteredData(res.data);
-                setShowSpinner(false)            
+                setShowSpinner(false)     
+                //initialize datatable        
+                $('#facilities_list').DataTable({pageLength : 50});       
               });  
             }           
                 
@@ -73,8 +85,14 @@ const Home = (props) =>{
 
 
     useEffect(() => {  
-      getFacilities()   
-      fetchData()    
+      getFacilities() ;  
+      fetchData();  
+      
+      const nextUrl =localStorage.getItem("next");       
+      if (nextUrl != null){
+        window.location.href = nextUrl;
+      }
+      localStorage.removeItem("next")
     }, [])
 
 
@@ -91,11 +109,11 @@ const Home = (props) =>{
                     Facilities Data 
                     { isAuthenticated && <ExportToExcel apiData={testdata} fileName={fileName} />  }                
                 </h4>
-                <input type="search" placeholder="Search facility name...." class="form-control" style={{width:"250px"}}
-                    onChange={(e) => handleSearchFilter(e)} />
+                {/* <input type="search" placeholder="Search facility name...." class="form-control" style={{width:"250px"}}
+                    onChange={(e) => handleSearchFilter(e)} /> */}
             </div>
 
-            <Table >
+            <Table id="facilities_list">
                 <thead>
                 <tr>
                     <th>MFL Code</th>

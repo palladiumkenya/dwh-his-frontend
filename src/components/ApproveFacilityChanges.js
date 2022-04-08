@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label,Alert, Spinner } from "reactstrap";
 import {FaInfoCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2'
@@ -20,7 +21,7 @@ import { useParams } from 'react-router-dom'
 const ApproveFacilityChanges = (props) => {
   // get id of facility from url parameter
     const { fac_id } = useParams()
-
+    
   	const [Facility_data, setFacility_data] = useState({})
     const [Original_data, setOriginal_data] = useState({})
     const [Counties_list, setCounties_list] = useState([])
@@ -200,7 +201,8 @@ const ApproveFacilityChanges = (props) => {
         getOriginalData()
         getCounties()    
         getOwners()
-        getPartners()
+        getPartners()       
+        
   }, [])
 
 
