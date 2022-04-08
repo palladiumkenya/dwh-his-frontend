@@ -23,7 +23,7 @@ function IL_Info(props) {
 
                 <div id="IL" class="row section mb-5 form_section shadow-sm bg-white rounded p-4">
                                        
-                    <b>IL modules</b>
+                    <b>IL Participating Systems</b>
                     <div class="d-flex justify-content-between mb-4">
                         <FormGroup check>
                             <Input id="webADT_pharmacy" name="webADT_pharmacy" type="checkbox" 
@@ -48,7 +48,7 @@ function IL_Info(props) {
                             <Input id="il_air" name="il_air" type="checkbox" checked={props.facility_data.il_air}
                             className={ props.Original_data && props.Original_data.il_air != props.facility_data.il_air && "highlight_changed_checkbox"}
                             onChange={(e) => props.setFacility_data({...props.facility_data, "il_air":e.target.checked})}/>                   
-                            <Label check>AIR</Label>
+                            <Label check>KHIS</Label>
                         </FormGroup>
                         <FormGroup check>
                             <Input id="il_ushauri" name="il_ushauri" type="checkbox" checked={props.facility_data.il_ushauri} 

@@ -4,7 +4,7 @@ const initial_data = {
       "mfl_code": null,
       "name": "",
       "county": 30,
-      "sub_county": null,
+      "sub_county": 410,
       "owner": "",
       "lat": null,
       "lon": null,
@@ -43,6 +43,7 @@ const initial_data = {
       "il_nimeconfirm": null,
       "emr_type": null,
       "emr_status": null,
+      "mode_of_use":null,
       "hts_use": null,
       "hts_deployment": null,
       "hts_status": null
