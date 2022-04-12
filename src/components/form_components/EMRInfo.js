@@ -37,6 +37,17 @@ function EMRInfo(props) {
                         </Input> 
                     </div>
                     <div class="form-group col-md-3 mb-4">
+                        <Label for="mode_of_use">Mode Of Use:</Label>
+                        <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required
+                            className={ props.Original_data && props.Original_data.mode_of_use != props.facility_data.mode_of_use && "highlight_changed_data"}
+                            onChange={(e) => props.setFacility_data({...props.facility_data, "mode_of_use":e.target.value})}>
+                                <option value=""></option>
+                                <option value="Point of Care">Point of Care</option>
+                                <option value="Retrospective User (RDE)">Retrospective User (RDE)</option>
+                                <option value="Hybrid Use">Hybrid Use</option>
+                        </Input> 
+                    </div>
+                    <div class="form-group col-md-3 mb-4">
                         <Label for="emr_status">EMR Status:</Label>
                         <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required
                             className={ props.Original_data && props.Original_data.emr_status != props.facility_data.emr_status && "highlight_changed_data"}
@@ -48,6 +59,7 @@ function EMRInfo(props) {
                                 }  
                         </Input> 
                     </div>
+                    
 
                     <b>EMR modules</b>
                     <div class="d-flex justify-content-between">

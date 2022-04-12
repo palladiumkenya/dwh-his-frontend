@@ -23,7 +23,7 @@ function HTS_Info(props) {
         if (e.target.value == "1" || e.target.value == "3"){
             setDeployment_types([["", ""], [1, "Mobile Only"], [3, "Hybrid"]])
         }else if(e.target.value == "2"){
-            setDeployment_types([["", ""],[2, "Desktop Only"], [3, "Hybrid"]])
+            setDeployment_types([["", ""],[2, "Desktop Only"]])
         }else{
             setDeployment_types([["", ""]])
         }
