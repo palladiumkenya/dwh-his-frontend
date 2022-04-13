@@ -11,7 +11,7 @@ import IL_Info from "./form_components/IL_Info";
 import HTS_Info from "./form_components/HTS_Info";
 
 import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
-
+import userManager from '../services/UserService';
 import { useParams } from 'react-router-dom'
 
 
@@ -24,6 +24,7 @@ const UpdateFacility = (props) => {
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
     const [edits_exist, setEdits_exist] = useState(false)
+    const [isAllowedUser, setIsAllowedUser] = useState(false); // allowed users are either organisation stwewards or HIS approvers
     const [showSpinner, setShowSpinner] = useState(false);
     const showSearchIcon = "none";
 
@@ -32,18 +33,34 @@ const UpdateFacility = (props) => {
     const [ilToggle, setILToggle] = useState("");
     const [mHealthToggle, setMHealthToggle] = useState("");
 
+
   const getFacilityData = async () => {
     await axios.get(API_URL+`/fetch_facility_data/${fac_id}`)
-                .then(res => { 
-                    setFacility_data( res.data[0]);
-                    CT_slideToggle(res.data[0].CT); 
-                    HTS_slideToggle(res.data[0].HTS) ;
-                    IL_slideToggle(res.data[0].IL) ;
-                    Mhealth_slideToggle(res.data[0].mHealth)
-                    
-                } );
+          .then(res => { 
+              setFacility_data( res.data[0]);
+              CT_slideToggle(res.data[0].CT); 
+              HTS_slideToggle(res.data[0].HTS) ;
+              IL_slideToggle(res.data[0].IL) ;
+              Mhealth_slideToggle(res.data[0].mHealth)
+              
+          } );
    
   }; 
+
+
+  async function checkIfAllowedUser() {      
+      await userManager.getUser().then((res) =>{   
+          axios.get(API_URL+'/org_stewards_and_HISapprovers')
+            .then(function (emailsresponse) { 
+                // if in the list of stewards or his approvers, allow to edit
+                if ((emailsresponse.data).includes(res.profile.email)){
+                  setIsAllowedUser(true)
+                }
+              
+            });        
+          // setIsHISapprover( res.profile.email === partnerSteward ? true :false)                     
+      });      
+  }
 
   const check_for_updates = async() =>{
     
@@ -120,11 +137,21 @@ const UpdateFacility = (props) => {
     getCounties()    
     getOwners()
     getPartners()
+    // check if allowed user
+    checkIfAllowedUser()
   }, [])
 
 
     return (
           <div>
+            { !isAllowedUser && 
+                <Alert color="danger">
+                  <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
+                  Only Organisation stewards and HIS approvers are allowed to edit. Please contact the steward
+                  of this organisation to make changes
+                </Alert>  
+              }  
+
              { edits_exist && 
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px"}}/>
@@ -136,8 +163,9 @@ const UpdateFacility = (props) => {
               <Form  id="facility_form" onSubmit={handleSubmit} class="form-control">
                   <legend class="text-center mt-5"><b>Modify Facility Data</b></legend>
                   <p class="mb-3 text-center">Make changes to Facility Data</p>
-
-                  <fieldset disabled={edits_exist}>
+                  {/* if the user logged in isnt authorised to edit then disable fields anyway.
+                    If the user is authorised but there are alredy preexisting edits, disable fields alse */}
+                  <fieldset disabled={!isAllowedUser ? !isAllowedUser : edits_exist}> 
                       { Counties_list.length > 0 &&
                         <ErrorBoundary> 
                           <FacilityInfo facility_data={Facility_data} setFacility_data={setFacility_data}

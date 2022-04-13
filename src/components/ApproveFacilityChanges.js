@@ -27,7 +27,7 @@ const ApproveFacilityChanges = (props) => {
     const [Counties_list, setCounties_list] = useState([])
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
-    const [isOrgSteward, setIsOrgSteward] = useState(true)
+    const [isHISapprover, setIsHISapprover] = useState(true)
     const [editExists, seteditExists] = useState(true)
     const [showSpinner, setShowSpinner] = useState(false);
     const showSearchIcon = "none";
@@ -51,16 +51,16 @@ const ApproveFacilityChanges = (props) => {
                     IL_slideToggle(res.data[0].IL) ;
                     Mhealth_slideToggle(res.data[0].mHealth);
                     // check if steward of organization is logged in. Only they can approve changes
-                    checkIfOrgSteward(res.data[0].org_steward_email)
+                    checkIfHISapprover(res.data[0].org_his_approver_email)
                  }
             } );
     
     }; 
 
 
-    async function checkIfOrgSteward(partnerSteward) {      
+    async function checkIfHISapprover(partnerSteward) {      
         await userManager.getUser().then((res) =>{           
-            setIsOrgSteward( res.profile.email === partnerSteward ? true :false)                     
+            setIsHISapprover( res.profile.email === partnerSteward ? true :false)                     
         });      
     }
 
@@ -208,7 +208,7 @@ const ApproveFacilityChanges = (props) => {
 
     return (
           <div>    
-            { !isOrgSteward && 
+            { !isHISapprover && 
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
                   Changes to a facility can only be approved by the Organization's steward. Please contact the steward for assistance
@@ -228,7 +228,7 @@ const ApproveFacilityChanges = (props) => {
                   <p class="mb-3 text-center">Approve or Reject changes made to Facility</p>
 
 
-                  <fieldset disabled={!isOrgSteward}>
+                  <fieldset disabled={!isHISapprover}>
                       { Counties_list.length > 0 &&
                         <ErrorBoundary> 
                           <FacilityInfo facility_data={Facility_data} setFacility_data={setFacility_data}
@@ -269,11 +269,11 @@ const ApproveFacilityChanges = (props) => {
 
                         <div class=" d-flex justify-content-around mb-5">
                             <div >
-                                <button name="approve" type="button" disabled={!editExists} value="Approve changes" id="approve_changes" class="btn btn-success px-5 mr-4" onClick={confirm_approval}>
+                                <button name="approve" type="button" disabled={!editExists} value="Approve changes" id="approve_changes" class="btn btn-sm btn-success px-5 mr-4" onClick={confirm_approval}>
                                     <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
-                               
-                                <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-danger px-5"  onClick={confirm_rejection}>
+                               <span class="px-5"></span>
+                                <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>
                                     <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                             </div>
