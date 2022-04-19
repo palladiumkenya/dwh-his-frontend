@@ -1,9 +1,20 @@
 import { UserManager } from 'oidc-client';
 import { BASE_URL } from "../constants";
 
+
+
+let client_id = ""
+if (window.location.host === "localhost:3000"){
+    client_id = "dwh.his-test"
+}else if (window.location.host === "data.kenyahmis.org:3838"){
+    client_id = "dwh.his"
+}else if (window.location.host === "prod.kenyahmis.org:3001"){
+    client_id = "dwh.his-prod"
+}
+
 const config = {
     authority: process.env.REACT_APP_AUTHORITY,
-    client_id: "dwh.his-test",
+    client_id: client_id,
     redirect_uri: BASE_URL+"/signin-oidc",
     response_type: "id_token token",
     scope: "openid profile apiApp",
