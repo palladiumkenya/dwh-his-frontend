@@ -107,7 +107,8 @@ const Home = (props) =>{
             <div class="d-flex justify-content-between">
                 <h4>
                     Facilities Data 
-                    { isAuthenticated && <ExportToExcel apiData={testdata} fileName={fileName} />  }                
+                    { isAuthenticated && !showSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
+                    { isAuthenticated && showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
                 </h4>
                 {/* <input type="search" placeholder="Search facility name...." class="form-control" style={{width:"250px"}}
                     onChange={(e) => handleSearchFilter(e)} /> */}

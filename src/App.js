@@ -38,8 +38,7 @@ function App() {
           setUser(res);     
           //setOrganizationId(res.profile.OrganizationId)  
           localStorage.setItem("OrganizationId", res.profile.OrganizationId);  
-          console.log('check change of tab, ', res.profile)
-                     
+                               
         });      
     }
 
