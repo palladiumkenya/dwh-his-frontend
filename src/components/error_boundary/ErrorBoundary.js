@@ -19,7 +19,9 @@ class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return <h1 style={{textAlign:"center"}}>Data not available.</h1>;
+        return <div><h1 style={{textAlign:"center"}}>Data not available.</h1>
+            <p style={{textAlign:"center", color:"red"}}>Please refresh the page and try again</p>
+          </div>;
       }
   
       return this.props.children; 
