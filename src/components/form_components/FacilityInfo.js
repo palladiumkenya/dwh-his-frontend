@@ -14,28 +14,31 @@ function FacilityInfo(props) {
     
     const mfl_code_input = useRef(null);
     
-    const getInitialSubCounties = id => {         
+    const getInitialSubCounties = id => {      
       if (props.Counties_list.length >0){
           return props.Counties_list.filter(item => item.county === Number(id));           
       }
     };      
 
-    const [SubCounties_list, setSubCounties_list] = useState(getInitialSubCounties(Number(props.facility_data.county)));
+    const [SubCounties_list, setSubCounties_list] = useState(props.facility_data.county != "" ? getInitialSubCounties(Number(props.facility_data.county)) : []);
 
          
     const handleCountyChange = (e) => {   
-        console.log(typeof e)          
-       if (typeof e != "number"){
-            getSubCounties(Number(e.target.value))   
-       }else{
-            getSubCounties(e)   
-       }          
+        
+        if (e != ""){     
+            getSubCounties(e)      
+            // if (typeof e != "number"){
+            //         getSubCounties(Number(e.target.value))   
+            // }else{
+            //         getSubCounties(e)   
+            // }      
+        }    
        
       };
       
 
-      const getSubCounties = id => { 
-          
+      const getSubCounties = (id) => { 
+         
         // setSubCounties_list(props.counties_list.filter(item => item.county === Number(id)))    ;
         if (props.Counties_list.length >0){
             setSubCounties_list(props.Counties_list.filter(item => item.county === Number(id))); 
@@ -46,8 +49,7 @@ function FacilityInfo(props) {
       const getAgency = (e) => {             
         const partner = e.target.value         
         const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
-        console.log('the agency is now ', filtered_partner[0].agency)
-        
+                
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
         setAgencyValue(filtered_partner[0].agency)
         
@@ -74,7 +76,7 @@ function FacilityInfo(props) {
         
         props.setFacility_data({...props.facility_data, "mHealth":checked});
         props.Mhealth_slideToggle(checked)
-        console.log(checked, props.facility_data)
+        
       };
 
       const changeIL = e => {       
@@ -108,11 +110,11 @@ function FacilityInfo(props) {
         .then(function (response) {
             
             if ('status' in response.data){               
-                setErrorMessage('That Facility was already added')
+                setErrorMessage('That Facility already exists.')
                 setDisabled(true)
                 props.setfacilityAlreadyExists(true)
-                props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":30,
-                "sub_county":null, "lat":null, "lon":null, "agency":"",
+                props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":"",
+                "sub_county":"", "lat":null, "lon":null, "agency":"",
                   "partner":"" });
             }else{
                 setErrorMessage('')
@@ -123,7 +125,8 @@ function FacilityInfo(props) {
                   "partner":response.data.partner });
                   
                   //update sub counties dropdown
-                  handleCountyChange(response.data.county);
+                  handleCountyChange(response.data.county)
+                
                  
                     
                   
@@ -174,8 +177,9 @@ function FacilityInfo(props) {
                         <Label for="county">County:</Label>
                         <Input id="county" name="county" type="select" required disabled={disabled}
                             className={ props.Original_data && props.Original_data.county != props.facility_data.county && "highlight_changed_data"}
-                            onChange={(e) => {handleCountyChange(e); props.setFacility_data({...props.facility_data, "county":e.target.value}) }} 
+                            onChange={(e) => {handleCountyChange(e.target.value); props.setFacility_data({...props.facility_data, "county":e.target.value}) }} 
                             value={props.facility_data.county}>
+                                <option value=""></option>
                               { props.Counties_list.length > 0 &&
                                 props.Counties_list.map(county => (
                                     <option key={county.county} value={county.county}>{county.county_name}</option>
@@ -188,7 +192,8 @@ function FacilityInfo(props) {
                         <Input id="sub_county" name="sub_county" type="select" required value={props.facility_data.sub_county} disabled={disabled} 
                             className={ props.Original_data && props.Original_data.sub_county != props.facility_data.sub_county && "highlight_changed_data"}
                             onChange={(e) => props.setFacility_data({...props.facility_data, "sub_county":e.target.value}) } >
-                            { SubCounties_list[0].sub_county.length > 0 &&
+                                <option value=""></option>
+                            {  SubCounties_list.length > 0 && SubCounties_list[0].sub_county.length > 0 &&
                                 SubCounties_list[0].sub_county.map(subcounty => (    
                                     <option key={subcounty.id} value={subcounty.id}>{subcounty.name}</option>
                                 ))                              
