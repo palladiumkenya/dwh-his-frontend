@@ -124,8 +124,8 @@ const Home = (props) =>{
                     <th>Owner</th>
                     <th>Service Delivery Partner</th>
                     <th>SDP Agency</th>                
-                    <th>EMR</th>
-                    <th>EMR Status</th>
+                    {/* <th>EMR</th> */}
+                    {/* <th>EMR Status</th> */}
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -148,8 +148,8 @@ const Home = (props) =>{
                         <td>{facility.owner}</td>
                         <td>{facility.partner}</td>
                         <td>{facility.agency}</td>
-                        <td>{facility.emr_type}</td>
-                        <td>{facility.emr_status}</td>                        
+                        {/* <td>{facility.emr_type}</td> */}
+                        {/* <td>{facility.emr_status}</td>                         */}
                         <td align="center">
                         <DeleteFacilityModal
                             create={false}

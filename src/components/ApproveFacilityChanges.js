@@ -124,7 +124,7 @@ const ApproveFacilityChanges = (props) => {
             'success'
           )
           axios.post(EMAIL_URL+ "/send_customized_email", { "facility_id": fac_id, "choice":"approved","reason":"",
-          "frontend_url":BASE_URL});
+          "user_edited_email":Facility_data.user_edited_email, "frontend_url":BASE_URL,"mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner});
           // submit the data
           Post_approval()
         }
@@ -144,8 +144,8 @@ const ApproveFacilityChanges = (props) => {
           confirmButtonColor: '#dc3545',
           showLoaderOnConfirm: true,
           preConfirm: (reasons) => {
-              axios.post( EMAIL_URL+"/send_customized_email", { "facility_id": fac_id, "choice":"rejected",
-                    "reason":reasons, "frontend_url":BASE_URL});
+              axios.post( EMAIL_URL+"/send_customized_email", { "facility_id": fac_id, "choice":"rejected", "user_edited_email":Facility_data.user_edited_email,
+                    "reason":reasons, "frontend_url":BASE_URL,"mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner});
           },
           // allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
@@ -186,7 +186,7 @@ const ApproveFacilityChanges = (props) => {
 
         await axios.post(API_URL + `/reject_changes/${fac_id}` , Facility_data)
               .then(function (response) {                   
-                  window.location.href = BASE_URL + `/facilities/view_facility/${fac_id}`;                  
+                  window.location.href = BASE_URL;                  
                   setShowSpinner(false)  
               })
               .catch(function (error) {

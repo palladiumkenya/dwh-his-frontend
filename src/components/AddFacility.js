@@ -58,7 +58,8 @@ const AddFacility = (props) => {
     getCounties()
     getOwners()
     getPartners()
-    // console.log("facility data--->,", Facility_data)
+    const unique_id = uuid.v4()
+    setFacility_data({...Facility_data, "id":unique_id});
   }, [])  
  
   
@@ -83,15 +84,19 @@ const AddFacility = (props) => {
       // show spinning icon
         setHiddenSpinner("block") 
 
-        console.log(Facility_data)
         event.preventDefault();
-        
+
+        Facility_data['username'] = props.user.profile.name
+        Facility_data['email'] = props.user.profile.email
+
         await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
-                localStorage.setItem("flashMessage", "Facility was successfully added and can be viewed below!");
-                  axios.post( EMAIL_URL+"/send_email", { "facility_id": uuid.v4(), "username":props.user.profile.name, 
-                  "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
-
+                  
+                  localStorage.setItem("flashMessage", "Facility was successfully added. It must be approved first before it can be viewed below!");
+                  axios.post( EMAIL_URL+"/new_facility_send_email", { "facility_id": Facility_data.id, "username":props.user.profile.name, 
+                      "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
+                  
+                  axios.post(API_URL + `/update_facility/${Facility_data.id}`, Facility_data)
                   window.location.href = BASE_URL + '/'+response.data.redirect_url;
                   
               })

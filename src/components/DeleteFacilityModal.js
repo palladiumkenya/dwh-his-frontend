@@ -48,6 +48,10 @@ class DeleteFacilityModal extends Component {
               <FaEdit style={{color:"#1ab394", marginRight:"20px"}} />
           </Link>
           
+          
+          {/* <FaTrashAlt style={{color:"red", marginRight:"20px"}} onClick={() =>axios.get(API_URL+"\\delete_facility\\"+this.props.facility.id)}/> */}
+          
+          
           {/* <FaTrashAlt style={{color:"#dc3545"}} onClick={() => this.delete_popup()}/> */}
 
         {/* <Button color="danger" onClick={() => this.toggle()}>
