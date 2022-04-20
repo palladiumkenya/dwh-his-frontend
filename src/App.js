@@ -36,7 +36,9 @@ function App() {
     
     async function getUserDetails() {      
         await userManager.getUser().then((res) =>{
+          // console.log("show org data",res)
           setUser(res);     
+          
           //setOrganizationId(res.profile.OrganizationId)  
           localStorage.setItem("OrganizationId", res.profile.OrganizationId);  
                                
