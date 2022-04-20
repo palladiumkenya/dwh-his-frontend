@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 import './App.css';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./components/Home";
 import AddFacility from "./components/AddFacility";
 import UpdateFacility from "./components/UpdateFacility";
@@ -96,7 +97,8 @@ function App() {
               <Route path="/signout-oidc" element={<SigninOidc />} />
               <Route path="/signin-oidc" element={<SigninOidc />} /> 
             </Routes> 
-          </div>         
+          </div>   
+          <Footer/>      
       </BrowserRouter>   
     );
 }

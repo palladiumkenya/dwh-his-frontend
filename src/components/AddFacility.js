@@ -9,13 +9,12 @@ import EMRInfo from "./form_components/EMRInfo";
 import IL_Info from "./form_components/IL_Info";
 import HTS_Info from "./form_components/HTS_Info";
 
-
+import uuid from 'react-native-uuid';
 import {signinRedirect} from "../services/UserService";
 
 import initial_data from "./json_data/initial_data";
 
-import { API_URL } from "../constants";
-import { BASE_URL } from "../constants";
+import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
 
 
 
@@ -59,7 +58,7 @@ const AddFacility = (props) => {
     getCounties()
     getOwners()
     getPartners()
-    
+    // console.log("facility data--->,", Facility_data)
   }, [])  
  
   
@@ -69,11 +68,11 @@ const AddFacility = (props) => {
 
    const HTS_slideToggle = (showtoggle) => {    
     setHTSToggle(showtoggle);
-   };
+  };
 
    const Mhealth_slideToggle = (showtoggle) => {    
     setMHealthToggle(showtoggle);
-   };
+  };
 
    const IL_slideToggle = (showtoggle) => {    
     setILToggle(showtoggle);
@@ -90,7 +89,9 @@ const AddFacility = (props) => {
         await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
                 localStorage.setItem("flashMessage", "Facility was successfully added and can be viewed below!");
-                  console.log('response --------->', response)
+                  axios.post( EMAIL_URL+"/send_email", { "facility_id": uuid.v4(), "username":props.user.profile.name, 
+                  "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
+
                   window.location.href = BASE_URL + '/'+response.data.redirect_url;
                   
               })
