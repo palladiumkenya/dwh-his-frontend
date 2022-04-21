@@ -273,8 +273,8 @@ const ApproveFacilityChanges = (props) => {
                                     <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                                <span class="px-5"></span>
-                                <button name="discard" type="button" disabled={!editExists} value="Reject changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>
-                                    <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                                <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>
+                                    <i class="fa-solid fa-trash-can"></i> Reject changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                             </div>
                         </div>
