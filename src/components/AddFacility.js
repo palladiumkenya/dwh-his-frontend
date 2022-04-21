@@ -91,14 +91,18 @@ const AddFacility = (props) => {
 
         await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
-                  
-                  localStorage.setItem("flashMessage", "Facility was successfully added. It must be approved first before it can be viewed below!");
-                  axios.post( EMAIL_URL+"/new_facility_send_email", { "facility_id": Facility_data.id, "username":props.user.profile.name, 
-                      "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
-                  
-                  axios.post(API_URL + `/update_facility/${Facility_data.id}`, Facility_data)
-                  window.location.href = BASE_URL + '/'+response.data.redirect_url;
-                  
+                  if (response.data.status_code === 500){ 
+                    // console.log(response.data)
+                    localStorage.setItem("flashMessage", response.data.error);
+                    window.location.href = BASE_URL+'/facilities/add_facility'
+                  }else{
+                    localStorage.setItem("flashMessage", "Facility was successfully added. It must be approved first before it can be viewed below!");
+                    axios.post( EMAIL_URL+"/new_facility_send_email", { "facility_id": Facility_data.id, "username":props.user.profile.name, 
+                        "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
+                    
+                    axios.post(API_URL + `/update_facility/${Facility_data.id}`, Facility_data)
+                    window.location.href = BASE_URL;
+                  }
               })
               .catch(function (error) {
                 console.log('failed ---/>', error);  
