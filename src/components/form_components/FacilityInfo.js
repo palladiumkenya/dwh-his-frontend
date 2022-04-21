@@ -161,9 +161,6 @@ function FacilityInfo(props) {
                             <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon, cursor:"pointer"}}
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fetch this MFL Code's facility data!"/>
                             
-                            <Tooltip autohide={false} target="search_icon" toggle={function noRefCheck(){}}>
-                                Fetch this MFL Code's facility data!
-                            </Tooltip>
                         </div>                        
                          <p id="error_message" style={{color:"red"}}>{error_message}</p>
                     </div>

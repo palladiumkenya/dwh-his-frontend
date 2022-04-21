@@ -61,8 +61,8 @@ const Home = (props) =>{
 
           await userManager.getUser().then((user) =>{         
             if (user){
-              //setOrgId(user.profile.OrganizationId);
-              axios.post(API_URL, {"OrganizationId": user.profile.OrganizationId}).then(res => {
+              const orgId = user.profile.OrganizationId  ? user.profile.OrganizationId : null
+              axios.post(API_URL, {"OrganizationId":orgId}).then(res => {
                   setFacilities(res.data);
                   setFilteredData(res.data);
                   setShowSpinner(false)  

@@ -59,8 +59,8 @@ const ApproveFacilityChanges = (props) => {
 
 
     async function checkIfHISapprover(partnerSteward) {      
-        await userManager.getUser().then((res) =>{           
-            setIsHISapprover( res.profile.email === partnerSteward ? true :false)                     
+        await userManager.getUser().then((res) =>{                    
+            setIsHISapprover( res.profile.email.toLowerCase() === partnerSteward.toLowerCase() ? true :false)                     
         });      
     }
 
@@ -211,7 +211,7 @@ const ApproveFacilityChanges = (props) => {
             { !isHISapprover && 
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
-                  Changes to a facility can only be approved by the Organization's steward. Please contact the steward for assistance
+                  Changes to a facility can only be approved by the HIS Approver. Please contact the HIS approver for assistance
                 </Alert>  
               }  
 
@@ -273,7 +273,7 @@ const ApproveFacilityChanges = (props) => {
                                     <i class="fa-solid fa-thumbs-up"></i> Approve changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                                <span class="px-5"></span>
-                                <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>
+                                <button name="discard" type="button" disabled={!editExists} value="Reject changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>
                                     <i class="fa-solid fa-trash-can"></i> Discard changes {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                             </div>

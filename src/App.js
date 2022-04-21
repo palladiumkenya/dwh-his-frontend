@@ -39,7 +39,7 @@ function App() {
           // console.log("show org data",res)
           setUser(res);     
           
-          //setOrganizationId(res.profile.OrganizationId)  
+          console.log('what info frida getting,', res)
           localStorage.setItem("OrganizationId", res.profile.OrganizationId);  
                                
         });      
