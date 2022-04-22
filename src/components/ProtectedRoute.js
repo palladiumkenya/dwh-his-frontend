@@ -12,8 +12,7 @@ const ProtectedRoute = () => {
     localStorage.setItem("next", searchParams.get("next"));           
   }
   const isAuthenticated = sessionStorage.getItem("isAuthenticated");
-  console.log("this", isAuthenticated);
-
+  
   return isAuthenticated ? <Outlet /> : <Navigate to="/signin" />;
 }
 

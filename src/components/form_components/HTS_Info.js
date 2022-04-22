@@ -12,17 +12,20 @@ function HTS_Info(props) {
     const statuses = ['', 'Active', 'Stalled/Inactive', 'Discontinued'];
 
     const getHTS_uses = async() => {
-        await axios.get(API_URL+"/hts_uses").then(res => {setHTS_uses( res.data ); console.log(res.data)});
+        await axios.get(API_URL+"/hts_uses").then(res => {
+            setHTS_uses( res.data ); 
+            updateDeploymentOptions(props.facility_data.hts_use)
+        });
        };
 
-    const getDeployment_types = async() => {
-    await axios.get(API_URL+"/hts_deployment_types").then(res => setDeployment_types( res.data ));
-    };
+    // const getDeployment_types = async() => {
+    // await axios.get(API_URL+"/hts_deployment_types").then(res => setDeployment_types( res.data ));
+    // };
 
-    const updateDeploymentOptions = (e) => {
-        if (e.target.value == "1" || e.target.value == "3"){
+    const updateDeploymentOptions = (value) => {
+        if (value == "1" || value == "3"){
             setDeployment_types([["", ""], [1, "Mobile Only"], [3, "Hybrid"]])
-        }else if(e.target.value == "2"){
+        }else if(value == "2"){
             setDeployment_types([["", ""],[2, "Desktop Only"]])
         }else{
             setDeployment_types([["", ""]])
@@ -33,7 +36,7 @@ function HTS_Info(props) {
 
     useEffect(() => {        
         getHTS_uses()       
-        getDeployment_types()     
+        // getDeployment_types()     
     }, [])
 
     
@@ -48,7 +51,7 @@ function HTS_Info(props) {
                         <Label for="hts_use">HTS Use:</Label>
                         <Input id="hts_use" name="hts_use" type="select" value={props.facility_data.hts_use} required
                             className={ props.Original_data && props.Original_data.hts_use != props.facility_data.hts_use && "highlight_changed_data"}
-                            onChange={(e) => { updateDeploymentOptions(e); props.setFacility_data({...props.facility_data, "hts_use":e.target.value}) }}>
+                            onChange={(e) => { updateDeploymentOptions(e.target.value); props.setFacility_data({...props.facility_data, "hts_use":e.target.value}) }}>
                                 { 
                                 HTS_uses.map(type => (    
                                         <option key={type[0]} value={type[0]}>{type[1]}</option>
