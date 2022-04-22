@@ -39,22 +39,11 @@ const Home = (props) =>{
       const  fileName = "HIS List";
       const fetchData = () =>{
           const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
-          axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r => setData(r.data) )
+          axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r =>{
+            setShowSpinner(false)  
+             setData(r.data) 
+          })
       }
-
-
-    //   const handleSearchFilter = (e) => {
-    //       const value = e.target.value;        
-          
-    //       //item.mfl_code.includes(value)
-    //       const searcheddata = facilities.filter(item => (item.name).toLowerCase().includes(value.toLowerCase()) );  
-    //       console.log(searcheddata)
-    //       if (searcheddata.length > 0){
-    //           setFilteredData(searcheddata)
-    //       }else{
-    //           setFilteredData(facilities)
-    //       }
-    //   };
 
       async function getFacilities() { 
           setShowSpinner(true)    
@@ -65,7 +54,7 @@ const Home = (props) =>{
               axios.post(API_URL, {"OrganizationId":orgId}).then(res => {
                   setFacilities(res.data);
                   setFilteredData(res.data);
-                  setShowSpinner(false)  
+                  
                    //initialize datatable        
                 $('#facilities_list').DataTable({pageLength : 50});            
               });  
@@ -109,9 +98,7 @@ const Home = (props) =>{
                     Facilities Data 
                     { isAuthenticated && !showSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
                     { isAuthenticated && showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
-                </h4>
-                {/* <input type="search" placeholder="Search facility name...." class="form-control" style={{width:"250px"}}
-                    onChange={(e) => handleSearchFilter(e)} /> */}
+                </h4>                
             </div>
 
             <Table id="facilities_list">
