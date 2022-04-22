@@ -53,7 +53,7 @@ const UpdateFacility = (props) => {
           axios.get(API_URL+'/org_stewards_and_HISapprovers')
             .then(function (emailsresponse) { 
                 // if in the list of stewards or his approvers, allow to edit
-                if ((emailsresponse.data).includes(res.profile.email)){
+                if ((emailsresponse.data).includes(res.profile.email.toLowerCase())){
                   setIsAllowedUser(true)
                 }
               
