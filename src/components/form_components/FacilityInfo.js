@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState, useRef } from "react";
-import { Input, Label, FormGroup } from "reactstrap";
+import { Input, Label, FormGroup, Tooltip } from "reactstrap";
 import {FaSearch } from 'react-icons/fa';
 import axios from "axios";
 import { API_URL } from "../../constants";
@@ -108,27 +108,30 @@ function FacilityInfo(props) {
         await axios.post(API_URL + '/get_mfl_data', {code: parseInt(code_entered)
         })
         .then(function (response) {
-            
+            console.log(response.data, Object.keys(response.data).length === 0)
             if ('status' in response.data){               
                 setErrorMessage('That Facility already exists.')
                 setDisabled(true)
                 props.setfacilityAlreadyExists(true)
                 props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":"",
-                "sub_county":"", "lat":null, "lon":null, "agency":"",
+                "sub_county":"", "lat":"", "lon":"", "agency":"",
                   "partner":"" });
             }else{
-                setErrorMessage('')
-                setDisabled(false)
-                props.setfacilityAlreadyExists(false)
-                props.setFacility_data({...props.facility_data, "name":response.data.name, "owner":response.data.owner, "county":response.data.county,
-                "sub_county":response.data.sub_county, "lat":response.data.lat, "lon":response.data.lon, "agency":response.data.agency,
-                  "partner":response.data.partner });
-                  
-                  //update sub counties dropdown
-                  handleCountyChange(response.data.county)
-                
-                 
+                if (Object.keys(response.data).length != 0){
+                    setErrorMessage('')
+                    setDisabled(false)
+                    props.setfacilityAlreadyExists(false)
+                    props.setFacility_data({...props.facility_data, "name":response.data.name, "owner":response.data.owner, "county":response.data.county,
+                    "sub_county":response.data.sub_county, "lat":response.data.lat, "lon":response.data.lon, "agency":response.data.agency,
+                    "partner":response.data.partner });
                     
+                    //update sub counties dropdown
+                    handleCountyChange(response.data.county)
+                }else{
+                    props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":"",
+                "sub_county":"", "lat":"", "lon":"", "agency":"",
+                  "partner":"" });
+                }                                
                   
             }
         })
@@ -136,6 +139,9 @@ function FacilityInfo(props) {
             console.log('failed ---/>', error);
             setErrorMessage('Facility not available in KHMFL')
             setDisabled(false)
+            props.setFacility_data({...props.facility_data, "name":"", "owner":"", "county":"",
+                "sub_county":"", "lat":null, "lon":null, "agency":"",
+                  "partner":"" });
         });
        
       }
@@ -151,7 +157,10 @@ function FacilityInfo(props) {
                             <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input} 
                                 className={ props.Original_data && props.Original_data.mfl_code != props.facility_data.mfl_code && "highlight_changed_data"}
                                 onChange={(e) => {checkLength(e); props.setFacility_data({...props.facility_data, "mfl_code":e.target.value}) }}/>
-                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon}}/>
+                            
+                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon, cursor:"pointer"}}
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fetch this MFL Code's facility data!"/>
+                            
                         </div>                        
                          <p id="error_message" style={{color:"red"}}>{error_message}</p>
                     </div>

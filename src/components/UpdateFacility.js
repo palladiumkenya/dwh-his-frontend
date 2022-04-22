@@ -117,7 +117,8 @@ const UpdateFacility = (props) => {
         
         await axios.post(API_URL + `/update_facility/${fac_id}`, Facility_data)
             .then(function (response) { 
-                  axios.post( EMAIL_URL+"/send_email", { "facility_id": fac_id, "username":props.user.profile.name, "frontend_url":BASE_URL});
+                  axios.post( EMAIL_URL+"/send_email", { "facility_id": fac_id, "username":props.user.profile.name, "frontend_url":BASE_URL,
+                      "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner});
                   localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
                                   before viewing");
                   
@@ -155,7 +156,7 @@ const UpdateFacility = (props) => {
              { edits_exist && 
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px"}}/>
-                  This Facility's data has been updated. The changes must be approved or rejected before another attempt to update is allowed.
+                  This Facility's data has been either updated or newly added. The changes must be approved or rejected before it can be modified.
                   {/* Navigate here to <a href={`/facilities/approve_changes/${fac_id}`}  className="alert-link">Approve this facility's edits</a> */}
                 </Alert>  
               }

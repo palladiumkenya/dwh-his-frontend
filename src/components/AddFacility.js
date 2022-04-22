@@ -9,13 +9,12 @@ import EMRInfo from "./form_components/EMRInfo";
 import IL_Info from "./form_components/IL_Info";
 import HTS_Info from "./form_components/HTS_Info";
 
-
+import uuid from 'react-native-uuid';
 import {signinRedirect} from "../services/UserService";
 
 import initial_data from "./json_data/initial_data";
 
-import { API_URL } from "../constants";
-import { BASE_URL } from "../constants";
+import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
 
 
 
@@ -59,7 +58,8 @@ const AddFacility = (props) => {
     getCounties()
     getOwners()
     getPartners()
-    
+    const unique_id = uuid.v4()
+    setFacility_data({...Facility_data, "id":unique_id});
   }, [])  
  
   
@@ -69,11 +69,11 @@ const AddFacility = (props) => {
 
    const HTS_slideToggle = (showtoggle) => {    
     setHTSToggle(showtoggle);
-   };
+  };
 
    const Mhealth_slideToggle = (showtoggle) => {    
     setMHealthToggle(showtoggle);
-   };
+  };
 
    const IL_slideToggle = (showtoggle) => {    
     setILToggle(showtoggle);
@@ -84,15 +84,25 @@ const AddFacility = (props) => {
       // show spinning icon
         setHiddenSpinner("block") 
 
-        console.log(Facility_data)
         event.preventDefault();
-        
+
+        Facility_data['username'] = props.user.profile.name
+        Facility_data['email'] = props.user.profile.email
+
         await axios.post(API_URL + '/add_facility', Facility_data)
               .then(function (response) { 
-                localStorage.setItem("flashMessage", "Facility was successfully added and can be viewed below!");
-                  console.log('response --------->', response)
-                  window.location.href = BASE_URL + '/'+response.data.redirect_url;
-                  
+                  if (response.data.status_code === 500){ 
+                    // console.log(response.data)
+                    localStorage.setItem("flashMessage", response.data.error);
+                    window.location.href = BASE_URL+'/facilities/add_facility'
+                  }else{
+                    localStorage.setItem("flashMessage", "Facility was successfully added. It must be approved first before it can be viewed below!");
+                    axios.post( EMAIL_URL+"/new_facility_send_email", { "facility_id": Facility_data.id, "username":props.user.profile.name, 
+                        "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
+                    
+                    axios.post(API_URL + `/update_facility/${Facility_data.id}`, Facility_data)
+                    window.location.href = BASE_URL;
+                  }
               })
               .catch(function (error) {
                 console.log('failed ---/>', error);  
