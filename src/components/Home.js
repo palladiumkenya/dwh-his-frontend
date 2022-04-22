@@ -29,6 +29,7 @@ const Home = (props) =>{
       const [facilities, setFacilities] = useState([])
       const [filtereddata, setFilteredData] = useState([])
       const [showSpinner, setShowSpinner] = useState(false);
+      const [showDownloadSpinner, setShowDownloadSpinner] = useState(true);
       const [orgId, setOrgId] = useState(null);    
 
       const [testdata, setData] = useState([])
@@ -40,7 +41,7 @@ const Home = (props) =>{
       const fetchData = () =>{
           const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
           axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r =>{
-            setShowSpinner(false)  
+            setShowDownloadSpinner(false)  
              setData(r.data) 
           })
       }
@@ -96,8 +97,8 @@ const Home = (props) =>{
             <div class="d-flex justify-content-between">
                 <h4>
                     Facilities Data 
-                    { isAuthenticated && !showSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
-                    { isAuthenticated && showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
+                    { isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
+                    { isAuthenticated && showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
                 </h4>                
             </div>
 
