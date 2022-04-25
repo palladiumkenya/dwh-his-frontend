@@ -50,10 +50,11 @@ const UpdateFacility = (props) => {
 
   async function checkIfAllowedUser() {      
       await userManager.getUser().then((res) =>{   
-          axios.get(API_URL+'/org_stewards_and_HISapprovers')
+          axios.post(API_URL+'/org_stewards_and_HISapprovers', {orgId:res.profile.OrganizationId})
             .then(function (emailsresponse) { 
+              
                 // if in the list of stewards or his approvers, allow to edit
-                if ((emailsresponse.data).includes(res.profile.email)){
+                if ((emailsresponse.data).includes(res.profile.email.toLowerCase())){
                   setIsAllowedUser(true)
                 }
               
