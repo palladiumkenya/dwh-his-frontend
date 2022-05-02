@@ -1,11 +1,11 @@
-name: remote ssh command
+name: deploy to production
 on:
   push:
     branches: [ cicd ]
 jobs:
 
   build:
-    name: Build
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
     - name: executing remote ssh commands using password
