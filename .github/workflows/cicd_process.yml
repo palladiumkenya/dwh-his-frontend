@@ -25,8 +25,8 @@ jobs:
           cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
           cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
           cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
-          docker stop dwhisfrontend
-          docker rm dwhisfrontend
-          docker build -t dwhisfrontend .
-          docker run -d --name=dwhisfrontend --restart always -p 3001:443 dwhisfrontend:latest
+          docker stop dwh-his-frontend
+          docker rm dwh-his-frontend
+          docker build -t dwh-his-frontend .
+          docker run -d --name=dwh-his-frontend --restart always -p 3001:443 dwh-his-frontend:latest
 
