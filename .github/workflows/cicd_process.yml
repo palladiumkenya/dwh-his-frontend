@@ -8,7 +8,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: executing remote connection
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -28,5 +28,5 @@ jobs:
           docker stop dwhisfrontend
           docker rm dwhisfrontend
           docker build -t dwhisfrontend .
-          docker run -d --name=dwhisfrontend --restart always -p 3838:443 dwhisfrontend:latest
+          docker run -d --name=dwhisfrontend --restart always -p 3001:443 dwhisfrontend:latest
 
