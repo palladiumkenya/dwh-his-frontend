@@ -1,0 +1,32 @@
+name: deploy to production
+on:
+  push:
+    branches: [ cicd ]
+jobs:
+
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CICD_SECRET }}
+        port: ${{ secrets.PORT }}
+        script: |
+          git config --global --add safe.directory /apps/github-workflows/dwh-his-frontend      
+          cd /apps/github-workflows/dwh-his-frontend
+          git pull origin master
+          git status
+          cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
+          cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
+          docker stop dwh-his-frontend
+          docker rm dwh-his-frontend
+          docker build -t dwh-his-frontend .
+          docker run -d --name=dwh-his-frontend --restart always -p 3001:443 dwh-his-frontend:latest
+
