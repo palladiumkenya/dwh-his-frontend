@@ -16,7 +16,7 @@ jobs:
         key: ${{ secrets.CICD_SECRET }}
         port: ${{ secrets.PORT }}
         script: |
-          cd /apps/github-workflows/
-          git clone https://github.com/palladiumkenya/dwh-his-frontend.git
+          git config --global --add safe.directory /apps/github-workflows/dwh-his-frontend      
           cd /apps/github-workflows/dwh-his-frontend
+          git pull origin master
           git status
