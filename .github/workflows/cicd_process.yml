@@ -15,4 +15,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.CICD_SECRET }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: |
+          cd /apps/github-workflows
+          git pull origin master
+          git status
