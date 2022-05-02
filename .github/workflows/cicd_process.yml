@@ -20,3 +20,13 @@ jobs:
           cd /apps/github-workflows/dwh-his-frontend
           git pull origin master
           git status
+          cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
+          cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
+          cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
+          docker stop dwhisfrontend
+          docker rm dwhisfrontend
+          docker build -t dwhisfrontend .
+          docker run -d --name=dwhisfrontend --restart always -p 3838:443 dwhisfrontend:latest
+
