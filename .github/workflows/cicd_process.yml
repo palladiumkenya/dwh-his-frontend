@@ -13,6 +13,6 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.CICD_SECRET }}
         port: ${{ secrets.PORT }}
         script: whoami
