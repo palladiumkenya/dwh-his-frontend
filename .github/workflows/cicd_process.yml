@@ -1,24 +1,24 @@
-- name: Deploy to  Host
+name: Deploy to  Host
 
-  on: 
-    push:
-      branches: [ cicd ]
+on: 
+  push:
+    branches: [ cicd ]
 
-  jobs:
-    job_one:
-      name: Deploy
-      runs-on: ubuntu-20.04
-      steps:
-      - name: connecting to prod.kenyahmis
-        uses: appleboy/ssh-action@master
-        with:
-          host: prod.kenyahmis.org
-          username: cicd2 
-          key: ${{ secrets.CICD_SECRET }}
-          port: 26
-          script: |
-            cd dwh-his-frontend
-            git pull origin master
-            git status
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-20.04
+    steps:
+    - name: connecting to prod.kenyahmis
+      uses: appleboy/ssh-action@master
+      with:
+        host: prod.kenyahmis.org
+        username: cicd2 
+        key: ${{ secrets.CICD_SECRET }}
+        port: 26
+        script: |
+          cd dwh-his-frontend
+          git pull origin master
+          git status
 
 
