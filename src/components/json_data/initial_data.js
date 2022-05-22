@@ -44,6 +44,7 @@ const initial_data = {
       "emr_type": null,
       "emr_status": null,
       "mode_of_use":null,
+      "date_of_emr_impl":null,
       "hts_use": null,
       "hts_deployment": null,
       "hts_status": null

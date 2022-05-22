@@ -16,7 +16,8 @@ function EMRInfo(props) {
        };
 
     useEffect(() => {        
-        getEmrTypes()        
+        getEmrTypes()  
+              
     }, [])
 
         return (
@@ -34,6 +35,13 @@ function EMRInfo(props) {
                                         <option value={type[0]}>{type[1]}</option>
                                     ))                              
                                 }   
+                        </Input> 
+                    </div>
+                    <div class="form-group col-md-3 mb-4">
+                        <Label for="date_of_emr_impl">Date Of EMR Implementation:</Label>
+                        <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required
+                            className={ props.Original_data && props.Original_data.date_of_emr_impl != props.facility_data.date_of_emr_impl && "highlight_changed_data"}
+                            onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_emr_impl":e.target.value})}>                                
                         </Input> 
                     </div>
                     <div class="form-group col-md-3 mb-4">
