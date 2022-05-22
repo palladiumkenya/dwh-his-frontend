@@ -153,6 +153,10 @@ const ViewFacility = () => {
                                 <b>EMR : </b>
                                 <p>{Facility_data.emr_type}</p>
                             </div>
+                            <div class="d-flex col-md-4 mb-4">
+                                <b>Date Of EMR Implementation : </b>
+                                <p>{Facility_data.date_of_emr_impl}</p>
+                            </div>
                             <div class="d-flex col-md-3 mb-4">
                                 <b>Mode Of Use : </b>
                                 <p>{Facility_data.mode_of_use}</p>

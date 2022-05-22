@@ -218,7 +218,7 @@ const ApproveFacilityChanges = (props) => {
               { !editExists && 
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px", text:"center"}}/>
-                  The edits are no longer available. They were either approved or rejected by the steward and are therefore
+                  The edits are no longer available. They were either approved or rejected by the approver and are therefore
                   no longer a part of the system
                 </Alert>  
               }         
