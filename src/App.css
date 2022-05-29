@@ -146,3 +146,22 @@ td{
     transform: rotate(360deg);
   }
 }
+
+
+@media screen and (max-width: 500px) {
+  #nav_menu_dropdown{
+    display:block !important;
+  }
+  #navbarExample01.navbar-nav.menu_item li{
+    /* previous styles */
+    display: none ;
+  }
+}
+.hide_menu_link{
+  /* previous styles */
+  display: none !important;
+}
+.show_menu_link{
+  /* previous styles */
+  display: block !important;
+}
