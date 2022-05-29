@@ -8,7 +8,7 @@ import {GiHamburgerMenu } from 'react-icons/gi';
 
 
 function Header(props) {
-    const [isNavExpanded, setIsNavExpanded] = useState(window.innerWidth <= 500 ? false : null);
+    const [isNavExpanded, setIsNavExpanded] = useState(window.innerWidth <= 950 ? false : null);
 
     const logout_user = async () => {     
       sessionStorage.removeItem('isAuthenticated');      

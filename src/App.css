@@ -147,8 +147,11 @@ td{
   }
 }
 
+.table_container{
+  padding:30px;
+}
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 950px) {
   #nav_menu_dropdown{
     display:block !important;
   }
@@ -156,11 +159,16 @@ td{
     /* previous styles */
     display: none ;
   }
+  .table_container{
+    padding:0px;
+  }
 }
+
 .hide_menu_link{
   /* previous styles */
   display: none !important;
 }
+
 .show_menu_link{
   /* previous styles */
   display: block !important;
