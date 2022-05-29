@@ -57,7 +57,7 @@ const Home = (props) =>{
                   setFilteredData(res.data);
                   
                    //initialize datatable        
-                $('#facilities_list').DataTable({pageLength : 50});            
+                $('#facilities_list').DataTable({pageLength : 50, scrollX: true});
               });  
             }         
             else{
@@ -66,7 +66,7 @@ const Home = (props) =>{
                 setFilteredData(res.data);
                 setShowSpinner(false)     
                 //initialize datatable        
-                $('#facilities_list').DataTable({pageLength : 50});       
+                $('#facilities_list').DataTable({pageLength : 50, scrollX: true});
               });  
             }           
                 
@@ -88,13 +88,13 @@ const Home = (props) =>{
 
   
     return (      
-      <div style={{padding:"30px"}}> 
+      <div className="table_container">
                         
-            <div class="d-flex justify-content-end mb-3">
-                <a href="/facilities/add_facility" class="btn btn-sm green_bg_color text-white" style={{width:"200px"}}>Add New Facility</a>
+            <div className="d-flex justify-content-end mb-3" style={{paddingTop:"30px"}}>
+                <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px"}}>Add New Facility</a>
             </div>                
             
-            <div class="d-flex justify-content-between">
+            <div className="d-flex justify-content-between">
                 <h4>
                     Facilities Data 
                     { isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
