@@ -39,7 +39,10 @@ const Home = (props) =>{
 
       const  fileName = "HIS List";
       const fetchData = () =>{
-          const OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
+          let OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
+          if (OrganizationId.includes(",")) {           
+             OrganizationId = (OrganizationId).split(",");            
+          }     
           axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r =>{
             setShowDownloadSpinner(false)  
              setData(r.data) 
@@ -57,7 +60,7 @@ const Home = (props) =>{
                   setFilteredData(res.data);
                   
                    //initialize datatable        
-                $('#facilities_list').DataTable({pageLength : 50, scrollX: true});
+                $('#facilities_list').DataTable({pageLength : 50});
               });  
             }         
             else{
