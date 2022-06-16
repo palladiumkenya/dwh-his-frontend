@@ -40,7 +40,7 @@ const Home = (props) =>{
       const  fileName = "HIS List";
       const fetchData = () =>{
           let OrganizationId = localStorage.getItem("OrganizationId") ? localStorage.getItem("OrganizationId") : null;
-          if (OrganizationId.includes(",")) {           
+          if (OrganizationId !== null && OrganizationId.includes(",")) {
              OrganizationId = (OrganizationId).split(",");            
           }     
           axios.post(API_URL + '/data_for_excel', {"OrganizationId": OrganizationId}).then(r =>{
