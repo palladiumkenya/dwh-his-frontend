@@ -16,9 +16,13 @@ jobs:
         key: ${{ secrets.CICD_SECRET }}
         port: ${{ secrets.PORT }}
         script: |
-          git config --global --add safe.directory /apps/github-workflows/dwh-his-frontend      
           cd /apps/github-workflows/dwh-his-frontend
-          git pull origin master
+          sudo rm -rf dwh-his-frontend
+          sudo mkdir dwh-his-frontend
+          sudo chown -R cicd2:cicd2 dwh-his-frontend
+          git config --global --add safe.directory /apps/github-workflows/dwh-his-frontend 
+          git clone https://github.com/palladiumkenya/dwh-his-frontend.git
+          cd /apps/github-workflows/dwh-his-frontend
           git status
           cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
           cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
