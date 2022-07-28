@@ -24,13 +24,13 @@ jobs:
           git clone https://github.com/palladiumkenya/dwh-his-frontend.git
           cd /apps/github-workflows/dwh-his-frontend
           git status
-          cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
-          cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
-          cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
-          cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
-          cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
-          docker stop dwh-his-frontend
-          docker rm dwh-his-frontend
-          docker build -t dwh-his-frontend .
-          docker run -d --name=dwh-his-frontend --restart always -p 3001:443 dwh-his-frontend:latest
+          sudo cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
+          sudo cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
+          sudo cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
+          sudo cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
+          sudo cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
+          sudo docker stop dwh-his-frontend
+          sudo docker rm dwh-his-frontend
+          sudo docker build -t dwh-his-frontend .
+          sudo docker run -d --name=dwh-his-frontend --restart always -p 3001:443 dwh-his-frontend:latest
 
