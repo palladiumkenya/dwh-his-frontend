@@ -56,7 +56,7 @@ function Header(props) {
                     <p onClick={() =>{ logout_user()} } className="text-white" style={{margin: "auto", cursor: "pointer"}}>Logout <IoMdLogOut /></p>
                 </div>
                   : 
-                <a onClick={() => login_user()} className={isNavExpanded === false ? "menu_item btn green_bg_color text-white  pl-3 hide_menu_link" : "menu_item btn green_bg_color text-white  pl-3 show_menu_link" }>Login</a>
+                <a onClick={() => signinRedirect()} className={isNavExpanded === false ? "menu_item btn green_bg_color text-white  pl-3 hide_menu_link" : "menu_item btn green_bg_color text-white  pl-3 show_menu_link" }>Login</a>
               }
 
 
