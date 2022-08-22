@@ -30,9 +30,11 @@ const Home = (props) =>{
       const [filtereddata, setFilteredData] = useState([])
       const [showSpinner, setShowSpinner] = useState(false);
       const [showDownloadSpinner, setShowDownloadSpinner] = useState(true);
-      const [orgId, setOrgId] = useState(null);    
+      const [orgId, setOrgId] = useState(null);
+      const [fetchError, setFetchError] = useState(null);
 
-      const [testdata, setData] = useState([])
+
+    const [testdata, setData] = useState([])
 
       const isAuthenticated = sessionStorage.getItem("isAuthenticated");
       
@@ -61,7 +63,12 @@ const Home = (props) =>{
                   
                    //initialize datatable        
                 $('#facilities_list').DataTable({pageLength : 50});
-              });  
+              }).catch(function (error){
+                  setFacilities([]);
+                  setFilteredData([]);
+                  setShowSpinner(false);
+                  setFetchError(' ----- Reason: '+error.message+' -----');
+              });
             }         
             else{
               axios.post(API_URL, {"OrganizationId": null}).then(res => {
@@ -70,7 +77,12 @@ const Home = (props) =>{
                 setShowSpinner(false)     
                 //initialize datatable        
                 $('#facilities_list').DataTable({pageLength : 50, scrollX: true});
-              });  
+              }).catch(function (error){
+                  setFacilities([]);
+                  setFilteredData([]);
+                  setShowSpinner(false);
+                  setFetchError(' ----- Reason: '+error.message+' -----');
+              });
             }           
                 
         });      
@@ -125,7 +137,7 @@ const Home = (props) =>{
                     <tr>                           
                         <td colSpan="12" align="center">
                             {showSpinner ? <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> : 
-                                <b>No facilities found</b>
+                                <b>No facilities found {fetchError}</b>
                             }
                         </td>                       
                     </tr>
