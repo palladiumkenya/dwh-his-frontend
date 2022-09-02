@@ -50,10 +50,9 @@ const EditPartners = () => {
 
     const handleSearchFilter = (e) => {
             const value = e.target.value;        
-            console.log(value)
-            
+
              const searcheddata = Partner_data.filter(item => (item.name).toLowerCase().includes(value.toLowerCase()) );  
-            console.log(searcheddata)
+
             if (searcheddata.length > 0){
                 setFilteredData(searcheddata)
             }else{

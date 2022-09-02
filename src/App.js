@@ -39,8 +39,8 @@ function App() {
           // console.log("show org data",res)
           setUser(res);               
           
-          localStorage.setItem("OrganizationId", res.profile.OrganizationId);  
-                               
+          localStorage.setItem("OrganizationId", res.profile.OrganizationId);
+
         });      
     }
 

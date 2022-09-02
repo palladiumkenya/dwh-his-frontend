@@ -21,20 +21,19 @@ const EditPartners = (props) => {
 
     const getPartnerData = () => {
          axios.get(API_URL+`/edit_partner/${part_id}`).then(res => {
-            setPartner_data(res.data) 
-            checkIfOrgSteward(res.data.org_steward_email)
-        });   
-        
+            setPartner_data(res.data);
+             checkIfOrgSteward(res.data.org_steward_emails);
+        });
+
       };
 
-    async function checkIfOrgSteward(partnerSteward) {      
-        await userManager.getUser().then((res) =>{           
-            setIsOrgSteward( res.profile.email === partnerSteward ? true :false)                     
-        });      
+    async function checkIfOrgSteward(emails) {
+        await userManager.getUser().then((res) =>{
+            setIsOrgSteward( emails.includes(res.profile.email.toLowerCase()))
+        });
+
     }
 
-
-    
       const get_agencies_list = async() => {
         // axios.get(API_URL+"/update_facility/981893d7-8488-4319-b976-747873551b71").then(res => this.setState({ facility: res.data }));
         await axios.get(API_URL+"/get_agencies_list").then(res => setAgencies_list( res.data ));
@@ -42,18 +41,18 @@ const EditPartners = (props) => {
 
 
     const handleSubmit = async (event) => {    
-        console.log(Partner_data)
+
         event.preventDefault();
     
         await axios.post(API_URL + `/edit_partner/${part_id}`, Partner_data)
                   .then(function (response) { 
-                        localStorage.setItem("flashMessage", "Partner Data successfully edited");
+                        localStorage.setItem("flashMessage", "Partner Data successfully edited. This change will reflect for all facilities");
                         window.location.href = BASE_URL + '/facilities/partners';
-                        console.log('redirecto to', response.data.redirect_url)
+
                   })
                   .catch(function (error) {
                      localStorage.setItem("flashMessage", "Something went wrong. Refresh and try again");
-                        console.log('failed ---/>', error);               
+
                 });
        };
 
@@ -67,7 +66,7 @@ const EditPartners = (props) => {
 
     return(
         <div class="p-5">
-            { !isOrgSteward && 
+            { !isOrgSteward &&
                 <Alert color="danger">
                   <FaInfoCircle style={{marginRight:"20px"}}/>
                   Changes to a Partner's data can only be done by the Organization steward. Please contact the steward for assistance
