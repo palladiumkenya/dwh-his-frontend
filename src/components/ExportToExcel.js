@@ -9,7 +9,7 @@ import { FaDownload } from 'react-icons/fa';
   const fileExtension = ".xlsx";
 
   const exportToCSV = (apiData, fileName) => {
-    const ws = XLSX.utils.json_to_sheet(apiData);
+    const ws = XLSX.utils.json_to_sheet(apiData, {skipHeader: 1});
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const data = new Blob([excelBuffer], { type: fileType });
