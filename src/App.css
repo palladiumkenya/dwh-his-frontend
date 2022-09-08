@@ -151,6 +151,10 @@ td{
   padding:30px;
 }
 
+.dataTable{
+  width: 100% !important;
+}
+
 @media screen and (max-width: 950px) {
   #nav_menu_dropdown{
     display:block !important;
