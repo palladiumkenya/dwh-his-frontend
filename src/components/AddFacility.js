@@ -108,8 +108,10 @@ const AddFacility = (props) => {
                           }else{
                               localStorage.setItem("flashMessage", "Facility was successfully added. It must be approved first before it can be viewed below!");
                               axios.post( EMAIL_URL+"/new_facility_send_email", { "facility_id": Facility_data.id, "username":props.user.profile.name,
-                              "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL});
-                              window.location.href = BASE_URL;
+                                    "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner,"frontend_url":BASE_URL})
+                                  .then(function (resp){ window.location.href = BASE_URL; })
+                                  .catch(function (error) {localStorage.setItem("flashMessage", error);});
+
                           }
                       }).catch(function (error) {
                           localStorage.setItem("flashMessage", error);

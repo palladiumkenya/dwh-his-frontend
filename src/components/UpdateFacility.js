@@ -120,11 +120,12 @@ const UpdateFacility = (props) => {
         await axios.post(API_URL + `/update_facility/${fac_id}`, Facility_data)
             .then(function (response) {
                 axios.post( EMAIL_URL+"/send_email", { "facility_id": fac_id, "username":props.user.profile.name, "frontend_url":BASE_URL,
-                    "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner});
+                    "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner})
+                    .then(function (resp){ window.location.href =  BASE_URL + '/'+response.data.redirect_url; })
+                    .catch(function (error) {localStorage.setItem("flashMessage", error);});
+
                 localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
                                   before viewing");
-
-                window.location.href =  BASE_URL + '/'+response.data.redirect_url;
 
                 setShowSpinner(false)
             })
