@@ -5,7 +5,7 @@ on:
 jobs:
 
   build:
-    name: Deploy
+    name: Deploying to Prod
     runs-on: ubuntu-latest
     steps:
     - name: executing remote connection
