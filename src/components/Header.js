@@ -44,7 +44,7 @@ function Header(props) {
 
     return (
         <Nav style={{backgroundColor:'#2f4050', color:'white'}}>
-            <NavbarBrand href="/home">HIS Master List</NavbarBrand>
+            <NavbarBrand href="/home" style={{paddingLeft:"30px",paddingRight:"30px"}} className="green_bg_color">HIS Master List</NavbarBrand>
             <NavItem>
                 <NavLink href="/facilities/partners">Partners</NavLink>
             </NavItem>
@@ -66,9 +66,10 @@ function Header(props) {
                     </DropdownMenu>
                 </UncontrolledDropdown>
                 :
-                <NavItem>
-                    <NavLink onClick={() => signinRedirect()} style={{cursor:"pointer"}}>Login</NavLink>
+                <NavItem style={{marginLeft:"auto", marginRight:"30px"}}>
+                    <NavLink color="btn btn-sm green_bg_color text-white" onClick={() => signinRedirect()} style={{cursor:"pointer"}}>Login</NavLink>
                 </NavItem>
+
             }
         </Nav>
   
