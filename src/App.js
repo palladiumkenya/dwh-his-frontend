@@ -20,10 +20,10 @@ import ExportExcel from "./components/ExportToExcel";
 import SigninOidc from "./components/auth/signin-oidc";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ViewReports from "./components/ViewReports";
+import SubmittedApprovals from "./components/SubmittedApprovals";
+import PendingApprovals from "./components/PendingApprovals";
 
 import userManager, { signinRedirectCallback, signoutRedirect } from './services/UserService';
-
-
 
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
         await userManager.getUser().then((res) =>{
           // console.log("show org data",res)
           setUser(res);               
-          
+          console.log(res.profile)
           localStorage.setItem("OrganizationId", res.profile.OrganizationId);
 
         });      
@@ -88,15 +88,19 @@ function App() {
               <Route path="/facilities/approve_changes/:fac_id" element={<ApproveFacilityChanges />} /> 
               <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />   */}
 
-              <Route path="/facilities/view_facility/:fac_id" element={<ViewFacility />} /> 
+              <Route path="/facilities/view_facility/:fac_id" element={<ViewFacility />} />
               <Route path="/facilities/partners" element={<ViewPartners />} />  
-              <Route path="/facilities/reports" element={<ViewReports />} />  
+              <Route path="/facilities/reports" element={<ViewReports />} />
+
+                <Route path="/facilities/submitted/approvals" element={<SubmittedApprovals user={user}/>} />
+                <Route path="/facilities/pending/approvals" element={<PendingApprovals user={user}/>} />
 
               <Route path="/signin" element={<SignIn />} />  
               
               <Route path="/export_excel" element={<ExportExcel />} /> 
               <Route path="/signout-oidc" element={<SigninOidc />} />
-              <Route path="/signin-oidc" element={<SigninOidc />} /> 
+              <Route path="/signin-oidc" element={<SigninOidc />} />
+
             </Routes> 
           </div>   
           <Footer/>      
