@@ -177,3 +177,16 @@ td{
   /* previous styles */
   display: block !important;
 }
+
+
+.navbar-brand{
+  color:white !important;
+}
+
+.nav-link{
+  color:white !important;
+}
+
+.nav-link:hover{
+  color:silver !important;
+}
