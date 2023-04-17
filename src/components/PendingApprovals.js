@@ -7,19 +7,21 @@ import FlashMessage from 'react-flash-message'
 import DeleteFacilityModal from "./DeleteFacilityModal";
 import ExportToExcel from "./ExportToExcel";
 
-//Bootstrap and jQuery libraries
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaEye, FaTrashAlt, FaEdit } from 'react-icons/fa';
+
 import 'jquery/dist/jquery.min.js';
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery';
 
-import axios from "axios";
+import Swal from "sweetalert2";
 
-import { API_URL } from "../constants";
-
+import { API_URL, EMAIL_URL, BASE_URL } from "../constants";
 import userManager, { signinRedirectCallback, signoutRedirect } from '../services/UserService';
+
+import axios from "axios";
+import { useParams } from 'react-router-dom'
 
 
 
@@ -71,6 +73,40 @@ const PendingApprovals = (props) =>{
         });
     }
 
+
+    const confirm_deletion = (facilityid) =>{
+        Swal.fire({
+            title: 'Delete Selected Pending Approval?',
+            text: "This will be removed permanently from the system.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#1ab394',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Selected Pending Approval was dropped.',
+                    'success'
+                )
+                deletePendingApproval(facilityid)
+            }
+        })
+    }
+    const deletePendingApproval= async (facilityid) => {
+        console.log(facilityid)
+
+        await axios.post(API_URL + `/reject_changes/${facilityid}` , {})
+            .then(function (response) {
+                window.location.href = BASE_URL+"/facilities/pending/approvals";
+                setShowSpinner(false)
+            })
+            .catch(function (error) {
+                console.log('failed ---/>', error);
+                setShowSpinner(false)
+            });
+    };
 
     useEffect(() => {
         getFacilities() ;
@@ -128,6 +164,8 @@ const PendingApprovals = (props) =>{
                             {/* <td>{facility.emr_status}</td>                         */}
                             <td align="center">
                                 <a href={"/facilities/approve_changes/"+facility.id}>Approve</a>
+                                {/*<button onClick={() => confirm_deletion(facility.id)}>Delete</button>*/}
+                                 <FaTrashAlt style={{color:"red", marginLeft:"20px", cursor:"pointer"}} onClick={() => confirm_deletion(facility.id)}/>
 
                             </td>
                         </tr>
