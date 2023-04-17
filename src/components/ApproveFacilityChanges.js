@@ -27,7 +27,7 @@ const ApproveFacilityChanges = (props) => {
     const [Counties_list, setCounties_list] = useState([])
     const [Owners_list, setOwners_list] = useState([])
     const [Partners_list, setPartners_list] = useState([])
-    const [isHISapprover, setIsHISapprover] = useState(true)
+    const [isHISapprover, setIsHISapprover] = useState(false)
     const [editExists, seteditExists] = useState(true)
     const [showSpinner, setShowSpinner] = useState(false);
     const showSearchIcon = "none";
@@ -51,17 +51,21 @@ const ApproveFacilityChanges = (props) => {
                     IL_slideToggle(res.data[0].IL) ;
                     Mhealth_slideToggle(res.data[0].mHealth);
                     // check if steward of organization is logged in. Only they can approve changes
-                    checkIfHISapprover(res.data[0].org_his_approver_email)
+                    checkIfHISapprover(res.data[0].org_his_approver_emails)
                  }
             } );
     
     }; 
 
 
-    async function checkIfHISapprover(partnerSteward) {      
-        await userManager.getUser().then((res) =>{                    
-            setIsHISapprover( res.profile.email.toLowerCase() === partnerSteward.toLowerCase() ? true :false)                     
-        });      
+    async function checkIfHISapprover(partnerStewards) {
+        // setIsHISapprover( res.profile.email.toLowerCase() === partnerSteward.toLowerCase() ? true :false)
+
+        await userManager.getUser().then((res) =>{
+            if((partnerStewards).includes(res.profile.preferred_username.toLowerCase())){
+                setIsHISapprover(true)
+            }
+        });
     }
 
 
