@@ -74,7 +74,7 @@ const PendingApprovals = (props) =>{
     }
 
 
-    const confirm_deletion = (facilityid) =>{
+    const confirm_deletion = (facilityid, editid) =>{
         Swal.fire({
             title: 'Delete Selected Pending Approval?',
             text: "This will be removed permanently from the system.",
@@ -90,14 +90,14 @@ const PendingApprovals = (props) =>{
                     'Selected Pending Approval was dropped.',
                     'success'
                 )
-                deletePendingApproval(facilityid)
+                deletePendingApproval(facilityid, editid)
             }
         })
     }
-    const deletePendingApproval= async (facilityid) => {
+    const deletePendingApproval= async (facilityid, editid) => {
         console.log(facilityid)
 
-        await axios.post(API_URL + `/reject_changes/${facilityid}` , {})
+        await axios.post(API_URL + `/delete/pending/approval/edit/${editid}` , {})
             .then(function (response) {
                 window.location.href = BASE_URL+"/facilities/pending/approvals";
                 setShowSpinner(false)
@@ -165,7 +165,7 @@ const PendingApprovals = (props) =>{
                             <td align="center">
                                 <a href={"/facilities/approve_changes/"+facility.id}>Approve</a>
                                 {/*<button onClick={() => confirm_deletion(facility.id)}>Delete</button>*/}
-                                 <FaTrashAlt style={{color:"red", marginLeft:"20px", cursor:"pointer"}} onClick={() => confirm_deletion(facility.id)}/>
+                                 <FaTrashAlt style={{color:"red", marginLeft:"20px", cursor:"pointer"}} onClick={() => confirm_deletion(facility.id, facility.edit_id)}/>
 
                             </td>
                         </tr>
