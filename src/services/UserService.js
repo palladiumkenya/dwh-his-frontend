@@ -7,7 +7,7 @@ let client_id = ""
 let authority = ""
 if (window.location.host === "localhost:3000"){
     client_id = "dwh.his-test"
-    authority = 'https://identity.kenyahmis.org/nascop'
+    authority = 'https://identity.kenyahmis.org'
 }else if (window.location.host === "data.kenyahmis.org:3838"){
     client_id = "dwh.his"
     authority = 'https://auth.kenyahmis.org/dwhidentity'
