@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Spinner, Container,Row,Col } from "reactstrap";
 import {FaCheckSquare} from 'react-icons/fa';
 import SlideToggle from "react-slide-toggle";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { API_URL } from "../constants";
 import { BASE_URL } from "../constants";
 
 import { useParams } from 'react-router-dom'
+import * as XLSX from "xlsx";
 
 
 const ViewFacility = () => {
@@ -19,6 +20,12 @@ const ViewFacility = () => {
     const [htsToggle, setHTSToggle] = useState("");
     const [ilToggle, setILToggle] = useState("");
     const [mHealthToggle, setMHealthToggle] = useState("");
+
+    const [showCTSpinner, setShowCTSpinner] = useState(false);
+    const [showHTSSpinner, setShowHTSSpinner] = useState(false);
+    const [showPREPSpinner, setShowPREPSpinner] = useState(false);
+    const [showMNCHSpinner, setShowMNCHSpinner] = useState(false);
+
 
     const getFacilityData = async () => {
         await axios.get(API_URL+`/view_facility/data/${fac_id}`)
@@ -49,6 +56,70 @@ const ViewFacility = () => {
         setILToggle(showtoggle);
     };
 
+    const addToCT = async (Facility_data) => {
+        setShowCTSpinner(true)
+
+        await axios.post(API_URL + `/sync/CT/MasterFacilities`, Facility_data)
+            .then(function (response) {
+                localStorage.setItem("flashMessage", "Facility added to CT in NDWH. You can now send that docket from DWAPI to NDWH");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            })
+            .catch(function (error) {
+                localStorage.setItem("flashMessage", "Something went wrong. Failed to sync. Refresh and try again or contact Admin");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            });
+    };
+
+    const addToHTS = async (Facility_data) => {
+        setShowHTSSpinner(true)
+
+        await axios.post(API_URL + `/sync/HTS/MasterFacilities`, Facility_data)
+            .then(function (response) {
+                localStorage.setItem("flashMessage", "Facility added to HTS in NDWH. You can now send that docket from DWAPI to NDWH");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            })
+            .catch(function (error) {
+                localStorage.setItem("flashMessage", "Something went wrong. Failed to sync. Refresh and try again or contact Admin");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            });
+    };
+
+
+    const addToPREP = async (Facility_data) => {
+        setShowPREPSpinner(true)
+
+        await axios.post(API_URL + `/sync/PREP/MasterFacilities`, Facility_data)
+            .then(function (response) {
+                localStorage.setItem("flashMessage", "Facility added to PREP in NDWH. You can now send that docket from DWAPI to NDWH");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            })
+            .catch(function (error) {
+                localStorage.setItem("flashMessage", "Something went wrong. Failed to sync. Refresh and try again or contact Admin");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            });
+    };
+
+    const addToMNCH = async (Facility_data) => {
+        setShowMNCHSpinner(true)
+
+        await axios.post(API_URL + `/sync/MNCH/MasterFacilities`, Facility_data)
+            .then(function (response) {
+                localStorage.setItem("flashMessage", "Facility added to MNCH in NDWH. You can now send that docket from DWAPI to NDWH");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            })
+            .catch(function (error) {
+                localStorage.setItem("flashMessage", "Something went wrong. Failed to sync. Refresh and try again or contact Admin");
+                window.location.href = BASE_URL + `/facilities/view_facility/${Facility_data.id}`;
+
+            });
+    };
 
     useEffect(() => {    
         getFacilityData()  
@@ -60,8 +131,33 @@ const ViewFacility = () => {
             <div class=" mx-auto" style={{width:"80%"}}>
                 <legend class=" mt-3 text-center text-capitalize"><b>{Facility_data.name} Facility</b></legend>
                 <p class="mb-3 mt-3 text-center"> View facility details</p>
+                <Container>
+                    <Row>
+                        <Col xs={3}>
+                            <button className="btn btn-warning" onClick={(e) => addToCT(Facility_data)} >
+                                Add to NDWH CT {showCTSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                            </button>
+                        </Col>
+                        <Col xs={3}>
+                            <button className="btn btn-warning" onClick={(e) => addToHTS(Facility_data)} >
+                                Add to NDWH HTS {showHTSSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                            </button>
+                        </Col>
+                        <Col xs={3}>
+                            <button className="btn btn-warning" onClick={(e) => addToMNCH(Facility_data)} >
+                                Add to NDWH MNCH {showMNCHSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                            </button>
+                        </Col>
+                        <Col xs={3}>
+                            <button className="btn btn-warning" onClick={(e) => addToPREP(Facility_data)} >
+                                Add to NDWH PREP {showPREPSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                            </button>
+                        </Col>
+                    </Row>
+                </Container>
 
-                <h6 id="facility_toggle" class="green_text_color">Facility Information</h6>
+
+                <h6 id="facility_toggle" class="green_text_color mt-5">Facility Information</h6>
                 <div class="row mb-5 form_section shadow-sm bg-white rounded p-3" >
 
                     <div class="d-flex col-md-3 mb-4">
