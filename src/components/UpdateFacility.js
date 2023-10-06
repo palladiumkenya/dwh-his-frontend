@@ -50,24 +50,16 @@ const UpdateFacility = (props) => {
 
 
     async function checkIfAllowedUser(partner_id) {
+        const filtered_partner = Partners_list.filter(item => item.id === Number(partner_id))
 
         await userManager.getUser().then((res) =>{
+            if ( res.profile.OrganizationName.toLowerCase() == filtered_partner[0].partner.toLowerCase() && res.profile.UserType == "2" ){
+                setIsAllowedUser(true)
+            }
+            else{
+                setIsAllowedUser(false)
+            }
 
-            axios.post(API_URL+'/org_stewards_and_HISapprovers', {partner:partner_id})
-                .then(function (emailsresponse) {
-                    // if in the list of stewards or his approvers, allow to edit
-                    if ( Array.isArray(res.profile.email) === true){
-                        if ((emailsresponse.data).includes(res.profile.preferred_username.toLowerCase())){
-                            setIsAllowedUser(true)
-                        }
-                    }
-                    else{
-                        if ((emailsresponse.data).includes(res.profile.email.toLowerCase())){
-                            setIsAllowedUser(true)
-                        }
-                    }
-
-                });
         });
     }
 
