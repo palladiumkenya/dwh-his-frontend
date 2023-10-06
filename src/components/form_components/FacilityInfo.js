@@ -48,11 +48,9 @@ function FacilityInfo(props) {
 
       const getAgency = (e) => {             
         const partner = e.target.value         
-        const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
-                
+        const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner))
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
         setAgencyValue(filtered_partner[0].agency)
-        
       };
       
       
