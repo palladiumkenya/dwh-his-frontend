@@ -1,4 +1,6 @@
 import React, { Component, useState,useEffect } from "react";
+import logo from '../his-master-list-logo.png';
+
 import { Button, Form, FormGroup, Input, Label, Spinner , Collapse,
     Navbar,
     NavbarToggler,
@@ -43,8 +45,10 @@ function Header(props) {
 
 
     return (
-        <Nav style={{backgroundColor:'#2f4050', color:'white'}}>
-            <NavbarBrand href="/home" style={{paddingLeft:"30px",paddingRight:"30px"}} className="green_bg_color">HIS Master List</NavbarBrand>
+        <Nav style={{backgroundColor:'#004D40', color:'white', alignItems:"center"}}>
+            <NavbarBrand href="/home" style={{paddingLeft:"10px",paddingRight:"10px", backgroundColor:"white"}} className="">
+                <img src={logo} alt="logo" style={{width:"200px"}}/>
+            </NavbarBrand>
             <NavItem>
                 <NavLink href="/facilities/partners">Partners</NavLink>
             </NavItem>

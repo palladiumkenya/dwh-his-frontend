@@ -29,7 +29,9 @@ const EditPartners = (props) => {
 
     async function checkIfOrgSteward(emails) {
         await userManager.getUser().then((res) =>{
-            setIsOrgSteward( emails.includes(res.profile.email.toLowerCase()))
+            // setIsOrgSteward( emails.includes(res.profile.email.toLowerCase()))
+            // default to true for all with login credentials
+            setIsOrgSteward( true)
         });
 
     }
@@ -66,12 +68,12 @@ const EditPartners = (props) => {
 
     return(
         <div class="p-5">
-            { !isOrgSteward &&
-                <Alert color="danger">
-                  <FaInfoCircle style={{marginRight:"20px"}}/>
-                  Changes to a Partner's data can only be done by the Organization steward. Please contact the steward for assistance
-                </Alert>  
-              }     
+            {/*{ !isOrgSteward &&*/}
+            {/*    <Alert color="danger">*/}
+            {/*      <FaInfoCircle style={{marginRight:"20px"}}/>*/}
+            {/*      Changes to a Partner's data can only be done by the Organization steward. Please contact the steward for assistance*/}
+            {/*    </Alert>  */}
+            {/*  }     */}
             <Form  onSubmit={handleSubmit} class="form-control " style={{width:"400px", margin:"auto"}}>
                  <legend class="text-center mt-5"><b>Modify Partner</b></legend>
                 <p class="mb-3 text-center">Update details about a partner</p>

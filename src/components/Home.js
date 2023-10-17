@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect  } from "react";
 import { Table, Col, Container, Alert, Spinner } from "reactstrap";
-import {FaInfoCircle } from 'react-icons/fa';
+import {FaFileUpload } from 'react-icons/fa';
+import {SiMicrosoftexcel} from 'react-icons/si';
+
 import FlashMessage from 'react-flash-message'
 
 // import FacilitiesList from "./FacilitiesList";
@@ -17,7 +19,7 @@ import $ from 'jquery';
 
 import axios from "axios";
 
-import { API_URL } from "../constants";
+import {API_URL, BASE_URL} from "../constants";
 
 import userManager, { signinRedirectCallback, signoutRedirect } from '../services/UserService';
 
@@ -30,13 +32,17 @@ const Home = (props) =>{
       const [filtereddata, setFilteredData] = useState([])
       const [showSpinner, setShowSpinner] = useState(false);
       const [showDownloadSpinner, setShowDownloadSpinner] = useState(true);
+      const [showUploadExcelSpinner, setShowUploadExcelSpinner] = useState(false);
+
       const [orgId, setOrgId] = useState(null);
       const [fetchError, setFetchError] = useState(null);
+      const [fileUpload, setFileUpload] = useState()
+
+      const [exceldata, setData] = useState([])
+      const [userEmailAllowed, setuserEmailAllowed] = useState(false)
 
 
-    const [testdata, setData] = useState([])
-
-      const isAuthenticated = sessionStorage.getItem("isAuthenticated");
+    const isAuthenticated = sessionStorage.getItem("isAuthenticated");
       
 
       const  fileName = "HIS List";
@@ -56,6 +62,11 @@ const Home = (props) =>{
 
           await userManager.getUser().then((user) =>{         
             if (user){
+
+                if (["mary.kilewe@thepalladiumgroup.com", "fridah.oyucho@thepalladiumgroup.com"].includes(user.profile.email.toLowerCase())){
+                    setuserEmailAllowed(true)
+                }
+
               const orgId = user.profile.OrganizationId  ? user.profile.OrganizationId : null
               axios.post(API_URL, {"OrganizationId":orgId}).then(res => {
                   setFacilities(res.data);
@@ -89,30 +100,79 @@ const Home = (props) =>{
     }
 
 
-    useEffect(() => {  
-      getFacilities() ;  
-      fetchData();  
-      
-      const nextUrl =localStorage.getItem("next");       
-      if (nextUrl != null){
-        window.location.href = nextUrl;
-      }
-      localStorage.removeItem("next")
-    }, [])
+    function uploadExcelHIS(event) {
+        setFileUpload(event.target.files[0])
+    }
+
+    const handleExcelHISSubmit= () => {
+        setShowUploadExcelSpinner(true)
+
+        if (fileUpload) {
+            const formData = new FormData();
+            formData.append('file', fileUpload);
+            // Use fetch or a library like Axios to send the file to the server.
+            // Replace 'YOUR_UPLOAD_URL' with your server's upload endpoint.
+            fetch(API_URL + "/uploadExcelHIS", {
+                method: 'POST',
+                body: formData,
+            })
+                .then((response) => {
+                    if (response.status==200){
+                        localStorage.setItem("flashMessage", 'Successfully Synced!');
+                        window.location.href = BASE_URL;
+                    }else{
+                        localStorage.setItem("flashMessage", 'Filed to Sync because of One or Two errors! Contact admin for assistance');
+                        window.location.href = BASE_URL;
+                    }
+
+                    setShowUploadExcelSpinner(false)
+                })
+                .catch((error) => {
+                    localStorage.setItem("flashMessage", error);
+                    window.location.href = BASE_URL;
+                    setShowUploadExcelSpinner(false)
+
+                });
+        }
+    };
+
+
+    useEffect(() => {
+          getFacilities() ;
+          fetchData();
+
+          const nextUrl =localStorage.getItem("next");
+          if (nextUrl != null){
+            window.location.href = nextUrl;
+          }
+          localStorage.removeItem("next")
+        }, [])
+
+
 
 
   
     return (      
       <div className="table_container">
                         
-            <div className="d-flex justify-content-end mb-3" style={{paddingTop:"30px"}}>
-                <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px"}}>Add New Facility</a>
-            </div>                
+            <div className="d-flex justify-content-end mb-3" style={{paddingTop:"20px"}}>
+                <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px", paddingRight:"10px"}}>Add New Facility</a>
+            </div>
+          { isAuthenticated && userEmailAllowed &&
+              <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>
+                  <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>
+                  <input type="file" onChange={uploadExcelHIS} required/>
+                  <button onClick={handleExcelHISSubmit}  className="btn btn-sm green_bg_color text-white">
+                      Upload HIS Excel
+                      { showUploadExcelSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                  </button>
+              </div>
+          }
             
             <div className="d-flex justify-content-between">
                 <h4>
                     Facilities Data 
-                    { isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={testdata} fileName={fileName} />  }        
+                    { isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }
                     { isAuthenticated && showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
                 </h4>                
             </div>

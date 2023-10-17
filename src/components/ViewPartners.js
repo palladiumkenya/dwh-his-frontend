@@ -77,6 +77,7 @@ const EditPartners = () => {
                     <tr>
                         <th>Agency</th>
                         <th>Partner name</th>
+                        <th>HIS Approver</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -92,6 +93,7 @@ const EditPartners = () => {
                             <tr>
                                 <td id="agency_container"> {partner.agency}</td>
                                 <td id="agency_container">{partner.name}</td>
+                                <td id="agency_container">{partner.approver}</td>
                                 <td id="agency_container"> 
                                     <Link to={"/facilities/edit/partner/" + partner.id}>
                                         <FaEdit id={partner.id} style={{color:"#1ab394", marginRight:"20px"}} />
