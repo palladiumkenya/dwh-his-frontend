@@ -52,14 +52,13 @@ const UpdateFacility = (props) => {
     async function checkIfAllowedUser(partner_id) {
         const filtered_partner = Partners_list.filter(item => item.id === Number(partner_id))
 
-        await userManager.getUser().then((res) =>{
-            if ( res.profile.OrganizationName.toLowerCase() == filtered_partner[0].partner.toLowerCase() && res.profile.UserType == "2" ){
+        await userManager.getUser().then((res) => {
+            // if (res.profile.OrganizationName.toLowerCase() == filtered_partner[0].partner.toLowerCase() && (res.profile.UserType == "2" || res.profile.UserType == "5")) {
+            if (res.profile.UserType == "2" || res.profile.UserType == "5") {
                 setIsAllowedUser(true)
-            }
-            else{
+            } else {
                 setIsAllowedUser(false)
             }
-
         });
     }
 
