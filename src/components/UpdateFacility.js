@@ -122,13 +122,16 @@ const UpdateFacility = (props) => {
                     .then(function (resp){ window.location.href =  BASE_URL + '/'+response.data.redirect_url; })
                     .catch(function (error) {localStorage.setItem("flashMessage", error);});
 
-                localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
-                                  before viewing");
+                localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved before viewing");
+                window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
 
                 setShowSpinner(false)
             })
             .catch(function (error) {
                 console.log('failed ---/>', error);
+                localStorage.setItem("flashMessage", "Error. Please contact admin for assistance "+error);
+                window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
+
                 setShowSpinner(false)
             });
     };
