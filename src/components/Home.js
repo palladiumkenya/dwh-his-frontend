@@ -182,6 +182,7 @@ const Home = (props) =>{
                 <tr>
                     <th>MFL Code</th>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>County</th>
                     <th>Sub County</th>                    
                     <th>Owner</th>
@@ -206,6 +207,7 @@ const Home = (props) =>{
                     <tr key={facility.pk}>
                         <td>{facility.mfl_code}</td>
                         <td>{facility.name}</td>
+                        <td>{facility.facility_type}</td>
                         <td>{facility.county}</td>
                         <td>{facility.sub_county}</td>
                         <td>{facility.owner}</td>

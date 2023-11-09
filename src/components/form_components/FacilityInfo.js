@@ -249,7 +249,7 @@ function FacilityInfo(props) {
                     </div>
 
                     <b>Facility Type</b>
-                    <div className="d-flex justify-content-between col-md-2 mb-4">
+                    <div className="d-flex justify-content-between col-md-2 col-lg-4 mb-4">
                         <FormGroup check>
                             <Input id="emr_site" name="emr_site" type="checkbox" defaultChecked={props.facility_data.emr_site}
                                    className={props.Original_data && props.Original_data.emr_site != props.facility_data.emr_site && "highlight_changed_checkbox"}
@@ -273,7 +273,7 @@ function FacilityInfo(props) {
 
 
                     { showNonEmrOptions &&
-                        <div className="d-flex justify-content-between col-md-2 mb-4 bg-light px-4 border border-warning" >
+                        <div className="d-flex justify-content-between col-md-2  col-lg-3 mb-4 bg-light px-4 border border-warning" >
                             <b>Non-EMR Options</b>
                             <FormGroup check>
                                 <Input id="asal" name="asal" type="checkbox" defaultChecked={props.facility_data.asal}
