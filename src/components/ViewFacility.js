@@ -194,9 +194,13 @@ const ViewFacility = () => {
                         <b>Agency : </b>
                         <p>{Facility_data.agency}</p>
                     </div>
-                    <div class="d-flex col-md-6 ">
+                    <div class="d-flex col-md-3 ">
                         <b>SDP : </b>
                         <p>{Facility_data.partner}</p>
+                    </div>
+                    <div className="d-flex col-md-3 mb-4">
+                        <b>Infrastructure Type : </b>
+                        <p>{Facility_data.infrastructure_type}</p>
                     </div>
 
                     <b>Facility Type</b>
