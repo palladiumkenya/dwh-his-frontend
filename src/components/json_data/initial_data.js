@@ -14,6 +14,7 @@ const initial_data = {
       "non_emr_site": false,
       "asal": false,
       "pepfar": false,
+      "infrastructure_type": "",
       "CT": false,
       "HTS": false,
       "IL": false,

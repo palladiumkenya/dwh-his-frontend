@@ -248,6 +248,22 @@ function FacilityInfo(props) {
                         </Input> 
                     </div>
 
+                    <div className="form-group col-md-3 mb-4">
+                        <Label for="infrastructure_type">Infrastructure Type:</Label>
+                        <Input id="infrastructure_type" name="infrastructure_type" type="select" required
+                               value={props.facility_data.infrastructure_type} disabled={disabled}
+                               className={props.Original_data && props.Original_data.infrastructure_type != props.facility_data.infrastructure_type && "highlight_changed_data"}
+                               onChange={(e) => props.setFacility_data({
+                                   ...props.facility_data,
+                                   "infrastructure_type": e.target.value
+                               })}>
+                            <option value=""></option>
+                            <option value="On-Prem">On-Prem</option>
+                            <option value="Cloud">Cloud</option>
+
+                        </Input>
+                    </div>
+
                     <b>Facility Type</b>
                     <div className="d-flex justify-content-between col-md-2 col-lg-4 mb-4">
                         <FormGroup check>
