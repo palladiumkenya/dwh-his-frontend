@@ -44,7 +44,7 @@ const ApproveFacilityChanges = (props) => {
                   seteditExists(false)
                 }else{
                   seteditExists(true)
-               
+                    console.log(res.data[0])
                     setFacility_data( res.data[0]);
                     CT_slideToggle(res.data[0].CT); 
                     HTS_slideToggle(res.data[0].HTS) ;
