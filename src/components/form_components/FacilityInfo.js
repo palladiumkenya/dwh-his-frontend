@@ -258,8 +258,8 @@ function FacilityInfo(props) {
                                    "infrastructure_type": e.target.value
                                })}>
                             <option value=""></option>
-                            <option value="On Prem">On-Prem</option>
-                            <option value="Cloud">Cloud</option>
+                            <option value="On Premises">On Premises</option>
+                            <option value="On Cloud">On Cloud</option>
 
                         </Input>
                     </div>
