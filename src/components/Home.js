@@ -63,7 +63,7 @@ const Home = (props) =>{
           await userManager.getUser().then((user) =>{         
             if (user){
 
-                if (["mary.kilewe@thepalladiumgroup.com", "fridah.oyucho@thepalladiumgroup.com"].includes(user.profile.email.toLowerCase())){
+                if (["mary.kilewe@thepalladiumgroup.com"].includes(user.profile.email.toLowerCase())){
                     setuserEmailAllowed(true)
                 }
 
