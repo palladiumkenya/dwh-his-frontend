@@ -172,8 +172,8 @@ const Home = (props) =>{
             <div className="d-flex justify-content-between">
                 <h4>
                     Facilities Data 
-                    { isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }
-                    { isAuthenticated && showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        
+                    {/*{ isAuthenticated && !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }*/}
+                    {/*{ isAuthenticated && showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }        */}
                 </h4>                
             </div>
 
