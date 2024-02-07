@@ -16,7 +16,7 @@ if (window.location.host === "localhost:3000"){
     authority = 'https://identity.kenyahmis.org'
 }else if (window.location.host === "hisportal.kenyahmis.org"){
     client_id = "dwh.his-portal"
-    authority = 'https://identity.kenyahmis.org/nascop'
+    authority = 'https://identity.kenyahmis.org'
 }
 
 const config = {
