@@ -79,6 +79,9 @@ const EditPartners = (props) => {
                 <p class="mb-3 text-center">Update details about a partner</p>
 
                 <fieldset disabled={!isOrgSteward}>
+                    <Label for="lat">SDP CODE:</Label>
+                    <Input type="text" name="partner" value={Partner_data.sdp_code} disabled/>
+
                     <Label for="lat">Partner:</Label>
                     <Input type="text" name="partner" value={Partner_data.partner} 
                             onChange={(e) => {setPartner_data({...Partner_data, "partner":e.target.value}) }}/>
