@@ -76,6 +76,7 @@ const EditPartners = () => {
                     <thead>
                     <tr>
                         <th>Agency</th>
+                        <th>SDP Code</th>
                         <th>Partner name</th>
                         <th>HIS Approver</th>
                         <th>Actions</th>
@@ -92,6 +93,7 @@ const EditPartners = () => {
                         filtereddata.map(partner => (                    
                             <tr>
                                 <td id="agency_container"> {partner.agency}</td>
+                                <td id="agency_container"> {partner.sdp_code}</td>
                                 <td id="agency_container">{partner.name}</td>
                                 <td id="agency_container">{partner.approver}</td>
                                 <td id="agency_container"> 
