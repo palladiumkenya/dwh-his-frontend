@@ -17,5 +17,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/dwh-his-frontend
-            git pull 
-            npm run build /var/www/histest/
+            sudo git pull 
+            sudo npm run build /var/www/histest/
