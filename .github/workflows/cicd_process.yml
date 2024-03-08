@@ -1,37 +1,21 @@
 name: deploy to production
 on:
   push:
-    branches: [ master, dev ]
+    branches: [ master ]
 jobs:
 
   build:
     name: Deploying to Prod
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote connection
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.CICD_SECRET }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd /apps/github-workflows/
-          sudo rm -rf dwh-his-frontend
-          sudo mkdir dwh-his-frontend
-          sudo chown -R cicd2:cicd2 dwh-his-frontend
-          git config --global --add safe.directory /apps/github-workflows/dwh-his-frontend 
-          git clone https://github.com/palladiumkenya/dwh-his-frontend.git
-          cd /apps/github-workflows/dwh-his-frontend
-          git status
-          sudo cp /apps/dockerApps/dwh-his-frontend/Dockerfile /apps/github-workflows/dwh-his-frontend
-          sudo cp /apps/dockerApps/dwh-his-frontend/default.conf /apps/github-workflows/dwh-his-frontend
-          sudo cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
-          sudo cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
-          sudo cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
-          sudo chown -R cicd2:cicd2 /apps/github-workflows/dwh-his-frontend
-          sudo docker stop dwh-his-frontend
-          sudo docker rm dwh-his-frontend
-          sudo docker build -t dwh-his-frontend .
-          sudo docker run -d --name=dwh-his-frontend --restart always -p 3001:443 dwh-his-frontend:latest
-
+      - name: executing remote connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CICD_HOST }}
+          username: ${{ secrets.CICD_USERNAME }}
+          key: ${{ secrets.CICD_SECRET }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/dwh-his-frontend
+            git pull 
+            npm run build /var/www/histest/
