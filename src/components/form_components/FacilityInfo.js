@@ -10,8 +10,10 @@ function FacilityInfo(props) {
     const [error_message, setErrorMessage] = useState("");
     const [disabled, setDisabled] = useState(false);
     const [agencyValue, setAgencyValue] = useState(props.facility_data.agency);
-    
-    
+    const [showNonEmrOptions, setShowNonEmrOptions] = useState(props.facility_data.non_emr_site ? true : false);
+
+
+
     const mfl_code_input = useRef(null);
     
     const getInitialSubCounties = id => {      
@@ -48,11 +50,9 @@ function FacilityInfo(props) {
 
       const getAgency = (e) => {             
         const partner = e.target.value         
-        const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner)) 
-                
+        const filtered_partner = props.Partners_list.filter(item => item.id === Number(partner))
         props.setFacility_data({...props.facility_data, "agency":filtered_partner[0].agency }); 
         setAgencyValue(filtered_partner[0].agency)
-        
       };
       
       
@@ -85,6 +85,15 @@ function FacilityInfo(props) {
         props.setFacility_data({...props.facility_data, "IL":checked});
         props.IL_slideToggle(checked)
       };
+
+
+    const changeNonEmrOptions = e => {
+        //e.persist();
+        const checked = e.target.checked;
+
+        props.setFacility_data({...props.facility_data, "non_emr_site":checked});
+        setShowNonEmrOptions(checked)
+    };
      
      
       const checkLength = e =>{
@@ -238,6 +247,68 @@ function FacilityInfo(props) {
                                 }                          
                         </Input> 
                     </div>
+
+                    <div className="form-group col-md-3 mb-4">
+                        <Label for="infrastructure_type">Infrastructure Type:</Label>
+                        <Input id="infrastructure_type" name="infrastructure_type" type="select" required
+                               value={props.facility_data.infrastructure_type} disabled={disabled}
+                               className={props.Original_data && props.Original_data.infrastructure_type != props.facility_data.infrastructure_type && "highlight_changed_data"}
+                               onChange={(e) => props.setFacility_data({
+                                   ...props.facility_data,
+                                   "infrastructure_type": e.target.value
+                               })}>
+                            <option value=""></option>
+                            <option value="On Premises">On Premises</option>
+                            <option value="On Cloud">On Cloud</option>
+
+                        </Input>
+                    </div>
+
+                    <b>Facility Type</b>
+                    <div className="d-flex justify-content-between col-md-2 col-lg-4 mb-4">
+                        <FormGroup check>
+                            <Input id="emr_site" name="emr_site" type="checkbox" defaultChecked={props.facility_data.emr_site}
+                                   className={props.Original_data && props.Original_data.emr_site != props.facility_data.emr_site && "highlight_changed_checkbox"}
+
+                                   onChange={(e) => {
+                                       props.setFacility_data({...props.facility_data, "emr_site": e.target.checked})
+                                   }}/>
+                            <Label check>EMR site</Label>
+                        </FormGroup>
+                        <FormGroup check>
+                            <Input id="non_emr_site" name="non_emr_site" type="checkbox" defaultChecked={props.facility_data.non_emr_site}
+                                   className={props.Original_data && props.Original_data.non_emr_site != props.facility_data.non_emr_site && "highlight_changed_checkbox"}
+                                   onClick={(e) => changeNonEmrOptions(e)}
+                                   onChange={(e) => {
+                                       props.setFacility_data({...props.facility_data, "non_emr_site": e.target.checked})
+                                   }}/>
+                            <Label check>Non-EMR site</Label>
+                        </FormGroup>
+                    </div>
+
+
+
+                    { showNonEmrOptions &&
+                        <div className="d-flex justify-content-between col-md-2  col-lg-3 mb-4 bg-light px-4 border border-warning" >
+                            <b>Non-EMR Options</b>
+                            <FormGroup check>
+                                <Input id="asal" name="asal" type="checkbox" defaultChecked={props.facility_data.asal}
+                                       className={props.Original_data && props.Original_data.asal != props.facility_data.asal && "highlight_changed_checkbox"}
+                                       onChange={(e) => {
+                                           props.setFacility_data({...props.facility_data, "asal": e.target.checked})
+                                       }}/>
+                                <Label check>ASAL</Label>
+                            </FormGroup>
+                            <FormGroup check>
+                                <Input id="pepfar" name="pepfar" type="checkbox" defaultChecked={props.facility_data.pepfar}
+                                       className={props.Original_data && props.Original_data.pepfar != props.facility_data.pepfar && "highlight_changed_checkbox"}
+                                       onChange={(e) => {
+                                           props.setFacility_data({...props.facility_data, "pepfar": e.target.checked})
+                                       }}/>
+                                <Label check>PEPFAR</Label>
+                            </FormGroup>
+                        </div>
+                    }
 
                     <b>Implementation</b>
                     <div class="d-flex justify-content-between col-md-6 mb-4">

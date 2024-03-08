@@ -175,32 +175,68 @@ const ViewFacility = () => {
 
                     <div class="d-flex col-md-3 mb-3">
                         <b>County : </b>
-                            <p>{Facility_data.county}</p>
-                        </div>
-                        <div class="d-flex col-md-3 mb-3">
-                            <b>Sub-county : </b>
-                            <p>{Facility_data.sub_county}</p>
-                        </div>
-                        <div class="d-flex col-md-3 mb-2">
-                            <b>Latitude : </b>
-                            <p>{Facility_data.lat}</p>
-                        </div>
-                        <div class="d-flex col-md-3 mb-2">
-                            <b>Longitude : </b>
-                            <p>{Facility_data.lon}</p>
-                        </div>
+                        <p>{Facility_data.county}</p>
+                    </div>
+                    <div class="d-flex col-md-3 mb-3">
+                        <b>Sub-county : </b>
+                        <p>{Facility_data.sub_county}</p>
+                    </div>
+                    <div class="d-flex col-md-3 mb-2">
+                        <b>Latitude : </b>
+                        <p>{Facility_data.lat}</p>
+                    </div>
+                    <div class="d-flex col-md-3 mb-2">
+                        <b>Longitude : </b>
+                        <p>{Facility_data.lon}</p>
+                    </div>
 
-                        <div class="d-flex col-md-3 mb-5">
-                            <b>Agency : </b>
-                            <p>{Facility_data.agency}</p>
-                        </div>
-                        <div class="d-flex col-md-6 ">
-                            <b>SDP : </b>
-                            <p>{Facility_data.partner}</p>
-                        </div>
+                    <div class="d-flex col-md-3 mb-5">
+                        <b>Agency : </b>
+                        <p>{Facility_data.agency}</p>
+                    </div>
+                    <div class="d-flex col-md-3 ">
+                        <b>SDP : </b>
+                        <p>{Facility_data.partner}</p>
+                    </div>
+                    <div className="d-flex col-md-3 mb-4">
+                        <b>Infrastructure Type : </b>
+                        <p>{Facility_data.infrastructure_type}</p>
+                    </div>
 
-                        <div class=" col-md-4 mb-4">
-                            <b>Implementation</b>
+                    <b>Facility Type</b>
+                    <div className="d-flex justify-content-between col-md-2 mb-4">
+                        <p>{
+                            Facility_data.emr_site ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                        }
+                            EMR site
+                        </p>
+                        <p>{
+                            Facility_data.non_emr_site ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                        }
+                            Non-EMR site
+                        </p>
+                    </div>
+                    <div className="d-flex justify-content-between col-md-3 mb-4">
+
+                        <b>Non-EMR sites Options</b>
+                        <p>{
+                            Facility_data.asal ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                        }
+                            ASAL
+                        </p>
+                        <p>{
+                            Facility_data.pepfar ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                        }
+                            PEPFAR
+                        </p>
+                    </div>
+
+                    <b>Implementation</b>
+                    <div class=" col-md-4 mb-4">
                             <div class="d-flex justify-content-between mr-5">
                                 <p>{
                                     Facility_data.CT  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> :                                   

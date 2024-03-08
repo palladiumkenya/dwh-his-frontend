@@ -10,6 +10,11 @@ const initial_data = {
       "lon": null,
       "partner": "",
       "agency": "",
+      "emr_site": false,
+      "non_emr_site": false,
+      "asal": false,
+      "pepfar": false,
+      "infrastructure_type": "",
       "CT": false,
       "HTS": false,
       "IL": false,
@@ -51,4 +56,3 @@ const initial_data = {
     }
 
     export default initial_data
-  

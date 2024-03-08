@@ -50,24 +50,15 @@ const UpdateFacility = (props) => {
 
 
     async function checkIfAllowedUser(partner_id) {
+        const filtered_partner = Partners_list.filter(item => item.id === Number(partner_id))
 
-        await userManager.getUser().then((res) =>{
-
-            axios.post(API_URL+'/org_stewards_and_HISapprovers', {partner:partner_id})
-                .then(function (emailsresponse) {
-                    // if in the list of stewards or his approvers, allow to edit
-                    if ( Array.isArray(res.profile.email) === true){
-                        if ((emailsresponse.data).includes(res.profile.preferred_username.toLowerCase())){
-                            setIsAllowedUser(true)
-                        }
-                    }
-                    else{
-                        if ((emailsresponse.data).includes(res.profile.email.toLowerCase())){
-                            setIsAllowedUser(true)
-                        }
-                    }
-
-                });
+        await userManager.getUser().then((res) => {
+            // if (res.profile.OrganizationName.toLowerCase() == filtered_partner[0].partner.toLowerCase() && (res.profile.UserType == "2" || res.profile.UserType == "5")) {
+            if (res.profile.UserType == "2" || res.profile.UserType == "5") {
+                setIsAllowedUser(true)
+            } else {
+                setIsAllowedUser(false)
+            }
         });
     }
 
@@ -128,16 +119,21 @@ const UpdateFacility = (props) => {
             .then(function (response) {
                 axios.post( EMAIL_URL+"/send_email", { "facility_id": fac_id, "username":props.user.profile.name, "frontend_url":BASE_URL,
                     "mfl_code":Facility_data.mfl_code, "partner":Facility_data.partner})
-                    .then(function (resp){ window.location.href =  BASE_URL + '/'+response.data.redirect_url; })
-                    .catch(function (error) {localStorage.setItem("flashMessage", error);});
+                    .then(function (resp){
+                        localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved before viewing");
+                        window.location.href = BASE_URL + `/facilities/submitted/approvals`;
+                    }).catch(function (error) {localStorage.setItem("flashMessage", "Error caught ===> "+error);});
 
-                localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved \
-                                  before viewing");
+                localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved before viewing");
+                // window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
+                // window.location.href =  BASE_URL + '/'+response.data.redirect_url;
 
-                setShowSpinner(false)
+                // setShowSpinner(false)
             })
             .catch(function (error) {
-                console.log('failed ---/>', error);
+                localStorage.setItem("flashMessage", "Error. Please contact admin for assistance "+error);
+                window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
+
                 setShowSpinner(false)
             });
     };

@@ -29,6 +29,7 @@ jobs:
           sudo cp /apps/dockerApps/dwh-his-frontend/nginx.conf /apps/github-workflows/dwh-his-frontend
           sudo cp /apps/dockerApps/dwh-his-frontend/.env /apps/github-workflows/dwh-his-frontend
           sudo cp -r /apps/dockerApps/dwh-his-frontend/ssl/ /apps/github-workflows/dwh-his-frontend
+          sudo chown -R cicd2:cicd2 /apps/github-workflows/dwh-his-frontend
           sudo docker stop dwh-his-frontend
           sudo docker rm dwh-his-frontend
           sudo docker build -t dwh-his-frontend .
