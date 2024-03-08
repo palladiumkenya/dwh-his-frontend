@@ -16,7 +16,7 @@ function Footer(props) {
     return (
         <footer class="shadow" style={{backgroundColor:'RED',position: "fixed",
         bottom: 0, width:"100%", color:"white", fontSize:"30px"}}>
-            TEST SITE: for testing purposes only
+            TEST SITE: for testing purposes only...
         
         </footer>
   
