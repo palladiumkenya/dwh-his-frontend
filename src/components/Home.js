@@ -158,7 +158,8 @@ const Home = (props) =>{
             <div className="d-flex justify-content-end mb-3" style={{paddingTop:"20px"}}>
                 <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px", paddingRight:"10px"}}>Add New Facility</a>
             </div>
-          { isAuthenticated && userEmailAllowed &&
+          {/*{ isAuthenticated && userEmailAllowed && */}
+              { isAuthenticated &&
               <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>
                   <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>
                   <input type="file" onChange={uploadExcelHIS} required/>
