@@ -13,7 +13,7 @@ if (window.location.host === "localhost:3000"){
     authority = 'https://auth.kenyahmis.org/dwhidentity'
 }else if (window.location.host === "histest.kenyahmis.org"){
     client_id = "dwh.his"
-    authority = 'https://auth.kenyahmis.org/dwhidentity'
+    authority = 'https://identity.kenyahmis.org'
 }else if (window.location.host === "prod.kenyahmis.org:3001"){
     client_id = "dwh.his-prod"
     authority = 'https://identity.kenyahmis.org'
