@@ -14,6 +14,7 @@ if (window.location.host === "localhost:3000"){
 }else if (window.location.host === "histest.kenyahmis.org"){
     client_id = "dwh.histest"
     authority = 'https://identity.kenyahmis.org'
+    console.log("id ===> ", client_id)
 }else if (window.location.host === "prod.kenyahmis.org:3001"){
     client_id = "dwh.his-prod"
     authority = 'https://identity.kenyahmis.org'
