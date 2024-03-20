@@ -18,4 +18,4 @@ jobs:
           script: |
             cd /var/www/dwh-his-frontend
             sudo git pull origin dev
-            sudo npm run build && cp -r build/* /var/www/histest/
+            # sudo npm run build && cp -r build/* /var/www/histest/
