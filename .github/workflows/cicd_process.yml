@@ -19,4 +19,4 @@ jobs:
             cd /var/www/dwh-his-frontend
             sudo git pull 
             sudo npm run build
-            sudo rm -r /var/www/histest/* && cp -r build/* /var/www/histest/
+            sudo rm -r /var/www/histest/* && sudo  cp -r build/* /var/www/histest/
