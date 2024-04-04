@@ -119,7 +119,7 @@ const SubmittedApprovals = (props) =>{
                             <td>{facility.name}</td>
                             <td>{facility.county}</td>
                             <td>{facility.sub_county}</td>
-                            <td>{facility.owner}</td>
+                            <td>{facility.partner}</td>
                             <td>{facility.submitted_by}</td>
                             <td>{facility.date_edited}</td>
                             {/* <td>{facility.emr_type}</td> */}

@@ -104,7 +104,7 @@ const Home = (props) =>{
         setFileUpload(event.target.files[0])
     }
 
-    const handleExcelHISSubmit= () => {
+    const handleExcelHISSubmit= async () => {
         setShowUploadExcelSpinner(true)
 
         if (fileUpload) {
@@ -112,16 +112,23 @@ const Home = (props) =>{
             formData.append('file', fileUpload);
             // Use fetch or a library like Axios to send the file to the server.
             // Replace 'YOUR_UPLOAD_URL' with your server's upload endpoint.
-            fetch(API_URL + "/uploadExcelHIS", {
+            await fetch(API_URL + "/uploadExcelHIS", {
                 method: 'POST',
                 body: formData,
-            })
-                .then((response) => {
-                    if (response.status==200){
+            }) .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Parse response body as JSON
+                })
+                .then((data) => {
+
+                    if (data.status_code==200){
                         localStorage.setItem("flashMessage", 'Successfully Synced!');
                         window.location.href = BASE_URL;
                     }else{
-                        localStorage.setItem("flashMessage", 'Filed to Sync because of One or Two errors! Contact admin for assistance');
+                        localStorage.setItem("flashMessage", 'Failed to Sync because of One or Two errors! Contact ' +
+                            'admin for assistance.'+data.status_message);
                         window.location.href = BASE_URL;
                     }
 
@@ -158,16 +165,17 @@ const Home = (props) =>{
             <div className="d-flex justify-content-end mb-3" style={{paddingTop:"20px"}}>
                 <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px", paddingRight:"10px"}}>Add New Facility</a>
             </div>
-          { isAuthenticated && userEmailAllowed &&
-              <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>
-                  <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>
-                  <input type="file" onChange={uploadExcelHIS} required/>
-                  <button onClick={handleExcelHISSubmit}  className="btn btn-sm green_bg_color text-white">
-                      Upload HIS Excel
-                      { showUploadExcelSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
-                  </button>
-              </div>
-          }
+          {/*{ isAuthenticated && userEmailAllowed && */}
+          {/*    { isAuthenticated &&*/}
+          {/*    <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>*/}
+          {/*        <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>*/}
+          {/*        <input type="file" onChange={uploadExcelHIS}         accept=".xlsx" required/>*/}
+          {/*        <button onClick={handleExcelHISSubmit}  className="btn btn-sm green_bg_color text-white">*/}
+          {/*            Upload HIS Excel*/}
+          {/*            { showUploadExcelSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }*/}
+          {/*        </button>*/}
+          {/*    </div>*/}
+          {/*}*/}
             
             <div className="d-flex justify-content-between">
                 <h4>

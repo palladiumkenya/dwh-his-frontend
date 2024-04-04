@@ -156,7 +156,7 @@ const PendingApprovals = (props) =>{
                             <td>{facility.name}</td>
                             <td>{facility.county}</td>
                             <td>{facility.sub_county}</td>
-                            <td>{facility.owner}</td>
+                            <td>{facility.partner}</td>
                             <td style={{color:"red"}}>False</td>
                             <td style={{color:"red"}}>{facility.submitted_by}</td>
                             <td>{facility.date_edited}</td>

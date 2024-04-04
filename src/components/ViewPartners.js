@@ -78,6 +78,7 @@ const EditPartners = () => {
                         <th>Agency</th>
                         <th>SDP Code</th>
                         <th>Partner name</th>
+                        <th>Prime Partner Name</th>
                         <th>HIS Approver</th>
                         <th>Actions</th>
                     </tr>
@@ -95,6 +96,7 @@ const EditPartners = () => {
                                 <td id="agency_container"> {partner.agency}</td>
                                 <td id="agency_container"> {partner.sdp_code}</td>
                                 <td id="agency_container">{partner.name}</td>
+                                <td id="agency_container">{partner.prime_partner_name}</td>
                                 <td id="agency_container">{partner.approver}</td>
                                 <td id="agency_container"> 
                                     <Link to={"/facilities/edit/partner/" + partner.id}>

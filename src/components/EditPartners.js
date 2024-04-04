@@ -79,12 +79,16 @@ const EditPartners = (props) => {
                 <p class="mb-3 text-center">Update details about a partner</p>
 
                 <fieldset disabled={!isOrgSteward}>
-                    <Label for="lat">SDP CODE:</Label>
-                    <Input type="text" name="partner" value={Partner_data.sdp_code} disabled/>
+                    <Label for="sdp_code">SDP CODE:</Label>
+                    <Input type="text" name="sdp_code" value={Partner_data.sdp_code} disabled/>
 
-                    <Label for="lat">Partner:</Label>
+                    <Label for="partner">Partner:</Label>
                     <Input type="text" name="partner" value={Partner_data.partner} 
                             onChange={(e) => {setPartner_data({...Partner_data, "partner":e.target.value}) }}/>
+
+                    <Label for="prime_partner_name">Prime Partner Name:</Label>
+                    <Input type="text" name="prime_partner_name" value={Partner_data.prime_partner_name}
+                           onChange={(e) => {setPartner_data({...Partner_data, "prime_partner_name":e.target.value}) }}/>
 
                     <Label for="partner">Agency:</Label>
                     <Input id="agency" name="agency_id" type="select" value={Partner_data.agency_id} 

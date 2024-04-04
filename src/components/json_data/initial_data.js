@@ -15,6 +15,7 @@ const initial_data = {
       "asal": false,
       "pepfar": false,
       "infrastructure_type": "",
+      "KEPH_Level": "",
       "CT": false,
       "HTS": false,
       "IL": false,

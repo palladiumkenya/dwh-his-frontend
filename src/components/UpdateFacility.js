@@ -27,6 +27,9 @@ const UpdateFacility = (props) => {
     const [isAllowedUser, setIsAllowedUser] = useState(false); // allowed users are either organisation stwewards or HIS approvers
     const [showSpinner, setShowSpinner] = useState(false);
     const showSearchIcon = "none";
+    const [disableSubmit, setDisableSubmit] = useState(false);
+    const [msg, setMsg] = useState("");
+
 
     const [ctToggle, setCtToggle] = useState("");
     const [htsToggle, setHTSToggle] = useState("");
@@ -54,7 +57,7 @@ const UpdateFacility = (props) => {
 
         await userManager.getUser().then((res) => {
             // if (res.profile.OrganizationName.toLowerCase() == filtered_partner[0].partner.toLowerCase() && (res.profile.UserType == "2" || res.profile.UserType == "5")) {
-            if (res.profile.UserType == "2" || res.profile.UserType == "5") {
+            if (res.profile.UserType == "2" || res.profile.UserType == "5" || res.profile.UserType == "1") {
                 setIsAllowedUser(true)
             } else {
                 setIsAllowedUser(false)
@@ -110,7 +113,8 @@ const UpdateFacility = (props) => {
 
     const handleSubmit = async (event) => {
         setShowSpinner(true)
-
+        setDisableSubmit(true)
+        const msg =''
         event.preventDefault();
         Facility_data['username'] = props.user.profile.name
         Facility_data['email'] = props.user.profile.email
@@ -122,19 +126,19 @@ const UpdateFacility = (props) => {
                     .then(function (resp){
                         localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved before viewing");
                         window.location.href = BASE_URL + `/facilities/submitted/approvals`;
-                    }).catch(function (error) {localStorage.setItem("flashMessage", "Error caught ===> "+error);});
+                    }).catch(function (error) {
+                        localStorage.setItem("flashMessage", "Error sending email to approver ");
+                        window.location.href = BASE_URL + `/facilities/submitted/approvals`;
 
-                localStorage.setItem("flashMessage", "Facility has been updated. Modifications to facility data must first be approved before viewing");
-                // window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
-                // window.location.href =  BASE_URL + '/'+response.data.redirect_url;
+                });
 
-                // setShowSpinner(false)
             })
             .catch(function (error) {
                 localStorage.setItem("flashMessage", "Error. Please contact admin for assistance "+error);
                 window.location.href = BASE_URL + `/facilities/update_facility/${fac_id}`;
 
                 setShowSpinner(false)
+                setDisableSubmit(false)
             });
     };
 
@@ -211,7 +215,10 @@ const UpdateFacility = (props) => {
                     }
 
                     <div class="d-flex justify-content-center mb-5">
-                        <input class="btn green_bg_color text-white" value="Update Data" type="submit" style={{width:"200px"}} />
+                        {/*<input class="btn green_bg_color text-white" value="Update Data" type="submit" style={{width:"200px"}} />*/}
+                        <button className="btn green_bg_color text-white" type="submit" disabled={disableSubmit}>
+                            Update Data
+                        </button>
                         {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                     </div>
                 </fieldset>
