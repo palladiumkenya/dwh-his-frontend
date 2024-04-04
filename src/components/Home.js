@@ -166,16 +166,16 @@ const Home = (props) =>{
                 <a href="/facilities/add_facility" className="btn btn-sm green_bg_color text-white" style={{width:"200px", paddingRight:"10px"}}>Add New Facility</a>
             </div>
           {/*{ isAuthenticated && userEmailAllowed && */}
-              { isAuthenticated &&
-              <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>
-                  <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>
-                  <input type="file" onChange={uploadExcelHIS}         accept=".xlsx" required/>
-                  <button onClick={handleExcelHISSubmit}  className="btn btn-sm green_bg_color text-white">
-                      Upload HIS Excel
-                      { showUploadExcelSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
-                  </button>
-              </div>
-          }
+          {/*    { isAuthenticated &&*/}
+          {/*    <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>*/}
+          {/*        <SiMicrosoftexcel onClick={handleExcelHISSubmit} style={{color:"green", fontSize:"30px"}}/>*/}
+          {/*        <input type="file" onChange={uploadExcelHIS}         accept=".xlsx" required/>*/}
+          {/*        <button onClick={handleExcelHISSubmit}  className="btn btn-sm green_bg_color text-white">*/}
+          {/*            Upload HIS Excel*/}
+          {/*            { showUploadExcelSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }*/}
+          {/*        </button>*/}
+          {/*    </div>*/}
+          {/*}*/}
             
             <div className="d-flex justify-content-between">
                 <h4>

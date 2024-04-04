@@ -202,6 +202,11 @@ const ViewFacility = () => {
                         <b>Infrastructure Type : </b>
                         <p>{Facility_data.infrastructure_type}</p>
                     </div>
+                    <div className="d-flex col-md-3 mb-2">
+                        <b>KEPH_Level : </b>
+                        <p>{Facility_data.KEPH_Level}</p>
+                    </div>
+
 
                     <b>Facility Type</b>
                     <div className="d-flex justify-content-between col-md-2 mb-4">

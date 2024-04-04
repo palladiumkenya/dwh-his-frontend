@@ -20,7 +20,7 @@ function FacilityInfo(props) {
       if (props.Counties_list.length >0){
           return props.Counties_list.filter(item => item.county === Number(id));           
       }
-    };      
+    };
 
     const [SubCounties_list, setSubCounties_list] = useState(props.facility_data.county != "" ? getInitialSubCounties(Number(props.facility_data.county)) : []);
 
@@ -34,9 +34,9 @@ function FacilityInfo(props) {
             // }else{
             //         getSubCounties(e)   
             // }      
-        }    
-       
-      };
+        }
+
+    };
       
 
       const getSubCounties = (id) => { 
@@ -261,6 +261,24 @@ function FacilityInfo(props) {
                             <option value="On Premises">On Premises</option>
                             <option value="On Cloud">On Cloud</option>
 
+                        </Input>
+                    </div>
+                    <div className="form-group col-md-3 mb-4">
+                        <Label for="KEPH_Level">KEPH_Level:</Label>
+                        <Input id="KEPH_Level" name="KEPH_Level" type="select" required
+                               value={props.facility_data.KEPH_Level} disabled={disabled}
+                               className={props.Original_data && props.Original_data.KEPH_Level != props.facility_data.KEPH_Level && "highlight_changed_data"}
+                               onChange={(e) => props.setFacility_data({
+                                   ...props.facility_data,
+                                   "KEPH_Level": e.target.value
+                               })}>
+                            <option value=""></option>
+                            <option value="Level 1">Level 1</option>
+                            <option value="Level 2">Level 2</option>
+                            <option value="Level 3">Level 3</option>
+                            <option value="Level 4">Level 4</option>
+                            <option value="Level 5">Level 5</option>
+                            <option value="Level 6">Level 6</option>
                         </Input>
                     </div>
 

@@ -14,9 +14,9 @@ function Footer(props) {
 
 
     return (
-        <footer class="shadow" style={{backgroundColor:'RED',position: "fixed",
-        bottom: 0, width:"100%", color:"white", fontSize:"30px"}}>
-            TEST SITE: for testing purposes only...
+        <footer class="shadow" style={{backgroundColor:'#2f4050',position: "fixed",
+        bottom: 0, width:"100%", color:"white", fontSize:"10px"}}>
+            Version 2.000
         
         </footer>
   
