@@ -15,6 +15,7 @@ import initial_data from "./json_data/initial_data";
 
 
 const EditPartnerStakeholder = (props) => {
+    const { part_name } = useParams();
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -34,7 +35,9 @@ const EditPartnerStakeholder = (props) => {
             "name":"",
             "telno":"",
             "email":"",
-            "partner_id":""
+            "partner_id":"",
+            "partner_name":""
+
         }
         setStakeholdersData(initial_data)
     };
@@ -93,7 +96,8 @@ const EditPartnerStakeholder = (props) => {
                 <fieldset >
                     <Label for="partner">Partner:</Label>
                     <Input id="partner" name="partner" type="select" value={Stakeholder.partner_id}
-                    onChange={(e) => {setStakeholdersData({...Stakeholder, "partner_id":e.target.value}) }}>
+                    onChange={(e) => {setStakeholdersData({...Stakeholder, "partner_id":e.target.value,
+                        "partner_name":part_name}) }}>
                     <option value=""></option>
                     { partners_list.length > 0 &&
                         partners_list.map(partner => (

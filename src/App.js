@@ -86,8 +86,8 @@ function App() {
                   <Route exact path="/facilities/edit/partner/:part_id" element={<EditPartners user={user} />}/>
               </Route>
 
-                <Route exact path='/partner/stakeholders/:part_id' element={<ProtectedRoute/>}>
-                    <Route exact path="/partner/stakeholders/:part_id" element={<ViewPartnerStakeholdersList user={user} />}/>
+                <Route exact path='/partner/stakeholders/:part_name' element={<ProtectedRoute/>}>
+                    <Route exact path="/partner/stakeholders/:part_name" element={<ViewPartnerStakeholdersList user={user} />}/>
                 </Route>
                 <Route exact path='/partner/edit/stakeholder' element={<ProtectedRoute/>}>
                     <Route exact path="/partner/edit/stakeholder" element={<EditPartnerStakeholder user={user} />}/>

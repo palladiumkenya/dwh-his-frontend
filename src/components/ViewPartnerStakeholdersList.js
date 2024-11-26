@@ -14,6 +14,7 @@ import {Link, useParams,useLocation } from "react-router-dom";
 
 
 const ViewPartnerStakeholdersList = (props) => {
+    const { part_name } = useParams();
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -93,7 +94,7 @@ const ViewPartnerStakeholdersList = (props) => {
                 <Row>
                     <Col xs={9}>
                         <h5>
-                            {StakeholdersList.partner}({StakeholdersList.sdp_code}) Stakeholders
+                            {part_name} Stakeholders
                         </h5>
                     </Col>
                     <Col xs={3}>
