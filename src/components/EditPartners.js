@@ -67,16 +67,16 @@ const EditPartners = (props) => {
 
 
     return(
-        <div class="p-5">
+        <div className="p-5">
             {/*{ !isOrgSteward &&*/}
             {/*    <Alert color="danger">*/}
             {/*      <FaInfoCircle style={{marginRight:"20px"}}/>*/}
             {/*      Changes to a Partner's data can only be done by the Organization steward. Please contact the steward for assistance*/}
             {/*    </Alert>  */}
             {/*  }     */}
-            <Form  onSubmit={handleSubmit} class="form-control " style={{width:"400px", margin:"auto"}}>
-                 <legend class="text-center mt-5"><b>Modify Partner</b></legend>
-                <p class="mb-3 text-center">Update details about a partner</p>
+            <Form  onSubmit={handleSubmit} className="form-control " style={{width:"400px", margin:"auto"}}>
+                 <legend className="text-center mt-5"><b>Modify Partner</b></legend>
+                <p className="mb-3 text-center">Update details about a partner</p>
 
                 <fieldset disabled={!isOrgSteward}>
                     <Label for="sdp_code">SDP CODE:</Label>
@@ -101,8 +101,8 @@ const EditPartners = (props) => {
                         }                          
                     </Input> 
                     
-                    <div class="d-flex justify-content-center mb-5 mt-5">
-                        <input class="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
+                    <div className="d-flex justify-content-center mb-5 mt-5">
+                        <input className="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
                     </div>
                 </fieldset>
             </Form>

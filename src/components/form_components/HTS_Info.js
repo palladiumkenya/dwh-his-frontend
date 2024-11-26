@@ -43,11 +43,11 @@ function HTS_Info(props) {
 
         return (
             <div id="HTS_info">
-                <h6  class="green_text_color">HTS Information</h6>
-                <div id="HTS" class="row  mb-5 form_section shadow-sm bg-white rounded p-4">
+                <h6  className="green_text_color">HTS Information</h6>
+                <div id="HTS" className="row  mb-5 form_section shadow-sm bg-white rounded p-4">
 
                     <b>HTS Information</b>                   
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="hts_use">HTS Use:</Label>
                         <Input id="hts_use" name="hts_use" type="select" value={props.facility_data.hts_use} required
                             className={ props.Original_data && props.Original_data.hts_use != props.facility_data.hts_use && "highlight_changed_data"}
@@ -59,7 +59,7 @@ function HTS_Info(props) {
                                 }  
                         </Input> 
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="hts_deployment">Deployment:</Label>
                         <Input id="hts_deployment" name="hts_deployment" type="select" value={props.facility_data.hts_deployment} required
                             className={ props.Original_data && props.Original_data.hts_deployment != props.facility_data.hts_deployment && "highlight_changed_data"}
@@ -71,7 +71,7 @@ function HTS_Info(props) {
                                 }  
                         </Input> 
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="hts_status">HTS Status:</Label>
                         <Input id="hts_status" name="hts_status" type="select" value={props.facility_data.hts_status} required
                             className={ props.Original_data && props.Original_data.hts_status != props.facility_data.hts_status && "highlight_changed_data"}

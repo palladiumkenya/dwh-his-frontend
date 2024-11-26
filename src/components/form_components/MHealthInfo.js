@@ -8,11 +8,11 @@ function MHealth_info(props) {
     
         return (
             <div id="MHealth_info">
-                <h6 id="MHealth_toggle" class="green_text_color">MHealth Information</h6>
-                <div class="row mb-5 form_section shadow-sm bg-white rounded p-4">
+                <h6 id="MHealth_toggle" className="green_text_color">MHealth Information</h6>
+                <div className="row mb-5 form_section shadow-sm bg-white rounded p-4">
                     
                         <b>MHealth Information</b>
-                        <div class="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between">
                             <FormGroup check>
                                 <Input id="mhealth_ushauri" name="mhealth_ushauri" type="checkbox" checked={props.facility_data.mhealth_ushauri}
                                 className={ props.Original_data && props.Original_data.mhealth_ushauri != props.facility_data.mhealth_ushauri && "highlight_changed_checkbox"}

@@ -1,5 +1,5 @@
 import { UserManager } from 'oidc-client';
-import { BASE_URL } from "../constants";
+import { BASE_URL, AUTHORITY } from "../constants";
 
 
 
@@ -7,20 +7,19 @@ let client_id = ""
 let authority = ""
 if (window.location.host === "localhost:3000"){
     client_id = "dwh.his-test"
-    authority = 'https://identity.kenyahmis.org'
+    authority = AUTHORITY
 }else if (window.location.host === "data.kenyahmis.org:3838"){
     client_id = "dwh.his"
     authority = 'https://auth.kenyahmis.org/dwhidentity'
 }else if (window.location.host === "histest.kenyahmis.org"){
     client_id = "dwh.histest"
-    authority = 'https://identity.kenyahmis.org'
-    console.log("id ===> ", client_id)
+    authority = AUTHORITY
 }else if (window.location.host === "prod.kenyahmis.org:3001"){
     client_id = "dwh.his-prod"
-    authority = 'https://identity.kenyahmis.org'
+    authority = AUTHORITY
 }else if (window.location.host === "hisportal.kenyahmis.org"){
     client_id = "dwh.his-portal"
-    authority = 'https://identity.kenyahmis.org'
+    authority = AUTHORITY
 }
 
 const config = {

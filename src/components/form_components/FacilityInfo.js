@@ -158,28 +158,28 @@ function FacilityInfo(props) {
                
         return (
             <div >
-                <h6 id="facility_toggle" class="green_text_color">Facility Information</h6>
-                <div class="row  mb-5 form_section shadow-sm bg-white rounded p-4">
-                    <div class="form-group col-md-4 mb-4">
+                <h6 id="facility_toggle" className="green_text_color">Facility Information</h6>
+                <div className="row  mb-5 form_section shadow-sm bg-white rounded p-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="mfl_code">MFL Code:</Label>
-                        <div class="d-flex">
+                        <div className="d-flex">
                             <Input type="number" name="mfl_code" value={props.facility_data.mfl_code} required ref={mfl_code_input} 
                                 className={ props.Original_data && props.Original_data.mfl_code != props.facility_data.mfl_code && "highlight_changed_data"}
                                 onChange={(e) => {checkLength(e); props.setFacility_data({...props.facility_data, "mfl_code":e.target.value}) }}/>
                             
-                            <FaSearch class="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon, cursor:"pointer"}}
+                            <FaSearch className="green_text_color"  id="search_icon" onClick={getKMHFL_data} style={{display:props.showSearchIcon, cursor:"pointer"}}
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fetch this MFL Code's facility data!"/>
                             
                         </div>                        
                          <p id="error_message" style={{color:"red"}}>{error_message}</p>
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="name">Facility Name:</Label>
                         <Input type="text" name="name" value={props.facility_data.name} required disabled={disabled}
                             className={ props.Original_data && props.Original_data.name != props.facility_data.name && "highlight_changed_data"}
                             onChange={(e) => props.setFacility_data({...props.facility_data, "name":e.target.value})} />
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="owner">Owner:</Label>
                         <Input id="owner" name="owner" type="select" value={props.facility_data.owner} required disabled={disabled}
                             className={ props.Original_data && props.Original_data.owner != props.facility_data.owner && "highlight_changed_data"}
@@ -191,7 +191,7 @@ function FacilityInfo(props) {
                                 }                           
                         </Input> 
                     </div>
-                    <div class="form-group col-md-3 mb-4">
+                    <div className="form-group col-md-3 mb-4">
                         <Label for="county">County:</Label>
                         <Input id="county" name="county" type="select" required disabled={disabled}
                             className={ props.Original_data && props.Original_data.county != props.facility_data.county && "highlight_changed_data"}
@@ -205,7 +205,7 @@ function FacilityInfo(props) {
                             }                                            
                         </Input>                        
                     </div>
-                    <div class="form-group col-md-3 mb-4">
+                    <div className="form-group col-md-3 mb-4">
                         <Label for="subcounty">Sub County:</Label>
                         <Input id="sub_county" name="sub_county" type="select" required value={props.facility_data.sub_county} disabled={disabled} 
                             className={ props.Original_data && props.Original_data.sub_county != props.facility_data.sub_county && "highlight_changed_data"}
@@ -218,23 +218,23 @@ function FacilityInfo(props) {
                             }                           
                         </Input> 
                     </div>
-                    <div class="form-group col-md-3 mb-4">
+                    <div className="form-group col-md-3 mb-4">
                         <Label for="lat">Latitude:</Label>
                         <Input type="number" name="lat" step="any" value={props.facility_data.lat} disabled={disabled}
                             className={ props.Original_data && props.Original_data.lat != props.facility_data.lat && "highlight_changed_data"}
                             onChange={(e) => {props.setFacility_data({...props.facility_data, "lat":e.target.value}) }}/>
                     </div>
-                    <div class="form-group col-md-3 mb-4">
+                    <div className="form-group col-md-3 mb-4">
                         <Label for="lon">Longitude:</Label>
                         <Input type="number" name="lon" step="any" value={props.facility_data.lon} disabled={disabled}
                             className={ props.Original_data && props.Original_data.lon != props.facility_data.lon && "highlight_changed_data"}
                             onChange={(e) => {props.setFacility_data({...props.facility_data, "lon":e.target.value}) }}/>
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="agency">SDP Agency:</Label>
                         <Input type="text" id="agency" name="agency" disabled="true" value={agencyValue} />
                     </div>
-                    <div class="form-group col-md-4 mb-4">
+                    <div className="form-group col-md-4 mb-4">
                         <Label for="partner">SDP:</Label>
                         <Input id="partner" name="partner" type="select" value={props.facility_data.partner} disabled={disabled} required
                             className={ props.Original_data && props.Original_data.partner != props.facility_data.partner && "highlight_changed_data"}

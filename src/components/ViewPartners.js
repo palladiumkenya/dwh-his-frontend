@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { Button, Form, FormGroup, Input, Label,Alert, Table } from "reactstrap";
-import {FaEdit } from 'react-icons/fa';
+import {FaEdit,FaPlusCircle ,FaArrowCircleRight  } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
 
@@ -67,12 +67,12 @@ const EditPartners = () => {
 
 
     return(
-        <div class="mx-5 my-5">
-            <div class="d-flex justify-content-end">
-                <input type="search" placeholder="Search ...." class="form-control" style={{width:"250px"}}
+        <div className="mx-5 my-5">
+            <div className="d-flex justify-content-end">
+                <input type="search" placeholder="Search ...." className="form-control" style={{width:"250px"}}
                     onChange={(e) => handleSearchFilter(e)} />
             </div>
-            <Table  class="mx-5">
+            <Table  className="mx-5">
                     <thead>
                     <tr>
                         <th>Agency</th>
@@ -80,6 +80,8 @@ const EditPartners = () => {
                         <th>Partner name</th>
                         <th>Prime Partner Name</th>
                         <th>HIS Approver</th>
+                        <th>Actions</th>
+                        <th>Stakeholders</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -93,14 +95,20 @@ const EditPartners = () => {
                     ) : (
                         filtereddata.map(partner => (                    
                             <tr>
-                                <td id="agency_container"> {partner.agency}</td>
-                                <td id="agency_container"> {partner.sdp_code}</td>
-                                <td id="agency_container">{partner.name}</td>
-                                <td id="agency_container">{partner.prime_partner_name}</td>
-                                <td id="agency_container">{partner.approver}</td>
-                                <td id="agency_container"> 
+                                <td className="font-weight-bold green_text_dark white_bg_color">{partner.agency}</td>
+                                <td className="white_bg_color">{partner.sdp_code}</td>
+                                <td className="white_bg_color">{partner.name}</td>
+                                <td className="white_bg_color">{partner.prime_partner_name}</td>
+                                <td className="white_bg_color">{partner.approver}</td>
+                                <td className="green_text_dark white_bg_color">
                                     <Link to={"/facilities/edit/partner/" + partner.id}>
-                                        <FaEdit id={partner.id} style={{color:"#1ab394", marginRight:"20px"}} />
+                                        <FaEdit id={partner.id} style={{color:"#00897B", fontSize:"15px", marginRight:"20px"}} />
+                                    </Link>
+                                </td>
+                                <td className="blue_text_color teal_bg_color">{partner.stakeholder_list}</td>
+                                <td className="blue_text_color teal_bg_color">
+                                    <Link to={"/partner/stakeholders/" + partner.name+"?id="+partner.id}>
+                                        <FaArrowCircleRight  id={partner.id} style={{ fontSize:"15px", marginRight:"20px"}} />
                                     </Link>
                                 </td>
                             

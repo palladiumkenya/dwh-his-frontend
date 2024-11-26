@@ -68,7 +68,7 @@ const Home = (props) =>{
                 }
 
               const orgId = user.profile.OrganizationId  ? user.profile.OrganizationId : null
-              axios.post(API_URL, {"OrganizationId":orgId}).then(res => {
+              axios.post(`${API_URL}/facilities`, {"OrganizationId":orgId}).then(res => {
                   setFacilities(res.data);
                   setFilteredData(res.data);
                   
@@ -82,7 +82,7 @@ const Home = (props) =>{
               });
             }         
             else{
-              axios.post(API_URL, {"OrganizationId": null}).then(res => {
+              axios.post(`${API_URL}/facilities`, {"OrganizationId": null}).then(res => {
                 setFacilities(res.data);
                 setFilteredData(res.data);
                 setShowSpinner(false)     
