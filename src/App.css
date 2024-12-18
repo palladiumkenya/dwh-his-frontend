@@ -32,6 +32,26 @@ body {
   background-color:#31C48D !important;
 }
 
+.green_text_dark{
+  color:#00897B !important;
+}
+
+.cyan_bg_color{
+  background-color:#E0F7FA !important;
+}
+.teal_bg_color{
+  background-color:#E0F2F1 !important;
+}
+.white_bg_color{
+  background-color:#FFFFFF !important;
+}
+.blue_text_color{
+  color:#0288D1 !important;
+}
+.red_text_dark{
+  color:#D32F2F !important;
+}
+
 .alert_message{
   width:80%;
   margin:auto;
@@ -189,4 +209,8 @@ td{
 
 .nav-link:hover{
   color:silver !important;
+}
+
+.font-weight-bold{
+  font-weight: bold;
 }

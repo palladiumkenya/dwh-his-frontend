@@ -14,7 +14,7 @@ function Footer(props) {
 
 
     return (
-        <footer class="shadow" style={{backgroundColor:'#2f4050',position: "fixed",
+        <footer className="shadow" style={{backgroundColor:'#2f4050',position: "fixed",
         bottom: 0, width:"100%", color:"white", fontSize:"10px"}}>
             Version 2.000
         

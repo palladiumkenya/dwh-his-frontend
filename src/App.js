@@ -24,6 +24,10 @@ import SubmittedApprovals from "./components/SubmittedApprovals";
 import PendingApprovals from "./components/PendingApprovals";
 
 import userManager, { signinRedirectCallback, signoutRedirect } from './services/UserService';
+import ViewPartnerStakeholdersList from "./components/ViewPartnerStakeholdersList";
+import EditPartnerStakeholder from "./components/EditPartnerStakeholder";
+import AddPartnerStakeholder from "./components/AddPartnerStakeholder";
+
 
 
 function App() {
@@ -38,7 +42,6 @@ function App() {
         await userManager.getUser().then((res) =>{
           // console.log("show org data",res)
           setUser(res);               
-          // console.log(res.profile)
           localStorage.setItem("OrganizationId", res.profile.OrganizationId);
 
         });      
@@ -83,10 +86,15 @@ function App() {
                   <Route exact path="/facilities/edit/partner/:part_id" element={<EditPartners user={user} />}/>
               </Route>
 
-              {/* <Route exact path="/facilities/add_facility" element={<AddFacility user={user} />}/>
-              <Route path="/facilities/update_facility/:fac_id" element={<UpdateFacility />} />                   
-              <Route path="/facilities/approve_changes/:fac_id" element={<ApproveFacilityChanges />} /> 
-              <Route path="/facilities/edit/partner/:part_id" element={<EditPartners />} />   */}
+                <Route exact path='/partner/stakeholders/:part_name' element={<ProtectedRoute/>}>
+                    <Route exact path="/partner/stakeholders/:part_name" element={<ViewPartnerStakeholdersList user={user} />}/>
+                </Route>
+                <Route exact path='/partner/edit/stakeholder' element={<ProtectedRoute/>}>
+                    <Route exact path="/partner/edit/stakeholder" element={<EditPartnerStakeholder user={user} />}/>
+                </Route>
+                <Route exact path='/partner/add/stakeholder/:part_name' element={<ProtectedRoute/>}>
+                    <Route exact path="/partner/add/stakeholder/:part_name" element={<AddPartnerStakeholder user={user} />}/>
+                </Route>
 
               <Route path="/facilities/view_facility/:fac_id" element={<ViewFacility />} />
               <Route path="/facilities/partners" element={<ViewPartners />} />  

@@ -127,10 +127,10 @@ const ViewFacility = () => {
 
 
     return (
-        <section class="mx-5">
-            <div class=" mx-auto" style={{width:"80%"}}>
-                <legend class=" mt-3 text-center text-capitalize"><b>{Facility_data.name} Facility</b></legend>
-                <p class="mb-3 mt-3 text-center"> View facility details</p>
+        <section className="mx-5">
+            <div className=" mx-auto" style={{width:"80%"}}>
+                <legend className=" mt-3 text-center text-capitalize"><b>{Facility_data.name} Facility</b></legend>
+                <p className="mb-3 mt-3 text-center"> View facility details</p>
                 <Container>
                     <Row>
                         <Col xs={3}>
@@ -157,44 +157,44 @@ const ViewFacility = () => {
                 </Container>
 
 
-                <h6 id="facility_toggle" class="green_text_color mt-5">Facility Information</h6>
-                <div class="row mb-5 form_section shadow-sm bg-white rounded p-3" >
+                <h6 id="facility_toggle" className="green_text_color mt-5">Facility Information</h6>
+                <div className="row mb-5 form_section shadow-sm bg-white rounded p-3" >
 
-                    <div class="d-flex col-md-3 mb-4">
+                    <div className="d-flex col-md-3 mb-4">
                         <b>MFL Code : </b>
                         <p>{Facility_data.mfl_code}</p>
                     </div>
-                    <div class="d-flex col-md-5 mb-4">
+                    <div className="d-flex col-md-5 mb-4">
                         <b>Facility Name  : </b>
                         <p>{Facility_data.name}</p>
                     </div>
-                    <div class="d-flex col-md-4 mb-4">
+                    <div className="d-flex col-md-4 mb-4">
                         <b>Owner : </b>
                         <p>{Facility_data.owner}</p>
                     </div>
 
-                    <div class="d-flex col-md-3 mb-3">
+                    <div className="d-flex col-md-3 mb-3">
                         <b>County : </b>
                         <p>{Facility_data.county}</p>
                     </div>
-                    <div class="d-flex col-md-3 mb-3">
+                    <div className="d-flex col-md-3 mb-3">
                         <b>Sub-county : </b>
                         <p>{Facility_data.sub_county}</p>
                     </div>
-                    <div class="d-flex col-md-3 mb-2">
+                    <div className="d-flex col-md-3 mb-2">
                         <b>Latitude : </b>
                         <p>{Facility_data.lat}</p>
                     </div>
-                    <div class="d-flex col-md-3 mb-2">
+                    <div className="d-flex col-md-3 mb-2">
                         <b>Longitude : </b>
                         <p>{Facility_data.lon}</p>
                     </div>
 
-                    <div class="d-flex col-md-3 mb-5">
+                    <div className="d-flex col-md-3 mb-5">
                         <b>Agency : </b>
                         <p>{Facility_data.agency}</p>
                     </div>
-                    <div class="d-flex col-md-3 ">
+                    <div className="d-flex col-md-3 ">
                         <b>SDP : </b>
                         <p>{Facility_data.partner}</p>
                     </div>
@@ -211,14 +211,14 @@ const ViewFacility = () => {
                     <b>Facility Type</b>
                     <div className="d-flex justify-content-between col-md-2 mb-4">
                         <p>{
-                            Facility_data.emr_site ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
-                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                            Facility_data.emr_site ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare className="fa-solid fa-square-xmark  text-muted"/>
                         }
                             EMR site
                         </p>
                         <p>{
-                            Facility_data.non_emr_site ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
-                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                            Facility_data.non_emr_site ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare className="fa-solid fa-square-xmark  text-muted"/>
                         }
                             Non-EMR site
                         </p>
@@ -227,32 +227,32 @@ const ViewFacility = () => {
 
                         <b>Non-EMR sites Options</b>
                         <p>{
-                            Facility_data.asal ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
-                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                            Facility_data.asal ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare className="fa-solid fa-square-xmark  text-muted"/>
                         }
                             ASAL
                         </p>
                         <p>{
-                            Facility_data.pepfar ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/>:
-                                <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                            Facility_data.pepfar ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/>:
+                                <FaCheckSquare className="fa-solid fa-square-xmark  text-muted"/>
                         }
                             PEPFAR
                         </p>
                     </div>
 
                     <b>Implementation</b>
-                    <div class=" col-md-4 mb-4">
-                            <div class="d-flex justify-content-between mr-5">
+                    <div className=" col-md-4 mb-4">
+                            <div className="d-flex justify-content-between mr-5">
                                 <p>{
-                                    Facility_data.CT  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> :                                   
-                                    <FaCheckSquare class="fa-solid fa-square-xmark text-muted"/>
+                                    Facility_data.CT  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark text-muted"/>
                                     } 
                                     C&T
                                 </p>
                                           
 
-                                <p>{ Facility_data.HTS  ? <FaCheckSquare class="fa-solid fa-square-check green_text_color"/> : 
-                                    <FaCheckSquare class="fa-solid fa-square-xmark  text-muted"/>
+                                <p>{ Facility_data.HTS  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark  text-muted"/>
                                      } 
                                      HTS
                                 </p>

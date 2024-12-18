@@ -130,9 +130,9 @@ const AddFacility = (props) => {
 
     return (
           
-            <Form  id="facility_form" onSubmit={handleSubmit} class="form-control">
-                <legend class="text-center mt-5"><b>Add Facility</b></legend>
-                <p class="mb-3 text-center">Add new Facility to your List</p>
+            <Form  id="facility_form" onSubmit={handleSubmit} className="form-control">
+                <legend className="text-center mt-5"><b>Add Facility</b></legend>
+                <p className="mb-3 text-center">Add new Facility to your List</p>
                 
                 
                     { Counties_list.length > 0 &&
@@ -174,8 +174,8 @@ const AddFacility = (props) => {
                     } 
 
                   <fieldset disabled={facilityAlreadyExists}>
-                      <div class="d-flex justify-content-center mb-5">
-                        <input class="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
+                      <div className="d-flex justify-content-center mb-5">
+                        <input className="btn green_bg_color text-white" value="Submit" type="submit" style={{width:"200px"}} />
                         <Spinner style={{display:hiddenSpinner, width: "1.2rem", height: "1.2rem"}}></Spinner>
                     </div>
                  </fieldset>

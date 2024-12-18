@@ -173,9 +173,9 @@ const UpdateFacility = (props) => {
                 </Alert>
             }
 
-            <Form  id="facility_form" onSubmit={handleSubmit} class="form-control">
-                <legend class="text-center mt-5"><b>Modify Facility Data</b></legend>
-                <p class="mb-3 text-center">Make changes to Facility Data</p>
+            <Form  id="facility_form" onSubmit={handleSubmit} className="form-control">
+                <legend className="text-center mt-5"><b>Modify Facility Data</b></legend>
+                <p className="mb-3 text-center">Make changes to Facility Data</p>
                 {/* if the user logged in isnt authorised to edit then disable fields anyway.
                     If the user is authorised but there are alredy preexisting edits, disable fields alse */}
                 <fieldset disabled={!isAllowedUser ? !isAllowedUser : edits_exist}>
@@ -216,8 +216,8 @@ const UpdateFacility = (props) => {
                         </ErrorBoundary>
                     }
 
-                    <div class="d-flex justify-content-center mb-5">
-                        {/*<input class="btn green_bg_color text-white" value="Update Data" type="submit" style={{width:"200px"}} />*/}
+                    <div className="d-flex justify-content-center mb-5">
+                        {/*<input className="btn green_bg_color text-white" value="Update Data" type="submit" style={{width:"200px"}} />*/}
                         <button className="btn green_bg_color text-white" type="submit" disabled={disableSubmit}>
                             Update Data
                         </button>

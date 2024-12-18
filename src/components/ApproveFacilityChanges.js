@@ -227,9 +227,9 @@ const ApproveFacilityChanges = (props) => {
                 </Alert>  
               }         
           
-              <Form  id="facility_form" class="form-control">
-              <legend class="text-center mt-5"><b>Approve Facility Data</b></legend>
-                  <p class="mb-3 text-center">Approve or Reject data added to a Facility</p>
+              <Form  id="facility_form" className="form-control">
+              <legend className="text-center mt-5"><b>Approve Facility Data</b></legend>
+                  <p className="mb-3 text-center">Approve or Reject data added to a Facility</p>
 
 
                   <fieldset disabled={!isHISapprover}>
@@ -271,10 +271,10 @@ const ApproveFacilityChanges = (props) => {
                         </ErrorBoundary> 
                       } 
 
-                        <div class=" d-flex justify-content-around mb-5">
+                        <div className=" d-flex justify-content-around mb-5">
                             <div >
-                                <button name="approve" type="button" disabled={!editExists} value="Approve changes" id="approve_changes" class="btn btn-sm btn-success px-5 mr-4" onClick={confirm_approval}>
-                                    <i class="fa-solid fa-thumbs-up"></i> Approve {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                                <button name="approve" type="button" disabled={!editExists} value="Approve changes" id="approve_changes" className="btn btn-sm btn-success px-5 mr-4" onClick={confirm_approval}>
+                                    <i className="fa-solid fa-thumbs-up"></i> Approve {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
                                 </button>
                                <span class="px-5"></span>
                                 <button name="discard" type="button" disabled={!editExists} value="Discard changes" id="discard_changes" class="btn btn-sm btn-danger px-5"  onClick={confirm_rejection}>

@@ -37,7 +37,7 @@ const ViewReports = () => {
 
 
     return(
-        <div class="mx-5 my-5">
+        <div className="mx-5 my-5">
            <h4>HIS Master List 
                 {!showSpinner && <ExportToExcel apiData={excelreportdata} fileName={fileName}/> }
                {showSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }

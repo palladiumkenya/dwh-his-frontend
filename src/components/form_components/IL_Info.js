@@ -19,12 +19,12 @@ function IL_Info(props) {
 
         return (
             <div id="IL_info">
-                <h6  class="green_text_color">Interoperability(IL) and Integrations</h6>
+                <h6  className="green_text_color">Interoperability(IL) and Integrations</h6>
 
-                <div id="IL" class="row section mb-5 form_section shadow-sm bg-white rounded p-4">
+                <div id="IL" className="row section mb-5 form_section shadow-sm bg-white rounded p-4">
                                        
                     <b>IL Participating Systems</b>
-                    <div class="d-flex justify-content-between mb-4">
+                    <div className="d-flex justify-content-between mb-4">
                         <FormGroup check>
                             <Input id="webADT_pharmacy" name="webADT_pharmacy" type="checkbox" 
                             checked={props.facility_data.webADT_pharmacy}
@@ -59,7 +59,7 @@ function IL_Info(props) {
                     </div> 
 
                     <b>Integrations</b>       
-                    <div class="d-flex justify-content-start">
+                    <div className="d-flex justify-content-start">
                         <FormGroup check>
                             <Input id="il_lab_manifest" name="il_lab_manifest" type="checkbox" checked={props.facility_data.il_lab_manifest}
                             className={ props.Original_data && props.Original_data.il_lab_manifest != props.facility_data.il_lab_manifest && "highlight_changed_checkbox"}

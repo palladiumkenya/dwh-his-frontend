@@ -60,8 +60,8 @@ function Header(props) {
                     <DropdownToggle nav caret className="test" >
                         Welcome,  {props.user.profile.FullName }
                     </DropdownToggle>
-                    <DropdownMenu right>
-                        <DropdownMenu right>
+                    <DropdownMenu end>
+                        <DropdownMenu end>
                             <DropdownItem href="/facilities/submitted/approvals">Submitted Approvals</DropdownItem>
                             <DropdownItem href="/facilities/pending/approvals">Pending Approvals</DropdownItem>
                             <DropdownItem divider />
