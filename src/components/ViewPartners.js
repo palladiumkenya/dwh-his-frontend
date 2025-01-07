@@ -143,13 +143,13 @@ const EditPartners = () => {
 
     return(
         <div className="mx-5 my-5">
-            <div className="d-flex justify-content-between">
-                <h4>
-                    Partners Data
-                    { !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }
-                    { showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
-                </h4>
-            </div>
+            {/*<div className="d-flex justify-content-between">*/}
+            {/*    <h4>*/}
+            {/*        Stakeholders List*/}
+            {/*        { !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }*/}
+            {/*        { showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }*/}
+            {/*    </h4>*/}
+            {/*</div>*/}
             { isAllowedUser &&
                 <div className="d-flex justify-content-end mb-3" style={{paddingTop:"10px"}}>
                     <SiMicrosoftexcel onClick={handleExcelStakeholdersSubmit} style={{color:"green", fontSize:"30px"}}/>
@@ -173,8 +173,10 @@ const EditPartners = () => {
                         <th>Prime Partner Name</th>
                         <th>HIS Approver</th>
                         <th>Actions</th>
-                        <th>Stakeholders</th>
-                        <th>Actions</th>
+                        <th style={{"cursor":"pointer"}}>Stakeholders List
+                            { !showDownloadSpinner && <ExportToExcel apiData={exceldata} fileName={fileName} />  }
+                            { showDownloadSpinner && <Spinner style={{width: "1.2rem", height: "1.2rem"}}></Spinner> }
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -197,10 +199,11 @@ const EditPartners = () => {
                                         <FaEdit id={partner.id} style={{color:"#00897B", fontSize:"15px", marginRight:"20px"}} />
                                     </Link>
                                 </td>
-                                <td className="blue_text_color teal_bg_color">{partner.stakeholder_list}</td>
+                                <td className="blue_text_color teal_bg_color"> {partner.stakeholders} Users</td>
+
                                 <td className="blue_text_color teal_bg_color">
                                     <Link to={"/partner/stakeholders/" + partner.name+"?id="+partner.id}>
-                                        <FaArrowCircleRight  id={partner.id} style={{ fontSize:"15px", marginRight:"20px"}} />
+                                        <FaPlusCircle  id={partner.id} style={{ fontSize:"15px", marginRight:"20px"}} />
                                     </Link>
                                 </td>
                             
