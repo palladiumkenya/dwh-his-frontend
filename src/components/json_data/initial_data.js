@@ -16,6 +16,7 @@ const initial_data = {
       "pepfar": false,
       "infrastructure_type": "",
       "KEPH_Level": "",
+      "KMPDC_reg_no":"",
       "CT": false,
       "HTS": false,
       "IL": false,

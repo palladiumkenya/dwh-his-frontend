@@ -190,7 +190,7 @@ const ViewFacility = () => {
                         <p>{Facility_data.lon}</p>
                     </div>
 
-                    <div className="d-flex col-md-3 mb-5">
+                    <div className="d-flex col-md-3 mb-2">
                         <b>Agency : </b>
                         <p>{Facility_data.agency}</p>
                     </div>
@@ -198,7 +198,7 @@ const ViewFacility = () => {
                         <b>SDP : </b>
                         <p>{Facility_data.partner}</p>
                     </div>
-                    <div className="d-flex col-md-3 mb-4">
+                    <div className="d-flex col-md-3 mb-2">
                         <b>Infrastructure Type : </b>
                         <p>{Facility_data.infrastructure_type}</p>
                     </div>
@@ -206,7 +206,10 @@ const ViewFacility = () => {
                         <b>KEPH_Level : </b>
                         <p>{Facility_data.KEPH_Level}</p>
                     </div>
-
+                    <div className="d-flex col-md-3 mb-5">
+                        <b>KMPDC Registration No. : </b>
+                        <p>{Facility_data.KMPDC_reg_no}</p>
+                    </div>
 
                     <b>Facility Type</b>
                     <div className="d-flex justify-content-between col-md-2 mb-4">
