@@ -281,6 +281,12 @@ function FacilityInfo(props) {
                             <option value="Level 6">Level 6</option>
                         </Input>
                     </div>
+                    <div className="form-group col-md-4 mb-4">
+                        <Label for="KMPDC_reg_no">KMPDC Registration No.:</Label>
+                        <Input type="text" name="KMPDC_reg_no" value={props.facility_data.KMPDC_reg_no} required disabled={disabled}
+                               className={ props.Original_data && props.Original_data.KMPDC_reg_no != props.facility_data.KMPDC_reg_no && "highlight_changed_data"}
+                               onChange={(e) => props.setFacility_data({...props.facility_data, "KMPDC_reg_no":e.target.value})} />
+                    </div>
 
                     <b>Facility Type</b>
                     <div className="d-flex justify-content-between col-md-2 col-lg-4 mb-4">
