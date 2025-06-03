@@ -181,6 +181,10 @@ const ViewFacility = () => {
                         <b>Sub-county : </b>
                         <p>{Facility_data.sub_county}</p>
                     </div>
+                    <div className="d-flex col-md-3 mb-3">
+                        <b>Ward : </b>
+                        <p>{Facility_data.ward}</p>
+                    </div>
                     <div className="d-flex col-md-3 mb-2">
                         <b>Latitude : </b>
                         <p>{Facility_data.lat}</p>
