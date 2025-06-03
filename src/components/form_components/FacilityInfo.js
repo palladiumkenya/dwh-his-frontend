@@ -219,6 +219,12 @@ function FacilityInfo(props) {
                         </Input> 
                     </div>
                     <div className="form-group col-md-3 mb-4">
+                        <Label for="ward">Ward:</Label>
+                        <Input type="text" name="ward" value={props.facility_data.ward} required disabled={disabled}
+                               className={ props.Original_data && props.Original_data.ward != props.facility_data.ward && "highlight_changed_data"}
+                               onChange={(e) => props.setFacility_data({...props.facility_data, "ward":e.target.value})} />
+                    </div>
+                    <div className="form-group col-md-3 mb-4">
                         <Label for="lat">Latitude:</Label>
                         <Input type="number" name="lat" step="any" value={props.facility_data.lat} disabled={disabled}
                             className={ props.Original_data && props.Original_data.lat != props.facility_data.lat && "highlight_changed_data"}

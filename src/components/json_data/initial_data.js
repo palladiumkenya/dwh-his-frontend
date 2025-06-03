@@ -17,6 +17,7 @@ const initial_data = {
       "infrastructure_type": "",
       "KEPH_Level": "",
       "KMPDC_reg_no":"",
+      "ward":"",
       "CT": false,
       "HTS": false,
       "IL": false,
