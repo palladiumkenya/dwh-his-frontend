@@ -346,6 +346,18 @@ function FacilityInfo(props) {
                         </div>
                     }
 
+                    <div className="d-flex justify-content-between col-md-12 col-lg-12 mb-4">
+                        <div className="form-group col-md-3 mb-4 bg-light border border-warning">
+                        <FormGroup check>
+                            <Input id="confidential" name="confidential" type="checkbox" defaultChecked={props.facility_data.confidential}
+                                   className={ props.Original_data && props.Original_data.confidential != props.facility_data.confidential && "highlight_changed_checkbox"}
+                                   // onClick={(e) => changeCT(e)}
+                                   onChange={(e) => {props.setFacility_data({...props.facility_data, "confidential":e.target.checked}) }}/>
+                            <Label check className="text-danger font-weight-bold">CONFIDENTIAL</Label>
+                        </FormGroup>
+                        </div>
+                    </div>
+
                     <b>EMR Information</b>
                     <div id="EMR" className="row form_section  bg-white rounded" >
                         <div className="form-group col-md-3 mb-4">
