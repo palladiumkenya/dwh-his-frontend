@@ -55,7 +55,9 @@ const initial_data = {
       "date_of_emr_impl":null,
       "hts_use": null,
       "hts_deployment": null,
-      "hts_status": null
-    }
+      "hts_status": null,
+      "confidential": null
+
+}
 
     export default initial_data

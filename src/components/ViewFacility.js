@@ -248,6 +248,26 @@ const ViewFacility = () => {
                     </div>
 
                     <b>Implementation</b>
+                    <div  className="row form_section bg-white ">
+                        <div className="d-flex col-md-2 mb-4">
+                            <b>EMR : </b>
+                            <p>{Facility_data.emr_type}</p>
+                        </div>
+                        <div className="d-flex col-md-4 mb-4">
+                            <b>Date Of EMR Implementation : </b>
+                            <p>{Facility_data.date_of_emr_impl}</p>
+                        </div>
+                        <div className="d-flex col-md-3 mb-4">
+                            <b>Mode Of Use : </b>
+                            <p>{Facility_data.mode_of_use}</p>
+                        </div>
+                        <div className="d-flex col-md-3 mb-4">
+                            <b>EMR Status : </b>
+                            <p>{Facility_data.emr_status}</p>
+                        </div>
+                    </div>
+
+                    <b>Implementation</b>
                     <div className=" col-md-4 mb-4">
                             <div className="d-flex justify-content-between mr-5">
                                 <p>{
@@ -290,25 +310,8 @@ const ViewFacility = () => {
 
                 { Facility_data.CT &&
                     <div class="" id="EMR_info">
-                        <h6  class="green_text_color">EMR Information</h6>
+                        <h6  class="green_text_color">CT Information</h6>
                         <div id="EMR" class="row  mb-5 form_section shadow-sm bg-white rounded p-4" >
-
-                            <div class="d-flex col-md-2 mb-4">
-                                <b>EMR : </b>
-                                <p>{Facility_data.emr_type}</p>
-                            </div>
-                            <div class="d-flex col-md-4 mb-4">
-                                <b>Date Of EMR Implementation : </b>
-                                <p>{Facility_data.date_of_emr_impl}</p>
-                            </div>
-                            <div class="d-flex col-md-3 mb-4">
-                                <b>Mode Of Use : </b>
-                                <p>{Facility_data.mode_of_use}</p>
-                            </div>
-                            <div class="d-flex col-md-3 mb-4">
-                                <b>EMR Status : </b>
-                                <p>{Facility_data.emr_status}</p>
-                            </div>
 
                             <div class="col-md-12 mb-0">
                                 <b>EMR modules</b>

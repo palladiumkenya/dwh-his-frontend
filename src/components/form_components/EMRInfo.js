@@ -23,50 +23,50 @@ function EMRInfo(props) {
         return (
             
             <div id="EMR_info">
-                 <h6  className="green_text_color">EMR Information</h6>
+                 <h6  className="green_text_color">CT Information</h6>
                 <div id="EMR" className="row  mb-5 form_section shadow-sm bg-white rounded p-4" >
-                    <div className="form-group col-md-3 mb-4">
-                        <Label for="emr_type">EMR Type:</Label>
-                        <Input id="emr_type" name="emr_type" type="select" value={props.facility_data.emr_type} required
-                            className={ props.Original_data && props.Original_data.emr_type != props.facility_data.emr_type && "highlight_changed_data"}
-                            onChange={(e) => props.setFacility_data({...props.facility_data, "emr_type":e.target.value})}>
-                            { 
-                                EMR_types.map(type => (    
-                                        <option value={type[0]}>{type[1]}</option>
-                                    ))                              
-                                }   
-                        </Input> 
-                    </div>
-                    <div className="form-group col-md-3 mb-4">
-                        <Label for="date_of_emr_impl">Date Of EMR Implementation:</Label>
-                        <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required
-                            className={ props.Original_data && props.Original_data.date_of_emr_impl != props.facility_data.date_of_emr_impl && "highlight_changed_data"}
-                            onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_emr_impl":e.target.value})}>                                
-                        </Input> 
-                    </div>
-                    <div className="form-group col-md-3 mb-4">
-                        <Label for="mode_of_use">Mode Of Use:</Label>
-                        <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required
-                            className={ props.Original_data && props.Original_data.mode_of_use != props.facility_data.mode_of_use && "highlight_changed_data"}
-                            onChange={(e) => props.setFacility_data({...props.facility_data, "mode_of_use":e.target.value})}>
-                                <option value=""></option>
-                                <option value="Point of Care">Point of Care</option>
-                                <option value="Retrospective User (RDE)">Retrospective User (RDE)</option>
-                                <option value="Hybrid Use">Hybrid Use</option>
-                        </Input> 
-                    </div>
-                    <div className="form-group col-md-3 mb-4">
-                        <Label for="emr_status">EMR Status:</Label>
-                        <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required
-                            className={ props.Original_data && props.Original_data.emr_status != props.facility_data.emr_status && "highlight_changed_data"}
-                            onChange={(e) => props.setFacility_data({...props.facility_data, "emr_status":e.target.value})}>
-                                { 
-                                statuses.map(status => (    
-                                        <option value={status}>{status}</option>
-                                    ))                              
-                                }  
-                        </Input> 
-                    </div>
+                    {/*<div className="form-group col-md-3 mb-4">*/}
+                    {/*    <Label for="emr_type">EMR Type:</Label>*/}
+                    {/*    <Input id="emr_type" name="emr_type" type="select" value={props.facility_data.emr_type} required*/}
+                    {/*        className={ props.Original_data && props.Original_data.emr_type != props.facility_data.emr_type && "highlight_changed_data"}*/}
+                    {/*        onChange={(e) => props.setFacility_data({...props.facility_data, "emr_type":e.target.value})}>*/}
+                    {/*        { */}
+                    {/*            EMR_types.map(type => (    */}
+                    {/*                    <option value={type[0]}>{type[1]}</option>*/}
+                    {/*                ))                              */}
+                    {/*            }   */}
+                    {/*    </Input> */}
+                    {/*</div>*/}
+                    {/*<div className="form-group col-md-3 mb-4">*/}
+                    {/*    <Label for="date_of_emr_impl">Date Of EMR Implementation:</Label>*/}
+                    {/*    <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required*/}
+                    {/*        className={ props.Original_data && props.Original_data.date_of_emr_impl != props.facility_data.date_of_emr_impl && "highlight_changed_data"}*/}
+                    {/*        onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_emr_impl":e.target.value})}>                                */}
+                    {/*    </Input> */}
+                    {/*</div>*/}
+                    {/*<div className="form-group col-md-3 mb-4">*/}
+                    {/*    <Label for="mode_of_use">Mode Of Use:</Label>*/}
+                    {/*    <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required*/}
+                    {/*        className={ props.Original_data && props.Original_data.mode_of_use != props.facility_data.mode_of_use && "highlight_changed_data"}*/}
+                    {/*        onChange={(e) => props.setFacility_data({...props.facility_data, "mode_of_use":e.target.value})}>*/}
+                    {/*            <option value=""></option>*/}
+                    {/*            <option value="Point of Care">Point of Care</option>*/}
+                    {/*            <option value="Retrospective User (RDE)">Retrospective User (RDE)</option>*/}
+                    {/*            <option value="Hybrid Use">Hybrid Use</option>*/}
+                    {/*    </Input> */}
+                    {/*</div>*/}
+                    {/*<div className="form-group col-md-3 mb-4">*/}
+                    {/*    <Label for="emr_status">EMR Status:</Label>*/}
+                    {/*    <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required*/}
+                    {/*        className={ props.Original_data && props.Original_data.emr_status != props.facility_data.emr_status && "highlight_changed_data"}*/}
+                    {/*        onChange={(e) => props.setFacility_data({...props.facility_data, "emr_status":e.target.value})}>*/}
+                    {/*            { */}
+                    {/*            statuses.map(status => (    */}
+                    {/*                    <option value={status}>{status}</option>*/}
+                    {/*                ))                              */}
+                    {/*            }  */}
+                    {/*    </Input> */}
+                    {/*</div>*/}
                     
 
                     <b>EMR modules</b>

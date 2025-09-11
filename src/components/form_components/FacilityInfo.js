@@ -12,8 +12,6 @@ function FacilityInfo(props) {
     const [agencyValue, setAgencyValue] = useState(props.facility_data.agency);
     const [showNonEmrOptions, setShowNonEmrOptions] = useState(props.facility_data.non_emr_site ? true : false);
 
-
-
     const mfl_code_input = useRef(null);
     
     const getInitialSubCounties = id => {      
@@ -28,12 +26,7 @@ function FacilityInfo(props) {
     const handleCountyChange = (e) => {   
         
         if (e != ""){     
-            getSubCounties(e)      
-            // if (typeof e != "number"){
-            //         getSubCounties(Number(e.target.value))   
-            // }else{
-            //         getSubCounties(e)   
-            // }      
+            getSubCounties(e)
         }
 
     };
@@ -154,6 +147,20 @@ function FacilityInfo(props) {
         });
        
       }
+
+
+        const [EMR_types, setEMR_types] = useState([])
+
+        const statuses = ["", 'Active', 'Stalled/Inactive', 'Discontinued'];
+
+        const getEmrTypes = async() => {
+            await axios.get(API_URL+"/emr_types").then(res => setEMR_types( res.data ));
+        };
+
+        useEffect(() => {
+            getEmrTypes()
+
+        }, [])
 
                
         return (
@@ -317,7 +324,6 @@ function FacilityInfo(props) {
                     </div>
 
 
-
                     { showNonEmrOptions &&
                         <div className="d-flex justify-content-between col-md-2  col-lg-3 mb-4 bg-light px-4 border border-warning" >
                             <b>Non-EMR Options</b>
@@ -339,6 +345,64 @@ function FacilityInfo(props) {
                             </FormGroup>
                         </div>
                     }
+
+                    <div className="d-flex justify-content-between col-md-12 col-lg-12 mb-4">
+                        <div className="form-group col-md-3 mb-4 bg-light border border-warning">
+                        <FormGroup check>
+                            <Input id="confidential" name="confidential" type="checkbox" defaultChecked={props.facility_data.confidential}
+                                   className={ props.Original_data && props.Original_data.confidential != props.facility_data.confidential && "highlight_changed_checkbox"}
+                                   // onClick={(e) => changeCT(e)}
+                                   onChange={(e) => {props.setFacility_data({...props.facility_data, "confidential":e.target.checked}) }}/>
+                            <Label check className="text-danger font-weight-bold">CONFIDENTIAL</Label>
+                        </FormGroup>
+                        </div>
+                    </div>
+
+                    <b>EMR Information</b>
+                    <div id="EMR" className="row form_section  bg-white rounded" >
+                        <div className="form-group col-md-3 mb-4">
+                            <Label for="emr_type">EMR Type:</Label>
+                            <Input id="emr_type" name="emr_type" type="select" value={props.facility_data.emr_type} required
+                                   className={ props.Original_data && props.Original_data.emr_type != props.facility_data.emr_type && "highlight_changed_data"}
+                                   onChange={(e) => props.setFacility_data({...props.facility_data, "emr_type":e.target.value})}>
+                                {
+                                    EMR_types.map(type => (
+                                        <option value={type[0]}>{type[1]}</option>
+                                    ))
+                                }
+                            </Input>
+                        </div>
+                        <div className="form-group col-md-3 mb-4">
+                            <Label for="date_of_emr_impl">Date Of EMR Implementation:</Label>
+                            <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required
+                                   className={ props.Original_data && props.Original_data.date_of_emr_impl != props.facility_data.date_of_emr_impl && "highlight_changed_data"}
+                                   onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_emr_impl":e.target.value})}>
+                            </Input>
+                        </div>
+                        <div className="form-group col-md-3 mb-4">
+                            <Label for="mode_of_use">Mode Of Use:</Label>
+                            <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required
+                                   className={ props.Original_data && props.Original_data.mode_of_use != props.facility_data.mode_of_use && "highlight_changed_data"}
+                                   onChange={(e) => props.setFacility_data({...props.facility_data, "mode_of_use":e.target.value})}>
+                                <option value=""></option>
+                                <option value="Point of Care">Point of Care</option>
+                                <option value="Retrospective User (RDE)">Retrospective User (RDE)</option>
+                                <option value="Hybrid Use">Hybrid Use</option>
+                            </Input>
+                        </div>
+                        <div className="form-group col-md-3 mb-4">
+                            <Label for="emr_status">EMR Status:</Label>
+                            <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required
+                                   className={ props.Original_data && props.Original_data.emr_status != props.facility_data.emr_status && "highlight_changed_data"}
+                                   onChange={(e) => props.setFacility_data({...props.facility_data, "emr_status":e.target.value})}>
+                                {
+                                    statuses.map(status => (
+                                        <option value={status}>{status}</option>
+                                    ))
+                                }
+                            </Input>
+                        </div>
+                    </div>
 
                     <b>Implementation</b>
                     <div class="d-flex justify-content-between col-md-6 mb-4">
