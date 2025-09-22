@@ -17,9 +17,6 @@ function FacilityInfo(props) {
     const [isEMRinfoRequired, setIsEMRinfoRequired] = useState(props.facility_data.emr_site ? true : false);
 
     const handleEMRCheckboxChange = (e) => {
-        console.log("checkbox val",e)
-
-        console.log("is yes",e === true)
         setIsEMRinfoRequired(e === true);
 
     };
