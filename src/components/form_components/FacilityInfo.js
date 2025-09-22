@@ -13,7 +13,15 @@ function FacilityInfo(props) {
     const [showNonEmrOptions, setShowNonEmrOptions] = useState(props.facility_data.non_emr_site ? true : false);
 
     const mfl_code_input = useRef(null);
-    
+
+    const [isEMRinfoRequired, setIsEMRinfoRequired] = useState(props.facility_data.emr_site ? true : false);
+
+    const handleEMRCheckboxChange = (e) => {
+        setIsEMRinfoRequired(e === true);
+
+    };
+
+
     const getInitialSubCounties = id => {      
       if (props.Counties_list.length >0){
           return props.Counties_list.filter(item => item.county === Number(id));           
@@ -308,7 +316,8 @@ function FacilityInfo(props) {
                                    className={props.Original_data && props.Original_data.emr_site != props.facility_data.emr_site && "highlight_changed_checkbox"}
 
                                    onChange={(e) => {
-                                       props.setFacility_data({...props.facility_data, "emr_site": e.target.checked})
+                                       props.setFacility_data({...props.facility_data, "emr_site": e.target.checked});
+                                       handleEMRCheckboxChange(e.target.checked)
                                    }}/>
                             <Label check>EMR site</Label>
                         </FormGroup>
@@ -362,7 +371,7 @@ function FacilityInfo(props) {
                     <div id="EMR" className="row form_section  bg-white rounded" >
                         <div className="form-group col-md-3 mb-4">
                             <Label for="emr_type">EMR Type:</Label>
-                            <Input id="emr_type" name="emr_type" type="select" value={props.facility_data.emr_type} required
+                            <Input id="emr_type" name="emr_type" type="select" value={props.facility_data.emr_type} required={isEMRinfoRequired}
                                    className={ props.Original_data && props.Original_data.emr_type != props.facility_data.emr_type && "highlight_changed_data"}
                                    onChange={(e) => props.setFacility_data({...props.facility_data, "emr_type":e.target.value})}>
                                 {
@@ -374,14 +383,14 @@ function FacilityInfo(props) {
                         </div>
                         <div className="form-group col-md-3 mb-4">
                             <Label for="date_of_emr_impl">Date Of EMR Implementation:</Label>
-                            <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required
+                            <Input id="date_of_emr_impl" name="date_of_emr_impl" type="date" value={props.facility_data.date_of_emr_impl} required={isEMRinfoRequired}
                                    className={ props.Original_data && props.Original_data.date_of_emr_impl != props.facility_data.date_of_emr_impl && "highlight_changed_data"}
                                    onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_emr_impl":e.target.value})}>
                             </Input>
                         </div>
                         <div className="form-group col-md-3 mb-4">
                             <Label for="mode_of_use">Mode Of Use:</Label>
-                            <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required
+                            <Input id="mode_of_use" name="mode_of_use" type="select" value={props.facility_data.mode_of_use} required={isEMRinfoRequired}
                                    className={ props.Original_data && props.Original_data.mode_of_use != props.facility_data.mode_of_use && "highlight_changed_data"}
                                    onChange={(e) => props.setFacility_data({...props.facility_data, "mode_of_use":e.target.value})}>
                                 <option value=""></option>
@@ -392,7 +401,7 @@ function FacilityInfo(props) {
                         </div>
                         <div className="form-group col-md-3 mb-4">
                             <Label for="emr_status">EMR Status:</Label>
-                            <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required
+                            <Input id="emr_status" name="emr_status" type="select" value={props.facility_data.emr_status} required={isEMRinfoRequired}
                                    className={ props.Original_data && props.Original_data.emr_status != props.facility_data.emr_status && "highlight_changed_data"}
                                    onChange={(e) => props.setFacility_data({...props.facility_data, "emr_status":e.target.value})}>
                                 {
