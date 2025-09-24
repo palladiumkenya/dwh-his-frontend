@@ -56,7 +56,11 @@ const initial_data = {
       "hts_use": null,
       "hts_deployment": null,
       "hts_status": null,
-      "confidential": null
+      "confidential": null,
+      "facility_wide_site": false,
+      "hiv_clinic_site": false,
+      "date_of_init": null
+
 
 }
 
