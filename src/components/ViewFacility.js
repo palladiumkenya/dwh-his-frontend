@@ -266,6 +266,28 @@ const ViewFacility = () => {
                             <p>{Facility_data.emr_status}</p>
                         </div>
                     </div>
+                    <div  className="row form_section bg-white ">
+                        <div className="d-flex col-md-2 mb-4">
+                            <p>{
+                                Facility_data.facility_wide_site  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark text-muted"/>
+                            }
+                                Facility Wide Site
+                            </p>
+                        </div>
+                        <div className="d-flex col-md-4 mb-4">
+                            <p>{
+                                Facility_data.hiv_clinic_site  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark text-muted"/>
+                            }
+                                HIV Clinic Site:
+                            </p>
+                        </div>
+                        <div className="d-flex col-md-3 mb-4">
+                            <b>Date of Implementation : </b>
+                            <p>{Facility_data.date_of_init}</p>
+                        </div>
+                    </div>
 
                     <b>Implementation</b>
                     <div className=" col-md-4 mb-4">

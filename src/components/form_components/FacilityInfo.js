@@ -413,6 +413,36 @@ function FacilityInfo(props) {
                         </div>
                     </div>
 
+                    <div id="facilitytype" className="row form_section  bg-white rounded" >
+                        <div className="form-group col-md-3 mb-4">
+                            <FormGroup check>
+                                <Input id="facility_wide_site" name="facility_wide_site" type="checkbox" defaultChecked={props.facility_data.facility_wide_site}
+                                       className={props.Original_data && props.Original_data.facility_wide_site != props.facility_data.facility_wide_site && "highlight_changed_checkbox"}
+                                       onChange={(e) => {
+                                           props.setFacility_data({...props.facility_data, "facility_wide_site": e.target.checked})
+                                       }}/>
+                                <Label check>Facility-Wide</Label>
+                            </FormGroup>
+                        </div>
+                        <div className="form-group col-md-3 mb-4">
+                            <FormGroup check>
+                                <Input id="hiv_clinic_site" name="hiv_clinic_site" type="checkbox" defaultChecked={props.facility_data.hiv_clinic_site}
+                                       className={props.Original_data && props.Original_data.hiv_clinic_site != props.facility_data.hiv_clinic_site && "highlight_changed_checkbox"}
+                                       onChange={(e) => {
+                                           props.setFacility_data({...props.facility_data, "hiv_clinic_site": e.target.checked})
+                                       }}/>
+                                <Label check>HIV-Clinic</Label>
+                            </FormGroup>
+                        </div>
+                        <div className="form-group col-md-3 mb-4">
+                            <Label for="date_of_init">Date Of Initiation:</Label>
+                            <Input id="date_of_init" name="date_of_init" type="date" value={props.facility_data.date_of_init} required={isEMRinfoRequired}
+                                   className={ props.Original_data && props.Original_data.date_of_init != props.facility_data.date_of_init && "highlight_changed_data"}
+                                   onChange={(e) => props.setFacility_data({...props.facility_data, "date_of_init":e.target.value})}>
+                            </Input>
+                        </div>
+                    </div>
+
                     <b>Implementation</b>
                     <div class="d-flex justify-content-between col-md-6 mb-4">
                         <FormGroup check>
