@@ -59,9 +59,8 @@ const initial_data = {
       "confidential": null,
       "facility_wide_site": false,
       "hiv_clinic_site": false,
-      "date_of_init": null
-
-
+      "date_of_init": null,
+      "ownership_category": null
 }
 
     export default initial_data

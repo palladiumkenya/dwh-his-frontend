@@ -287,6 +287,10 @@ const ViewFacility = () => {
                             <b>Date of Implementation : </b>
                             <p>{Facility_data.date_of_init}</p>
                         </div>
+                        <div className="d-flex col-md-3 mb-4">
+                            <b>Ownership Category:</b>
+                            <p>{Facility_data.ownership_category}</p>
+                        </div>
                     </div>
 
                     <b>Implementation</b>
