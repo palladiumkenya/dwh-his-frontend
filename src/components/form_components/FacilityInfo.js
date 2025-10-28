@@ -442,7 +442,7 @@ function FacilityInfo(props) {
                             </Input>
                         </div>
                         <div className="form-group col-md-3 mb-4">
-                            <Label for="ownership_category">Ownership Category:</Label>
+                            <Label for="ownership_category">Ownership Category :</Label>
                             <Input id="ownership_category" name="ownership_category" type="select" value={props.facility_data.ownership_category} required={isEMRinfoRequired}
                                    className={ props.Original_data && props.Original_data.ownership_category != props.facility_data.ownership_category && "highlight_changed_data"}
                                    onChange={(e) => props.setFacility_data({...props.facility_data, "ownership_category":e.target.value})}>
