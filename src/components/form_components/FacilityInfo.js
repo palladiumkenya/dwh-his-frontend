@@ -367,6 +367,17 @@ function FacilityInfo(props) {
                         </div>
                     </div>
 
+                    <div className="d-flex justify-content-between col-md-12 col-lg-12 mb-4">
+                        <div className="form-group col-md-3 mb-4 ">
+                            <FormGroup check>
+                                <Input id="len_prep" name="len_prep" type="checkbox" defaultChecked={props.facility_data.len_prep}
+                                       className={ props.Original_data && props.Original_data.len_prep != props.facility_data.len_prep && "highlight_changed_checkbox"}
+                                       onChange={(e) => {props.setFacility_data({...props.facility_data, "len_prep":e.target.checked}) }}/>
+                                <Label check className="font-weight-bold">New PrEP(Lenacapavir)</Label>
+                            </FormGroup>
+                        </div>
+                    </div>
+
                     <b>EMR Information</b>
                     <div id="EMR" className="row form_section  bg-white rounded" >
                         <div className="form-group col-md-3 mb-4">

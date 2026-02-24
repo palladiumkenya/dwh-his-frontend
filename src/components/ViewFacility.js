@@ -247,6 +247,25 @@ const ViewFacility = () => {
                         </p>
                     </div>
 
+                    <div className=" col-md-8 mb-4">
+                        <div className="d-flex col-md-2 mb-4">
+                            <p>{
+                                Facility_data.confidential  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark text-muted"/>
+                            }
+                                Confidential site
+                            </p>
+                        </div>
+                        <div className="d-flex col-md-4 mb-4">
+                            <p>{
+                                Facility_data.len_prep  ? <FaCheckSquare className="fa-solid fa-square-check green_text_color"/> :
+                                    <FaCheckSquare className="fa-solid fa-square-xmark text-muted"/>
+                            }
+                                NewPrEP(Lenacapavir):
+                            </p>
+                        </div>
+                    </div>
+
                     <b>Implementation</b>
                     <div  className="row form_section bg-white ">
                         <div className="d-flex col-md-2 mb-4">
