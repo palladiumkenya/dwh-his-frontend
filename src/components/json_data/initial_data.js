@@ -60,7 +60,9 @@ const initial_data = {
       "facility_wide_site": false,
       "hiv_clinic_site": false,
       "date_of_init": null,
-      "ownership_category": null
+      "ownership_category": null,
+      "len_prep": false
+
 }
 
     export default initial_data
